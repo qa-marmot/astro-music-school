@@ -245,7 +245,3 @@ wrangler pages deploy dist --project-name=music-school-website
 `// TODO: 送信処理を実装` の箇所に、Formspree / Cloudflare Workers / EmailJS などのAPIコールを追加してください。
 
 ---
-
-## ライセンス
-
-MIT
