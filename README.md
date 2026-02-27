@@ -1,6 +1,6 @@
-# 🎵 Harmony Music School — 公式Webサイト
+# 🎵 Harmony Music School — Webサイト
 
-音楽教室・習い事教室向けの公式Webサイトです。  
+音楽教室・習い事教室向けのWebサイトです。  
 **Astro + Tailwind CSS + microCMS** で構築し、**Cloudflare Pages** にデプロイします。
 
 ---
