@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - '4321:4321'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+    command: npm run dev -- --host 0.0.0.0
+
+  build:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    volumes:
+      - ./dist:/app/dist
+    env_file:
+      - .env

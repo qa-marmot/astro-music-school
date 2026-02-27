@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="アクセス"
+  description="Harmony Music Schoolのアクセス情報。最寄り駅から徒歩5分。駐車場は近隣コインパーキングをご利用ください。"
+>
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Access</p>
+      <h1 class="font-serif text-5xl text-charcoal-900">アクセス</h1>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <!-- Map placeholder -->
+        <div class="fade-in aspect-video bg-cream-200 flex items-center justify-center text-charcoal-700">
+          <div class="text-center">
+            <p class="text-sm mb-2">地図を埋め込む</p>
+            <p class="text-xs text-charcoal-700">Google Maps iframe をここに設置してください</p>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="fade-in space-y-8">
+          <div>
+            <h2 class="font-serif text-3xl text-charcoal-900 mb-6">所在地・アクセス</h2>
+            <address class="not-italic space-y-4 text-sm text-charcoal-700 leading-relaxed">
+              <div>
+                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">住所</p>
+                <p>〒000-0000 東京都〇〇区〇〇1-2-3 〇〇ビル3F</p>
+              </div>
+              <div>
+                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">最寄り駅</p>
+                <p>〇〇線「〇〇駅」徒歩5分</p>
+              </div>
+              <div>
+                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">電話</p>
+                <a href="tel:03-0000-0000" class="hover:text-forest-700 transition-colors">03-0000-0000</a>
+              </div>
+              <div>
+                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">営業時間</p>
+                <p>火〜日：10:00〜20:00（レッスン時間内）<br />定休日：月曜日・年末年始</p>
+              </div>
+              <div>
+                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">駐車場</p>
+                <p>専用駐車場なし。近隣コインパーキングをご利用ください。<br />お車でのご来校の場合は事前にご相談ください。</p>
+              </div>
+            </address>
+          </div>
+
+          <div class="bg-cream-100 p-6 border border-cream-200">
+            <h3 class="font-medium text-charcoal-900 mb-3">📌 道案内</h3>
+            <p class="text-sm text-charcoal-700 leading-relaxed">
+              〇〇駅の東口改札を出て右へ。〇〇通りを直進し、〇〇交差点を左折すると左手に〇〇ビルが見えます。エレベーターで3Fにお上がりください。
+            </p>
+          </div>
+
+          <a
+            href="https://maps.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sm text-forest-700 border-b border-forest-700 pb-1 hover:text-forest-600 transition-colors"
+          >
+            Google マップで開く →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

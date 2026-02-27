@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getBlogList, getCategories, formatBlogPost } from '../../lib/blog';
+import { formatDate } from '../../lib/utils';
+
+let posts: ReturnType<typeof formatBlogPost>[] = [];
+let categories: Awaited<ReturnType<typeof getCategories>> = [];
+let totalCount = 0;
+const LIMIT = 9;
+
+try {
+  const [postRes, catRes] = await Promise.all([
+    getBlogList({ limit: LIMIT }),
+    getCategories(),
+  ]);
+  posts = postRes.contents.map(formatBlogPost);
+  totalCount = postRes.totalCount;
+  categories = catRes;
+} catch (e) {
+  // microCMS未設定時のフォールバック（ローカル開発用）
+  console.warn('microCMS not configured:', e);
+  posts = [
+    {
+      id: 'sample-1', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
+      publishedAt: new Date().toISOString(), revisedAt: new Date().toISOString(),
+      title: '発表会のご案内【2024年12月】',
+      slug: 'sample-1', excerpt: '年末恒例の発表会を開催します。今年は過去最多の参加人数となりました。',
+      content: '<p>サンプルコンテンツです。</p>',
+      category: { id: 'news', name: 'お知らせ', slug: 'news' },
+      formattedDate: '2024年11月1日',
+      eyecatchUrl: '/images/blog-placeholder.jpg',
+    },
+    {
+      id: 'sample-2', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
+      publishedAt: new Date().toISOString(), revisedAt: new Date().toISOString(),
+      title: '大人から始めるバイオリン入門',
+      slug: 'sample-2', excerpt: '「大人になってから楽器を始めるのは無理？」そんなことはありません。',
+      content: '<p>サンプルコンテンツです。</p>',
+      category: { id: 'column', name: 'コラム', slug: 'column' },
+      formattedDate: '2024年10月15日',
+      eyecatchUrl: '/images/blog-placeholder.jpg',
+    },
+  ];
+}
+---
+
+<BaseLayout
+  title="ブログ"
+  description="Harmony Music Schoolのブログ。お知らせ・レッスン情報・音楽コラムを発信しています。"
+>
+  <!-- Header -->
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Blog</p>
+      <h1 class="font-serif text-5xl text-charcoal-900">ブログ</h1>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Category filter -->
+      {categories.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-12 fade-in">
+          <a href="/blog" class="px-4 py-2 text-xs font-medium bg-forest-700 text-cream-50">
+            すべて
+          </a>
+          {categories.map(cat => (
+            <a
+              href={`/blog/category/${cat.id}`}
+              class="px-4 py-2 text-xs font-medium border border-cream-200 text-charcoal-700
+                     hover:bg-cream-100 transition-colors"
+            >
+              {cat.name}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <!-- Post grid -->
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post, i) => (
+            <article class="fade-in group" style={`transition-delay: ${i * 60}ms`} data-testid="blog-card">
+              <a href={`/blog/${post.id}`} class="block">
+                <!-- Eyecatch -->
+                <div class="aspect-video bg-cream-200 mb-4 overflow-hidden">
+                  <div class="w-full h-full bg-forest-800 flex items-center justify-center
+                              group-hover:scale-105 transition-transform duration-500">
+                    <span class="text-cream-200 text-4xl opacity-20">♪</span>
+                  </div>
+                </div>
+                <!-- Meta -->
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="px-2 py-0.5 bg-cream-100 text-forest-700 text-[11px] font-medium">
+                    {post.category.name}
+                  </span>
+                  <time class="text-[11px] text-charcoal-700" datetime={post.publishedAt}>
+                    {post.formattedDate}
+                  </time>
+                </div>
+                <h2 class="font-medium text-charcoal-900 leading-snug mb-2 group-hover:text-forest-700 transition-colors">
+                  {post.title}
+                </h2>
+                <p class="text-sm text-charcoal-700 leading-relaxed line-clamp-3">{post.excerpt}</p>
+              </a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-24 text-charcoal-700">
+          <p>記事はまだありません。</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

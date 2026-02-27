@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicSchool',
+  'name': 'Harmony Music School',
+  'description': '音楽を通じて豊かな心を育む音楽教室',
+  'url': import.meta.env.PUBLIC_SITE_URL,
+  'address': {
+    '@type': 'PostalAddress',
+    'addressLocality': '東京都',
+    'addressCountry': 'JP',
+  },
+  'telephone': '03-0000-0000',
+};
+
+const features = [
+  {
+    icon: '🎵',
+    title: '丁寧な個別指導',
+    desc: '一人ひとりのペース・目標に合わせたオーダーメイドのレッスンを提供します。',
+  },
+  {
+    icon: '🏫',
+    title: '充実した設備',
+    desc: 'グランドピアノを備えた防音レッスンルームで、本格的な環境でレッスンを受けられます。',
+  },
+  {
+    icon: '🌱',
+    title: '発表会・コンクール対応',
+    desc: '年2回の発表会を開催。コンクール挑戦を希望する生徒へも積極的にサポートします。',
+  },
+  {
+    icon: '🕐',
+    title: '柔軟な日程調整',
+    desc: '平日・土日、昼・夜のシフトを設けており、忙しい社会人や学生にも対応しています。',
+  },
+];
+
+const instruments = [
+  { name: 'ピアノ',     image: '/images/piano.jpg',  href: '/lessons#piano' },
+  { name: 'バイオリン', image: '/images/violin.jpg', href: '/lessons#violin' },
+  { name: '声楽',       image: '/images/vocal.jpg',  href: '/lessons#vocal' },
+  { name: 'フルート',   image: '/images/flute.jpg',  href: '/lessons#flute' },
+];
+---
+
+<BaseLayout
+  description="音楽を通じて豊かな心を育む音楽教室。ピアノ・バイオリン・声楽など多彩なレッスンをご用意。体験レッスン随時受付中。"
+  jsonLd={jsonLd}
+>
+
+  <!-- Hero -->
+  <section class="relative min-h-[90vh] flex items-center bg-forest-800 overflow-hidden">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 opacity-10"
+         style="background-image: radial-gradient(circle at 25% 50%, #d4a853 0%, transparent 60%), radial-gradient(circle at 75% 20%, #2d5a3d 0%, transparent 50%)">
+    </div>
+    <div class="absolute inset-0"
+         style="background-image: url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')">
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="max-w-2xl">
+        <p class="text-gold-400 text-sm font-medium tracking-[0.25em] uppercase mb-6">
+          Welcome to Harmony Music School
+        </p>
+        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl text-cream-50 leading-tight mb-8">
+          音楽が、<br />
+          <em class="not-italic text-gold-400">心を育てる</em>。
+        </h1>
+        <p class="text-cream-200 text-lg leading-relaxed mb-12 max-w-xl">
+          ピアノ・バイオリン・声楽など、本格的な音楽教育を丁寧な個別指導でお届けします。
+          初心者の方もプロを目指す方も、あなたのペースで始められます。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/trial"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-gold-500 text-forest-900 font-medium text-sm
+                   hover:bg-gold-400 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+            data-testid="hero-trial-btn"
+          >
+            体験レッスンに申し込む
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a
+            href="/lessons"
+            class="inline-flex items-center gap-2 px-8 py-4 border border-cream-200 text-cream-50
+                   text-sm font-medium hover:bg-cream-50 hover:text-forest-800 transition-all duration-300"
+            data-testid="hero-lessons-btn"
+          >
+            レッスンを見る
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream-200">
+      <span class="text-xs tracking-widest uppercase">Scroll</span>
+      <div class="w-px h-8 bg-cream-200 animate-pulse"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-24 bg-cream-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Why Choose Us</p>
+        <h2 class="font-serif text-4xl text-charcoal-900">選ばれる理由</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((f, i) => (
+          <div class="fade-in bg-cream-50 p-8 hover:shadow-md transition-shadow duration-300" style={`transition-delay: ${i * 100}ms`}>
+            <div class="text-3xl mb-4">{f.icon}</div>
+            <h3 class="font-serif text-lg text-charcoal-900 mb-3">{f.title}</h3>
+            <p class="text-sm text-charcoal-700 leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lessons -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Lessons</p>
+        <h2 class="font-serif text-4xl text-charcoal-900">レッスン内容</h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {instruments.map((item, i) => (
+          <a
+            href={item.href}
+            class="fade-in group relative overflow-hidden aspect-square bg-forest-800 flex items-end p-6
+                   hover:scale-[1.02] transition-transform duration-300"
+            style={`transition-delay: ${i * 80}ms`}
+          >
+            <div class="absolute inset-0 bg-gradient-to-t from-forest-900 via-forest-900/40 to-transparent"></div>
+            <span class="relative font-serif text-xl text-cream-50 group-hover:text-gold-400 transition-colors">
+              {item.name}
+            </span>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-8 fade-in">
+        <a href="/lessons" class="inline-flex items-center gap-2 text-forest-700 text-sm font-medium
+                                  hover:text-forest-600 transition-colors border-b border-forest-700 pb-1">
+          すべてのレッスンを見る →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trial CTA -->
+  <section class="py-24 bg-forest-700 text-cream-50">
+    <div class="max-w-3xl mx-auto px-4 text-center fade-in">
+      <p class="text-gold-400 text-xs tracking-widest uppercase mb-4">Free Trial Lesson</p>
+      <h2 class="font-serif text-4xl mb-6">まずは体験レッスンから</h2>
+      <p class="text-cream-200 leading-relaxed mb-10 max-w-xl mx-auto">
+        入会前に教室の雰囲気・講師との相性を確かめていただけます。
+        お子様からシニアの方まで、どなたでも歓迎します。
+      </p>
+      <a
+        href="/trial"
+        class="inline-flex items-center gap-2 px-10 py-4 bg-gold-500 text-forest-900 font-medium
+               hover:bg-gold-400 transition-all duration-300"
+        data-testid="cta-trial-btn"
+      >
+        無料体験に申し込む →
+      </a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-20 bg-cream-100 border-y border-cream-200">
+    <div class="max-w-4xl mx-auto px-4 grid grid-cols-3 gap-8 text-center">
+      {[
+        { num: '20+', label: '年の指導実績' },
+        { num: '150+', label: '在籍生徒数' },
+        { num: '95%', label: '継続率' },
+      ].map(stat => (
+        <div class="fade-in">
+          <div class="font-serif text-5xl text-forest-700 mb-2">{stat.num}</div>
+          <div class="text-sm text-charcoal-700">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

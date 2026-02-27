@@ -1,0 +1,17 @@
+# 環境変数ファイル（絶対にイメージに含めない）
+.env
+.env.local
+.env.production
+.env.*.local
+
+# 不要なファイル
+node_modules/
+dist/
+.astro/
+.git/
+.gitignore
+README.md
+playwright-report/
+test-results/
+coverage/
+*.log

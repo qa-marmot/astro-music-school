@@ -1,0 +1,124 @@
+---
+const navItems = [
+  { label: '教室紹介',   href: '/about' },
+  { label: 'レッスン',  href: '/lessons' },
+  { label: '料金',       href: '/pricing' },
+  { label: 'ブログ',    href: '/blog' },
+  { label: 'アクセス',  href: '/access' },
+  { label: 'FAQ',        href: '/faq' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-cream-50/95 backdrop-blur-sm border-b border-cream-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group" aria-label="トップページへ">
+        <div class="w-9 h-9 rounded-full bg-forest-700 flex items-center justify-center">
+          <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+          </svg>
+        </div>
+        <div class="leading-tight">
+          <div class="font-serif text-lg text-forest-800 group-hover:text-forest-600 transition-colors">Harmony</div>
+          <div class="text-[10px] tracking-widest text-charcoal-700 uppercase">Music School</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-8" aria-label="メインナビゲーション">
+        {navItems.map(item => (
+          <a
+            href={item.href}
+            class={`text-sm font-medium tracking-wide transition-colors duration-200 relative
+              after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-forest-700
+              after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100
+              ${currentPath.startsWith(item.href)
+                ? 'text-forest-700 after:scale-x-100'
+                : 'text-charcoal-700 hover:text-forest-700'
+              }`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- CTA -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a
+          href="/trial"
+          class="px-5 py-2.5 bg-forest-700 text-cream-50 text-sm font-medium rounded-sm
+                 hover:bg-forest-600 transition-colors duration-200"
+        >
+          体験レッスン
+        </a>
+        <a
+          href="/contact"
+          class="px-5 py-2.5 border border-forest-700 text-forest-700 text-sm font-medium rounded-sm
+                 hover:bg-forest-700 hover:text-cream-50 transition-all duration-200"
+        >
+          お問い合わせ
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden p-2 text-charcoal-700 hover:text-forest-700 transition-colors"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg class="w-6 h-6 close-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden lg:hidden border-t border-cream-200 bg-cream-50"
+    aria-label="モバイルナビゲーション"
+  >
+    <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class={`py-3 px-4 text-sm font-medium rounded-sm transition-colors ${
+            currentPath.startsWith(item.href)
+              ? 'bg-forest-700 text-cream-50'
+              : 'text-charcoal-700 hover:bg-cream-200'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <div class="pt-3 border-t border-cream-200 flex flex-col gap-2">
+        <a href="/trial"   class="py-3 px-4 bg-forest-700 text-cream-50 text-sm text-center rounded-sm">体験レッスン</a>
+        <a href="/contact" class="py-3 px-4 border border-forest-700 text-forest-700 text-sm text-center rounded-sm">お問い合わせ</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn  = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+
+  btn.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    btn.querySelector('.menu-icon')!.classList.toggle('hidden', !isOpen);
+    btn.querySelector('.close-icon')!.classList.toggle('hidden', isOpen);
+  });
+</script>

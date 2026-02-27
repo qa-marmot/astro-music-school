@@ -1,0 +1,227 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="体験レッスン"
+  description="Harmony Music Schoolの体験レッスン申し込みページ。3,000円で本格的なレッスンを体験できます。随時受付中。"
+>
+  <!-- Header -->
+  <section class="py-24 bg-forest-800 text-cream-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-gold-400 text-xs tracking-widest uppercase mb-3">Trial Lesson</p>
+      <h1 class="font-serif text-5xl">体験レッスン</h1>
+      <p class="text-cream-200 mt-4 max-w-lg">まずは一度、教室の雰囲気を感じてみてください。講師との相性も確かめられます。</p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="font-serif text-3xl text-charcoal-900">体験レッスンの流れ</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-8">
+        {[
+          { step: '01', title: 'フォームから申込', desc: '下記フォームより、ご希望の楽器・日時をお選びください。' },
+          { step: '02', title: '日程確認のご連絡', desc: '1〜2営業日以内に担当者よりご確認のご連絡を差し上げます。' },
+          { step: '03', title: '体験レッスン', desc: '教室へお越しいただき、45〜60分の体験レッスンを受けていただきます。' },
+          { step: '04', title: '入会のご相談', desc: 'レッスン後に料金・スケジュールなどについてご相談いただけます。' },
+        ].map((s, i) => (
+          <div class="fade-in text-center" style={`transition-delay: ${i * 80}ms`}>
+            <div class="font-serif text-4xl text-gold-500 mb-4">{s.step}</div>
+            <h3 class="font-medium text-charcoal-900 mb-2">{s.title}</h3>
+            <p class="text-sm text-charcoal-700 leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="py-24">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 fade-in">
+        <h2 class="font-serif text-3xl text-charcoal-900">体験レッスンを申し込む</h2>
+        <p class="text-sm text-charcoal-700 mt-4">体験レッスン料金：¥3,000（税別） / 45〜60分</p>
+      </div>
+
+      <form
+        id="trial-form"
+        class="fade-in space-y-6"
+        data-testid="trial-form"
+        novalidate
+      >
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-charcoal-900 mb-2">
+              お名前 <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              autocomplete="name"
+              placeholder="山田 花子"
+              class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                     focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                     text-sm transition-shadow"
+            />
+          </div>
+          <div>
+            <label for="kana" class="block text-sm font-medium text-charcoal-900 mb-2">
+              フリガナ <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="kana"
+              name="kana"
+              required
+              placeholder="ヤマダ ハナコ"
+              class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                     focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                     text-sm transition-shadow"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-charcoal-900 mb-2">
+            メールアドレス <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="example@email.com"
+            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                   text-sm transition-shadow"
+          />
+        </div>
+
+        <div>
+          <label for="phone" class="block text-sm font-medium text-charcoal-900 mb-2">
+            電話番号 <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            autocomplete="tel"
+            placeholder="090-0000-0000"
+            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                   text-sm transition-shadow"
+          />
+        </div>
+
+        <div>
+          <label for="instrument" class="block text-sm font-medium text-charcoal-900 mb-2">
+            ご希望の楽器 <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="instrument"
+            name="instrument"
+            required
+            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                   text-sm transition-shadow appearance-none"
+          >
+            <option value="">選択してください</option>
+            <option value="piano">ピアノ</option>
+            <option value="violin">バイオリン</option>
+            <option value="vocal">声楽</option>
+            <option value="flute">フルート</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="level" class="block text-sm font-medium text-charcoal-900 mb-2">
+            現在のレベル
+          </label>
+          <select
+            id="level"
+            name="level"
+            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                   text-sm transition-shadow appearance-none"
+          >
+            <option value="beginner">初心者（まったく未経験）</option>
+            <option value="elementary">入門（少し経験あり）</option>
+            <option value="intermediate">中級者</option>
+            <option value="advanced">上級者</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="preferred_date" class="block text-sm font-medium text-charcoal-900 mb-2">
+            ご希望の日時（第一希望）
+          </label>
+          <input
+            type="text"
+            id="preferred_date"
+            name="preferred_date"
+            placeholder="例：平日午後 / 土曜日午前 など"
+            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                   text-sm transition-shadow"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-charcoal-900 mb-2">
+            ご質問・その他ご要望
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="例：子どもが通うのですが、何歳から始められますか？"
+            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
+                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
+                   text-sm transition-shadow resize-none"
+          ></textarea>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="privacy"
+            name="privacy"
+            required
+            class="mt-1 w-4 h-4 border-cream-200 text-forest-700 focus:ring-forest-700"
+          />
+          <label for="privacy" class="text-sm text-charcoal-700 leading-relaxed">
+            <a href="/privacy" class="text-forest-700 underline hover:text-forest-600">プライバシーポリシー</a>に同意する
+            <span class="text-red-500 ml-1">*</span>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-4 bg-forest-700 text-cream-50 font-medium text-sm
+                 hover:bg-forest-600 transition-colors disabled:opacity-50"
+          data-testid="trial-submit-btn"
+        >
+          申し込む
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('trial-form') as HTMLFormElement;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // TODO: Formspree / Netlify Forms / Cloudflare Workers等に送信
+      alert('お申し込みありがとうございます。担当者より1〜2営業日以内にご連絡いたします。');
+      form.reset();
+    });
+  </script>
+
+</BaseLayout>

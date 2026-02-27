@@ -1,0 +1,24 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+ARG MICROCMS_SERVICE_DOMAIN
+ARG MICROCMS_API_KEY
+ARG PUBLIC_SITE_URL
+
+ENV MICROCMS_SERVICE_DOMAIN=$MICROCMS_SERVICE_DOMAIN
+ENV MICROCMS_API_KEY=$MICROCMS_API_KEY
+ENV PUBLIC_SITE_URL=$PUBLIC_SITE_URL
+
+RUN npm run build
+
+# ---- serve stage (optional, for local preview) ----
+FROM nginx:alpine AS serve
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

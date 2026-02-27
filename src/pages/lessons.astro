@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lessons = [
+  {
+    id: 'piano',
+    name: 'ピアノ',
+    nameEn: 'Piano',
+    icon: '🎹',
+    ages: '4歳〜大人',
+    description: 'クラシック・ポピュラーを問わず、基礎から丁寧に指導します。楽譜が読めない初心者の方も安心してスタートできます。バイエル・ソナチネから演奏会レベルの楽曲まで対応。',
+    features: ['バイエルから演奏会レベルまで対応', 'グランドピアノ完備', 'コンクール対策サポート', '発表会年2回'],
+    levels: ['入門・初級', '中級', '上級'],
+  },
+  {
+    id: 'violin',
+    name: 'バイオリン',
+    nameEn: 'Violin',
+    icon: '🎻',
+    ages: '5歳〜大人',
+    description: '弦楽器の王様・バイオリン。正しい姿勢・弓の使い方から丁寧に指導します。大人になってから始める方も多く在籍しています。',
+    features: ['小さなサイズの楽器貸し出しあり（子ども）', '音程・音色へのこだわり指導', 'アンサンブル参加機会あり', '発表会年2回'],
+    levels: ['入門・初級', '中級', '上級'],
+  },
+  {
+    id: 'vocal',
+    name: '声楽',
+    nameEn: 'Vocal',
+    icon: '🎤',
+    ages: '小学生〜大人',
+    description: '声は誰もが持つ楽器。正しい発声・呼吸法から、歌に込める表現まで幅広く指導します。クラシック・ポップス・ミュージカルなどジャンルも柔軟に対応。',
+    features: ['発声・呼吸法の基礎から', 'クラシック・ポップス・ミュージカル対応', 'ステージパフォーマンス指導', '伴奏ピアノ付きレッスン'],
+    levels: ['入門・初級', '中級', '上級・プロ志望'],
+  },
+  {
+    id: 'flute',
+    name: 'フルート',
+    nameEn: 'Flute',
+    icon: '🎶',
+    ages: '8歳〜大人',
+    description: '澄んだ音色が魅力のフルート。基本的な音の出し方から、オーケストラ・アンサンブルの楽しさまでを体験できます。',
+    features: ['楽器の選び方・お手入れ方法もサポート', 'アンサンブル曲にも対応', '楽典・楽譜の読み方も指導', 'クラシック・ポピュラー両対応'],
+    levels: ['入門・初級', '中級', '上級'],
+  },
+];
+---
+
+<BaseLayout
+  title="レッスン内容"
+  description="ピアノ・バイオリン・声楽・フルートなど多彩なレッスンをご用意。初心者からプロ志望まで、個別指導で丁寧にサポートします。"
+>
+  <!-- Header -->
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Lessons</p>
+      <h1 class="font-serif text-5xl text-charcoal-900">レッスン内容</h1>
+    </div>
+  </section>
+
+  <!-- Lessons -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+      {lessons.map((lesson, i) => (
+        <article id={lesson.id} class="fade-in scroll-mt-24">
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-start ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+            <!-- Visual -->
+            <div class={`aspect-[4/3] bg-forest-800 flex items-center justify-center ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+              <span class="text-8xl opacity-50">{lesson.icon}</span>
+            </div>
+            <!-- Content -->
+            <div class={i % 2 === 1 ? 'lg:order-1' : ''}>
+              <p class="text-forest-700 text-xs tracking-widest uppercase mb-2">{lesson.nameEn}</p>
+              <h2 class="font-serif text-4xl text-charcoal-900 mb-2">{lesson.name}</h2>
+              <p class="text-xs text-charcoal-700 mb-6">対象年齢：{lesson.ages}</p>
+              <p class="text-charcoal-700 leading-relaxed text-[15px] mb-8">{lesson.description}</p>
+
+              <div class="mb-8">
+                <h3 class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-4">特徴</h3>
+                <ul class="space-y-2">
+                  {lesson.features.map(f => (
+                    <li class="flex items-start gap-3 text-sm text-charcoal-700">
+                      <span class="w-4 h-4 mt-0.5 rounded-full bg-forest-700 text-cream-50 text-[10px] flex items-center justify-center flex-shrink-0">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="mb-8">
+                <h3 class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-4">対応レベル</h3>
+                <div class="flex flex-wrap gap-2">
+                  {lesson.levels.map(l => (
+                    <span class="px-3 py-1 bg-cream-100 border border-cream-200 text-xs text-charcoal-700">{l}</span>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href="/trial"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-forest-700 text-cream-50 text-sm
+                       hover:bg-forest-600 transition-colors"
+              >
+                {lesson.name}の体験レッスンを申し込む →
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-cream-100 border-t border-cream-200">
+    <div class="max-w-3xl mx-auto px-4 text-center fade-in">
+      <h2 class="font-serif text-3xl text-charcoal-900 mb-4">料金・スケジュールを確認する</h2>
+      <div class="flex flex-wrap gap-4 justify-center mt-8">
+        <a href="/pricing" class="px-8 py-4 bg-forest-700 text-cream-50 text-sm hover:bg-forest-600 transition-colors">料金プランを見る</a>
+        <a href="/contact" class="px-8 py-4 border border-forest-700 text-forest-700 text-sm hover:bg-forest-700 hover:text-cream-50 transition-all">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

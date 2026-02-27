@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllBlogPosts, getBlogPost, formatBlogPost } from '../../lib/blog';
+import { sanitizeHtml, safeJsonLd } from '../../lib/sanitize';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  try {
+    const posts = await getAllBlogPosts();
+    return posts.map(post => ({
+      params: { id: post.id },
+      props:  { post },
+    }));
+  } catch {
+    // microCMS未設定時はサンプル記事を返す
+    return [
+      {
+        params: { id: 'sample-1' },
+        props: {
+          post: {
+            id: 'sample-1', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
+            publishedAt: new Date().toISOString(), revisedAt: new Date().toISOString(),
+            title: '発表会のご案内【2024年12月】',
+            slug: 'sample-1',
+            excerpt: '年末恒例の発表会を開催します。',
+            content: '<p>年末恒例の発表会を開催します。今年は過去最多の30名の生徒が出演します。</p><p>入場は無料ですので、ぜひご家族・お友達をお誘い合わせの上ご来場ください。</p>',
+            category: { id: 'news', name: 'お知らせ', slug: 'news' },
+          },
+        },
+      },
+    ];
+  }
+};
+
+const { post: rawPost } = Astro.props;
+const post = formatBlogPost(rawPost);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  'headline': post.title,
+  'datePublished': post.publishedAt,
+  'dateModified': post.revisedAt,
+  'description': post.excerpt,
+  'image': post.eyecatchUrl,
+};
+---
+
+<BaseLayout
+  title={post.title}
+  description={post.excerpt}
+  ogType="article"
+  ogImage={post.eyecatchUrl}
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-cream-100 border-b border-cream-200 py-3" aria-label="パンくず">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 text-xs text-charcoal-700">
+      <a href="/" class="hover:text-forest-700 transition-colors">トップ</a>
+      <span>›</span>
+      <a href="/blog" class="hover:text-forest-700 transition-colors">ブログ</a>
+      <span>›</span>
+      <span class="text-charcoal-900">{post.title}</span>
+    </div>
+  </nav>
+
+  <article class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <header class="mb-12 fade-in">
+        <div class="flex items-center gap-3 mb-4">
+          <a
+            href={`/blog/category/${post.category.id}`}
+            class="px-3 py-1 bg-forest-700 text-cream-50 text-xs font-medium hover:bg-forest-600 transition-colors"
+          >
+            {post.category.name}
+          </a>
+          <time class="text-sm text-charcoal-700" datetime={post.publishedAt}>
+            {post.formattedDate}
+          </time>
+        </div>
+        <h1 class="font-serif text-4xl lg:text-5xl text-charcoal-900 leading-tight mb-6">{post.title}</h1>
+        <p class="text-charcoal-700 leading-relaxed text-[15px]">{post.excerpt}</p>
+      </header>
+
+      <!-- Eyecatch -->
+      <div class="aspect-video bg-forest-800 mb-12 fade-in flex items-center justify-center">
+        <span class="text-cream-50 text-6xl opacity-20">♪</span>
+      </div>
+
+      <!-- Content（microCMS出力をサニタイズ済み） -->
+      <div
+        class="fade-in prose-content max-w-none text-charcoal-800 leading-loose text-[15px] space-y-5"
+        set:html={sanitizeHtml(post.content)}
+      />
+
+      <!-- Footer -->
+      <footer class="mt-16 pt-8 border-t border-cream-200 fade-in">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-2 text-sm text-forest-700 hover:text-forest-600 transition-colors"
+        >
+          ← ブログ一覧へ戻る
+        </a>
+      </footer>
+    </div>
+  </article>
+
+</BaseLayout>
+
+<style is:global>
+  .prose-content h2 {
+    @apply font-serif text-2xl text-charcoal-900 mt-10 mb-4 pt-8 border-t border-cream-200;
+  }
+  .prose-content h3 {
+    @apply font-medium text-lg text-charcoal-900 mt-6 mb-3;
+  }
+  .prose-content p {
+    @apply leading-loose;
+  }
+  .prose-content a {
+    @apply text-forest-700 underline hover:text-forest-600 transition-colors;
+  }
+  .prose-content ul {
+    @apply list-disc list-inside space-y-1 text-charcoal-700;
+  }
+  .prose-content ol {
+    @apply list-decimal list-inside space-y-1 text-charcoal-700;
+  }
+  .prose-content blockquote {
+    @apply border-l-4 border-gold-400 pl-6 italic text-charcoal-700 my-6;
+  }
+  .prose-content img {
+    @apply w-full rounded-sm;
+  }
+</style>

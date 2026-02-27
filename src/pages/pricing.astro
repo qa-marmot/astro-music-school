@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const plans = [
+  {
+    name: 'ライトプラン',
+    nameEn: 'Light',
+    desc: '月2回のんびり楽しみたい方に',
+    frequency: '月2回',
+    duration: '45分',
+    price: 12000,
+    trialPrice: 3000,
+    features: [
+      '月2回 / 45分レッスン',
+      '教材費別途',
+      '発表会参加可（参加費別）',
+      '振替：月1回まで',
+    ],
+    recommended: false,
+  },
+  {
+    name: 'スタンダードプラン',
+    nameEn: 'Standard',
+    desc: 'しっかり上達したい方の定番プラン',
+    frequency: '月3回',
+    duration: '60分',
+    price: 18000,
+    trialPrice: 3000,
+    features: [
+      '月3回 / 60分レッスン',
+      '教材費別途',
+      '発表会参加可（参加費別）',
+      '振替：月2回まで',
+      'コンクール相談対応',
+    ],
+    recommended: true,
+  },
+  {
+    name: 'プレミアムプラン',
+    nameEn: 'Premium',
+    desc: '本格的に取り組みたい方・コンクール志望の方',
+    frequency: '月4回〜',
+    duration: '60分〜90分',
+    price: 24000,
+    trialPrice: 3000,
+    features: [
+      '月4回〜 / 60〜90分レッスン',
+      '教材費込み（一部）',
+      '発表会参加可（参加費別）',
+      '振替：月3回まで',
+      'コンクール対策・同行サポート',
+      'ホームページへの掲載（希望者）',
+    ],
+    recommended: false,
+  },
+];
+
+const faqs = [
+  { q: '入会金はかかりますか？', a: 'はじめて入会される方には入会金として10,000円（税込）をいただいております。ご家族2人目以降は5,000円となります。' },
+  { q: 'レッスン料はいつ支払いますか？', a: '毎月末日までに翌月分をお支払いいただきます（銀行振込またはクレジットカード）。' },
+  { q: '途中でプランを変更できますか？', a: 'はい、1ヶ月前にお申し出いただければプラン変更が可能です。' },
+  { q: '休会・退会の手続きは？', a: '1ヶ月前にご連絡いただければ休会・退会が可能です。休会中は月額3,000円の籍保留費がかかります。' },
+];
+---
+
+<BaseLayout
+  title="料金プラン"
+  description="Harmony Music Schoolの料金プラン一覧。月2回12,000円〜。体験レッスン3,000円で随時受付中。"
+>
+  <!-- Header -->
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Pricing</p>
+      <h1 class="font-serif text-5xl text-charcoal-900">料金プラン</h1>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {plans.map((plan, i) => (
+          <div
+            class={`fade-in relative flex flex-col ${
+              plan.recommended
+                ? 'bg-forest-800 text-cream-50 ring-2 ring-gold-400'
+                : 'bg-cream-50 text-charcoal-900 border border-cream-200'
+            }`}
+            style={`transition-delay: ${i * 80}ms`}
+          >
+            {plan.recommended && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gold-500 text-forest-900 text-xs font-medium tracking-wide">
+                おすすめ
+              </div>
+            )}
+
+            <div class="p-8 border-b border-opacity-20 border-current">
+              <p class={`text-xs tracking-widest uppercase mb-2 ${plan.recommended ? 'text-gold-400' : 'text-forest-700'}`}>
+                {plan.nameEn}
+              </p>
+              <h2 class="font-serif text-2xl mb-2">{plan.name}</h2>
+              <p class={`text-sm ${plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}`}>{plan.desc}</p>
+            </div>
+
+            <div class="p-8 border-b border-opacity-20 border-current">
+              <div class="flex items-end gap-1 mb-1">
+                <span class="font-serif text-4xl">¥{plan.price.toLocaleString()}</span>
+                <span class={`text-sm mb-1 ${plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}`}>/月（税別）</span>
+              </div>
+              <div class={`text-xs ${plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}`}>
+                {plan.frequency} / {plan.duration} ・ 体験レッスン ¥{plan.trialPrice.toLocaleString()}
+              </div>
+            </div>
+
+            <div class="p-8 flex-1">
+              <ul class="space-y-3">
+                {plan.features.map(f => (
+                  <li class="flex items-start gap-3 text-sm">
+                    <span class={`mt-0.5 flex-shrink-0 ${plan.recommended ? 'text-gold-400' : 'text-forest-700'}`}>✓</span>
+                    <span class={plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="p-8 pt-0">
+              <a
+                href="/trial"
+                class={`block w-full text-center py-3 text-sm font-medium transition-colors ${
+                  plan.recommended
+                    ? 'bg-gold-500 text-forest-900 hover:bg-gold-400'
+                    : 'border border-forest-700 text-forest-700 hover:bg-forest-700 hover:text-cream-50'
+                }`}
+              >
+                体験レッスンを申し込む
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-xs text-charcoal-700 mt-8">
+        ※ 表示価格はすべて税別です。消費税を別途申し受けます。<br />
+        ※ 入会金：10,000円（初回のみ）
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ about pricing -->
+  <section class="py-24 bg-cream-100 border-t border-cream-200">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 fade-in">
+        <h2 class="font-serif text-3xl text-charcoal-900">料金に関するよくある質問</h2>
+      </div>
+      <div class="space-y-4">
+        {faqs.map((item, i) => (
+          <details class="fade-in group bg-cream-50 border border-cream-200" style={`transition-delay: ${i * 60}ms`}>
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="font-medium text-charcoal-900 pr-4">{item.q}</h3>
+              <span class="flex-shrink-0 w-5 h-5 text-forest-700 group-open:rotate-180 transition-transform">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-charcoal-700 leading-relaxed border-t border-cream-200 pt-4">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

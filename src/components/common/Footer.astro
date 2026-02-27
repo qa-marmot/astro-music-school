@@ -1,0 +1,80 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-forest-800 text-cream-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-full bg-gold-500 flex items-center justify-center">
+            <svg class="w-5 h-5 text-forest-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+            </svg>
+          </div>
+          <div>
+            <div class="font-serif text-lg text-cream-50">Harmony Music School</div>
+            <div class="text-[10px] tracking-widest text-cream-200 uppercase">Nurturing Musical Hearts</div>
+          </div>
+        </div>
+        <p class="text-sm text-cream-200 leading-relaxed">
+          音楽を通じて、一人ひとりの個性と感性を育む教室です。<br />
+          初心者からプロを目指す方まで、丁寧に寄り添います。
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xs font-medium tracking-widest uppercase text-gold-400 mb-4">Menu</h3>
+          <ul class="space-y-2">
+            {[
+              ['トップ',    '/'],
+              ['教室紹介',  '/about'],
+              ['レッスン', '/lessons'],
+              ['料金',      '/pricing'],
+              ['体験申込', '/trial'],
+            ].map(([label, href]) => (
+              <li>
+                <a href={href} class="text-sm text-cream-200 hover:text-gold-400 transition-colors">{label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs font-medium tracking-widest uppercase text-gold-400 mb-4">Info</h3>
+          <ul class="space-y-2">
+            {[
+              ['ブログ',    '/blog'],
+              ['FAQ',       '/faq'],
+              ['アクセス', '/access'],
+              ['お問合せ', '/contact'],
+            ].map(([label, href]) => (
+              <li>
+                <a href={href} class="text-sm text-cream-200 hover:text-gold-400 transition-colors">{label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact info -->
+      <div>
+        <h3 class="text-xs font-medium tracking-widest uppercase text-gold-400 mb-4">Contact</h3>
+        <address class="not-italic text-sm text-cream-200 space-y-2">
+          <p>〒000-0000 東京都〇〇区〇〇1-2-3</p>
+          <p><a href="tel:03-0000-0000" class="hover:text-gold-400 transition-colors">03-0000-0000</a></p>
+          <p><a href="mailto:info@harmony-music.example" class="hover:text-gold-400 transition-colors">info@harmony-music.example</a></p>
+          <p class="pt-2">営業時間：火〜日 10:00〜20:00<br />定休日：月曜日</p>
+        </address>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-forest-700 text-center text-xs text-cream-200">
+      <p>&copy; {year} Harmony Music School. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

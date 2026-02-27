@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const instructors = [
+  {
+    name: '山田 花子',
+    nameEn: 'Hanako Yamada',
+    role: 'ピアノ科 主任講師',
+    instruments: ['ピアノ'],
+    bio: '東京音楽大学ピアノ科卒業後、ドイツ・ベルリン芸術大学に留学。帰国後は演奏活動と並行して後進の育成に尽力。国際コンクール受賞者を多数輩出している。',
+    career: '東京音楽大学卒業 / ベルリン芸術大学修士課程修了',
+  },
+  {
+    name: '田中 太郎',
+    nameEn: 'Taro Tanaka',
+    role: 'バイオリン科 講師',
+    instruments: ['バイオリン'],
+    bio: '桐朋学園大学音楽学部卒業。在学中より各種演奏会に出演し、室内楽演奏者としても活躍。子どもから大人まで丁寧な指導が好評。',
+    career: '桐朋学園大学音楽学部卒業',
+  },
+  {
+    name: '鈴木 美咲',
+    nameEn: 'Misaki Suzuki',
+    role: '声楽科 講師',
+    instruments: ['声楽'],
+    bio: '国立音楽大学声楽科卒業。イタリア・ミラノにてオペラを学ぶ。クラシックからポップスまで幅広く対応し、音楽が初めての方にも親切に指導する。',
+    career: '国立音楽大学声楽科卒業 / ミラノ留学',
+  },
+];
+---
+
+<BaseLayout
+  title="教室紹介"
+  description="Harmony Music Schoolのコンセプトと講師紹介。20年以上の指導実績を持つ経験豊かな講師陣が、丁寧に個別指導します。"
+>
+  <!-- Page header -->
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">About Us</p>
+      <h1 class="font-serif text-5xl text-charcoal-900">教室紹介</h1>
+    </div>
+  </section>
+
+  <!-- Concept -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl fade-in">
+        <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Our Concept</p>
+        <h2 class="font-serif text-3xl text-charcoal-900 mb-8">音楽は、あなたの言葉になる。</h2>
+        <div class="space-y-5 text-charcoal-700 leading-relaxed text-[15px]">
+          <p>
+            Harmony Music Schoolは、音楽を通して一人ひとりの感性・表現力を育てることを大切にしています。
+            楽譜を正確に弾くだけでなく、音楽に込められた感情や物語を感じ取り、自分の言葉として表現できる力を育みます。
+          </p>
+          <p>
+            子ども・社会人・シニアなど、幅広い年齢層の生徒が在籍しています。
+            音楽経験がゼロの方から、発表会・コンクールを目標にする方まで、それぞれの目標に応じた丁寧な個別指導を行っています。
+          </p>
+          <p>
+            音楽と向き合う時間は、日々の生活に豊かさと活力をもたらしてくれます。
+            どうぞ、まずは体験レッスンからお気軽にご参加ください。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-24 bg-forest-800 text-cream-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-gold-400 text-xs tracking-widest uppercase mb-3">Our Values</p>
+        <h2 class="font-serif text-3xl">大切にしていること</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          { title: '個性を尊重', body: '正解は一つではありません。生徒一人ひとりの個性と感性を引き出す指導を大切にしています。' },
+          { title: '継続をサポート', body: '無理のないペースで続けられる環境づくりを心がけています。休会制度も設けています。' },
+          { title: '本物の音楽体験', body: '発表会・アンサンブルなど、人前で演奏する機会を通じて、音楽の本当の喜びを体験します。' },
+        ].map((v, i) => (
+          <div class="fade-in border-l-2 border-gold-400 pl-8" style={`transition-delay: ${i * 100}ms`}>
+            <h3 class="font-serif text-xl mb-4">{v.title}</h3>
+            <p class="text-cream-200 text-sm leading-relaxed">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Instructors -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Instructors</p>
+        <h2 class="font-serif text-4xl text-charcoal-900">講師紹介</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        {instructors.map((inst, i) => (
+          <article class="fade-in" style={`transition-delay: ${i * 100}ms`}>
+            <!-- Photo placeholder -->
+            <div class="aspect-[4/5] bg-cream-200 mb-6 relative overflow-hidden">
+              <div class="absolute inset-0 flex items-center justify-center text-cream-50 bg-forest-700">
+                <svg class="w-24 h-24 opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p class="text-forest-700 text-xs tracking-wide mb-1">{inst.role}</p>
+              <h3 class="font-serif text-2xl text-charcoal-900 mb-1">{inst.name}</h3>
+              <p class="text-charcoal-700 text-xs mb-4 italic">{inst.nameEn}</p>
+              <p class="text-xs text-charcoal-700 bg-cream-100 px-3 py-1.5 inline-block mb-4">{inst.career}</p>
+              <p class="text-sm text-charcoal-700 leading-relaxed">{inst.bio}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

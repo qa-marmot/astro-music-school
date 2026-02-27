@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="お問い合わせ"
+  description="Harmony Music Schoolへのお問い合わせページ。レッスンや料金に関するご質問はお気軽にどうぞ。"
+>
+  <section class="py-24 bg-cream-100 border-b border-cream-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Contact</p>
+      <h1 class="font-serif text-5xl text-charcoal-900">お問い合わせ</h1>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <!-- Contact info -->
+        <div class="fade-in">
+          <h2 class="font-serif text-2xl text-charcoal-900 mb-8">お気軽にどうぞ</h2>
+          <div class="space-y-8">
+            <div>
+              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">電話</p>
+              <a href="tel:03-0000-0000" class="text-charcoal-900 hover:text-forest-700 transition-colors">
+                03-0000-0000
+              </a>
+              <p class="text-xs text-charcoal-700 mt-1">受付：火〜日 10:00〜19:00</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">メール</p>
+              <a href="mailto:info@harmony-music.example" class="text-charcoal-900 hover:text-forest-700 transition-colors break-all">
+                info@harmony-music.example
+              </a>
+            </div>
+            <div>
+              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">所在地</p>
+              <address class="not-italic text-charcoal-700 text-sm leading-relaxed">
+                〒000-0000<br />東京都〇〇区〇〇1-2-3<br />〇〇ビル3F
+              </address>
+            </div>
+            <div>
+              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">営業時間</p>
+              <p class="text-sm text-charcoal-700">火〜日：10:00〜20:00<br />定休日：月曜日・年末年始</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="lg:col-span-2 fade-in">
+          <form id="contact-form" class="space-y-6" data-testid="contact-form" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="c-name" class="block text-sm font-medium text-charcoal-900 mb-2">
+                  お名前 <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="c-name" name="name" required placeholder="山田 花子"
+                  class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
+                         focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow" />
+              </div>
+              <div>
+                <label for="c-email" class="block text-sm font-medium text-charcoal-900 mb-2">
+                  メールアドレス <span class="text-red-500">*</span>
+                </label>
+                <input type="email" id="c-email" name="email" required placeholder="example@email.com"
+                  class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
+                         focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow" />
+              </div>
+            </div>
+
+            <div>
+              <label for="c-subject" class="block text-sm font-medium text-charcoal-900 mb-2">
+                お問い合わせ種別 <span class="text-red-500">*</span>
+              </label>
+              <select id="c-subject" name="subject" required
+                class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
+                       focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow appearance-none">
+                <option value="">選択してください</option>
+                <option value="trial">体験レッスンについて</option>
+                <option value="lesson">レッスン内容について</option>
+                <option value="pricing">料金・スケジュールについて</option>
+                <option value="other">その他</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="c-message" class="block text-sm font-medium text-charcoal-900 mb-2">
+                お問い合わせ内容 <span class="text-red-500">*</span>
+              </label>
+              <textarea id="c-message" name="message" required rows="6"
+                placeholder="ご質問・ご要望をご記入ください"
+                class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
+                       focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow resize-none">
+              </textarea>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="c-privacy" name="privacy" required
+                class="mt-1 w-4 h-4 border-cream-200" />
+              <label for="c-privacy" class="text-sm text-charcoal-700">
+                <a href="/privacy" class="text-forest-700 underline hover:text-forest-600">プライバシーポリシー</a>に同意する
+                <span class="text-red-500 ml-1">*</span>
+              </label>
+            </div>
+
+            <button type="submit"
+              class="w-full py-4 bg-forest-700 text-cream-50 font-medium text-sm
+                     hover:bg-forest-600 transition-colors"
+              data-testid="contact-submit-btn"
+            >
+              送信する
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // TODO: 送信処理を実装
+      alert('お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。');
+      form.reset();
+    });
+  </script>
+
+</BaseLayout>

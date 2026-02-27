@@ -1,0 +1,59 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  canonicalURL?: string;
+  noindex?: boolean;
+}
+
+const SITE_NAME  = import.meta.env.PUBLIC_SITE_NAME ?? 'Harmony Music School';
+const SITE_URL   = import.meta.env.PUBLIC_SITE_URL  ?? 'https://your-school.pages.dev';
+const DEFAULT_OG = `${SITE_URL}/images/og-default.jpg`;
+
+const {
+  title,
+  description = '音楽を通じて豊かな心を育む音楽教室。ピアノ・バイオリン・声楽など多彩なレッスンをご用意しています。体験レッスン随時受付中。',
+  ogImage     = DEFAULT_OG,
+  ogType      = 'website',
+  canonicalURL = Astro.url.href,
+  noindex      = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
+---
+
+<!-- Primary Meta -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+<link rel="canonical" href={canonicalURL} />
+
+<!-- OGP -->
+<meta property="og:type"        content={ogType} />
+<meta property="og:url"         content={canonicalURL} />
+<meta property="og:title"       content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image"       content={ogImage} />
+<meta property="og:site_name"   content={SITE_NAME} />
+<meta property="og:locale"      content="ja_JP" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image"       content={ogImage} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
