@@ -1,65 +1,81 @@
 ---
 const navItems = [
-  { label: '教室紹介',   href: '/about' },
-  { label: 'レッスン',  href: '/lessons' },
-  { label: '料金',       href: '/pricing' },
-  { label: 'ブログ',    href: '/blog' },
-  { label: 'アクセス',  href: '/access' },
-  { label: 'FAQ',        href: '/faq' },
+  { label: '教室紹介',  href: '/about' },
+  { label: 'レッスン', href: '/lessons' },
+  { label: '料金',      href: '/pricing' },
+  { label: 'ブログ',   href: '/blog' },
+  { label: 'アクセス', href: '/access' },
+  { label: 'FAQ',       href: '/faq' },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-cream-50/95 backdrop-blur-sm border-b border-cream-200">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="site-header">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-20">
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3 group" aria-label="トップページへ">
-        <div class="w-9 h-9 rounded-full bg-forest-700 flex items-center justify-center">
-          <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <!-- Music note icon with gold ring -->
+        <div class="relative w-10 h-10">
+          <div class="absolute inset-0 rounded-full bg-forest-700 group-hover:bg-forest-600 transition-colors duration-300" />
+          <div class="absolute inset-0 rounded-full border border-gold-400/40 scale-110 group-hover:scale-125 transition-transform duration-500" />
+          <svg
+            class="absolute inset-0 m-auto w-5 h-5 text-gold-400"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
               d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
           </svg>
         </div>
         <div class="leading-tight">
-          <div class="font-serif text-lg text-forest-800 group-hover:text-forest-600 transition-colors">Harmony</div>
-          <div class="text-[10px] tracking-widest text-charcoal-700 uppercase">Music School</div>
+          <div class="font-serif text-xl font-semibold text-forest-800 group-hover:text-forest-600 transition-colors duration-200">
+            Harmony
+          </div>
+          <div class="text-[9px] tracking-[0.22em] text-charcoal-700 uppercase font-medium">
+            Music School
+          </div>
         </div>
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-8" aria-label="メインナビゲーション">
+      <nav class="hidden lg:flex items-center gap-7" aria-label="メインナビゲーション">
         {navItems.map(item => (
           <a
             href={item.href}
-            class={`text-sm font-medium tracking-wide transition-colors duration-200 relative
-              after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-forest-700
-              after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100
-              ${currentPath.startsWith(item.href)
+            class={[
+              'text-sm font-medium tracking-wide transition-all duration-200 relative pb-0.5',
+              'after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px]',
+              'after:bg-gradient-to-r after:from-forest-700 after:to-gold-500',
+              'after:scale-x-0 after:transition-transform after:duration-300 after:origin-left',
+              'hover:after:scale-x-100',
+              currentPath.startsWith(item.href)
                 ? 'text-forest-700 after:scale-x-100'
-                : 'text-charcoal-700 hover:text-forest-700'
-              }`}
+                : 'text-charcoal-700 hover:text-forest-700',
+            ].join(' ')}
           >
             {item.label}
           </a>
         ))}
       </nav>
 
-      <!-- CTA -->
+      <!-- Desktop CTA -->
       <div class="hidden lg:flex items-center gap-3">
         <a
           href="/trial"
-          class="px-5 py-2.5 bg-forest-700 text-cream-50 text-sm font-medium rounded-sm
-                 hover:bg-forest-600 transition-colors duration-200"
+          class="inline-flex items-center gap-1.5 px-5 py-2.5 bg-forest-700 text-cream-50 text-sm font-medium
+                 hover:bg-forest-600 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md
+                 border border-transparent"
         >
+          <span class="text-gold-400 text-base leading-none">♪</span>
           体験レッスン
         </a>
         <a
           href="/contact"
-          class="px-5 py-2.5 border border-forest-700 text-forest-700 text-sm font-medium rounded-sm
-                 hover:bg-forest-700 hover:text-cream-50 transition-all duration-200"
+          class="px-5 py-2.5 border border-forest-700/60 text-forest-700 text-sm font-medium
+                 hover:bg-forest-700 hover:text-cream-50 hover:border-forest-700 transition-all duration-200"
         >
           お問い合わせ
         </a>
@@ -83,37 +99,46 @@ const currentPath = Astro.url.pathname;
     </div>
   </div>
 
-  <!-- Mobile menu -->
+  <!-- Mobile Menu -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden border-t border-cream-200 bg-cream-50"
+    class="hidden lg:hidden border-t border-cream-200/80"
     aria-label="モバイルナビゲーション"
   >
-    <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 bg-cream-50/98 backdrop-blur-md">
       {navItems.map(item => (
         <a
           href={item.href}
-          class={`py-3 px-4 text-sm font-medium rounded-sm transition-colors ${
+          class={`py-3 px-4 text-sm font-medium rounded-sm transition-all duration-200 ${
             currentPath.startsWith(item.href)
               ? 'bg-forest-700 text-cream-50'
-              : 'text-charcoal-700 hover:bg-cream-200'
+              : 'text-charcoal-700 hover:bg-cream-200/80 hover:text-forest-700'
           }`}
         >
           {item.label}
         </a>
       ))}
-      <div class="pt-3 border-t border-cream-200 flex flex-col gap-2">
-        <a href="/trial"   class="py-3 px-4 bg-forest-700 text-cream-50 text-sm text-center rounded-sm">体験レッスン</a>
-        <a href="/contact" class="py-3 px-4 border border-forest-700 text-forest-700 text-sm text-center rounded-sm">お問い合わせ</a>
+      <div class="pt-3 mt-1 border-t border-cream-200 flex flex-col gap-2">
+        <a href="/trial"
+           class="py-3 px-4 bg-forest-700 text-cream-50 text-sm text-center font-medium rounded-sm
+                  flex items-center justify-center gap-2">
+          <span class="text-gold-400">♪</span> 体験レッスンを申し込む
+        </a>
+        <a href="/contact"
+           class="py-3 px-4 border border-forest-700/60 text-forest-700 text-sm text-center rounded-sm">
+          お問い合わせ
+        </a>
       </div>
     </nav>
   </div>
 </header>
 
 <script>
-  const btn  = document.getElementById('mobile-menu-btn')!;
-  const menu = document.getElementById('mobile-menu')!;
+  const btn    = document.getElementById('mobile-menu-btn')!;
+  const menu   = document.getElementById('mobile-menu')!;
+  const header = document.getElementById('site-header')!;
 
+  // Mobile menu toggle
   btn.addEventListener('click', () => {
     const isOpen = !menu.classList.contains('hidden');
     menu.classList.toggle('hidden', isOpen);
@@ -121,4 +146,22 @@ const currentPath = Astro.url.pathname;
     btn.querySelector('.menu-icon')!.classList.toggle('hidden', !isOpen);
     btn.querySelector('.close-icon')!.classList.toggle('hidden', isOpen);
   });
+
+  // Scroll-based header background
+  const updateHeader = () => {
+    const scrolled = window.scrollY > 20;
+    header.style.background = scrolled
+      ? 'rgba(253,251,247,0.97)'
+      : 'rgba(253,251,247,0.85)';
+    header.style.backdropFilter = 'blur(12px)';
+    header.style.borderBottom = scrolled
+      ? '1px solid rgba(242,232,213,0.8)'
+      : '1px solid rgba(242,232,213,0.3)';
+    header.style.boxShadow = scrolled
+      ? '0 1px 20px rgba(0,0,0,0.06)'
+      : 'none';
+  };
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
 </script>

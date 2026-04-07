@@ -4,69 +4,225 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="アクセス"
-  description="Harmony Music Schoolのアクセス情報。最寄り駅から徒歩5分。駐車場は近隣コインパーキングをご利用ください。"
+  description="Harmony Music Schoolのアクセス情報。JR中央線・東西線「中野駅」北口より徒歩5分。"
 >
-  <section class="py-24 bg-cream-100 border-b border-cream-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Access</p>
-      <h1 class="font-serif text-5xl text-charcoal-900">アクセス</h1>
+
+  <!-- ===== Page Header ===== -->
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.pexels.com/photos/10933686/pexels-photo-10933686.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        alt=""
+        class="w-full h-full object-cover object-center"
+        loading="eager"
+        aria-hidden="true"
+      />
+      <div class="absolute inset-0 bg-gradient-to-br from-forest-900/92 via-charcoal-900/85 to-forest-900/88" />
+      <div
+        class="absolute inset-0 opacity-[0.04]"
+        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
+        aria-hidden="true"
+      />
+    </div>
+    <div class="absolute top-8 right-14 text-5xl text-gold-400 opacity-10 font-serif animate-float select-none pointer-events-none" aria-hidden="true">♩</div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-12 bg-gold-400" />
+        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Access</p>
+      </div>
+      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
+        アクセス<em class="not-italic font-bold italic text-gold-400">情報</em>
+      </h1>
+      <p class="text-cream-200/70 text-sm max-w-lg leading-relaxed">
+        JR中央線・東京メトロ東西線「中野駅」北口より徒歩5分。<br />
+        お気軽にお越しください。
+      </p>
     </div>
   </section>
 
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <!-- Map placeholder -->
-        <div class="fade-in aspect-video bg-cream-200 flex items-center justify-center text-charcoal-700">
-          <div class="text-center">
-            <p class="text-sm mb-2">地図を埋め込む</p>
-            <p class="text-xs text-charcoal-700">Google Maps iframe をここに設置</p>
+  <!-- ===== Map + Info ===== -->
+  <section class="py-24 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+        <!-- Google Maps embed -->
+        <div class="fade-in">
+          <div class="overflow-hidden shadow-lg border border-cream-200" style="aspect-ratio: 4/3;">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.134!2d139.6612!3d35.7076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f34d5dfaaaab%3A0x78471df85bd7e07a!2z5Lit6YeO6aeF!5e0!3m2!1sja!2sjp!4v1617000000000!5m2!1sja!2sjp"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Harmony Music School の地図 — 東京都中野区中野"
+            ></iframe>
+          </div>
+          <div class="mt-4 text-center">
+            <a
+              href="https://maps.google.com/maps?q=東京都中野区中野4丁目&z=16"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-forest-700 border-b border-forest-700/40 pb-1
+                     hover:text-forest-600 hover:border-forest-600 transition-colors"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Google マップで大きく見る →
+            </a>
           </div>
         </div>
 
-        <!-- Info -->
+        <!-- Access info -->
         <div class="fade-in space-y-8">
           <div>
-            <h2 class="font-serif text-3xl text-charcoal-900 mb-6">所在地・アクセス</h2>
-            <address class="not-italic space-y-4 text-sm text-charcoal-700 leading-relaxed">
-              <div>
-                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">住所</p>
-                <p>〒000-0000 東京都〇〇区〇〇1-2-3 〇〇ビル3F</p>
-              </div>
-              <div>
-                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">最寄り駅</p>
-                <p>〇〇線「〇〇駅」徒歩5分</p>
-              </div>
-              <div>
-                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">電話</p>
-                <a href="tel:03-0000-0000" class="hover:text-forest-700 transition-colors">03-0000-0000</a>
-              </div>
-              <div>
-                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">営業時間</p>
-                <p>火〜日：10:00〜20:00（レッスン時間内）<br />定休日：月曜日・年末年始</p>
-              </div>
-              <div>
-                <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-1">駐車場</p>
-                <p>専用駐車場なし。近隣コインパーキングをご利用ください。<br />お車でのご来校の場合は事前にご相談ください。</p>
-              </div>
-            </address>
+            <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-4">Location</p>
+            <h2 class="font-serif text-3xl text-charcoal-900 font-light mb-8">
+              所在地・<em class="not-italic font-semibold italic text-forest-700">アクセス</em>
+            </h2>
           </div>
 
-          <div class="bg-cream-100 p-6 border border-cream-200">
-            <h3 class="font-medium text-charcoal-900 mb-3">📌 道案内</h3>
+          <address class="not-italic space-y-6">
+            <!-- Address -->
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-forest-700/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[10px] font-semibold tracking-[0.2em] text-forest-700 uppercase mb-1">住所</p>
+                <p class="text-sm text-charcoal-700 leading-relaxed">
+                  〒164-0001<br />
+                  東京都中野区中野4丁目○○番○号<br />
+                  ハーモニービル3F
+                </p>
+              </div>
+            </div>
+
+            <!-- Nearest station -->
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-forest-700/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[10px] font-semibold tracking-[0.2em] text-forest-700 uppercase mb-1">最寄り駅</p>
+                <div class="text-sm text-charcoal-700 leading-relaxed space-y-1">
+                  <p>JR中央線・東京メトロ東西線<br />
+                    <strong class="font-medium text-charcoal-900">「中野駅」北口</strong> より徒歩5分</p>
+                  <p class="text-xs text-charcoal-700/70">バス停「中野四丁目」すぐ</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-forest-700/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[10px] font-semibold tracking-[0.2em] text-forest-700 uppercase mb-1">電話</p>
+                <a href="tel:03-0000-0000" class="text-sm text-charcoal-900 hover:text-forest-700 transition-colors font-medium">
+                  03-0000-0000
+                </a>
+                <p class="text-xs text-charcoal-700/70 mt-0.5">受付：火〜日 10:00〜19:00</p>
+              </div>
+            </div>
+
+            <!-- Hours -->
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-forest-700/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[10px] font-semibold tracking-[0.2em] text-forest-700 uppercase mb-1">営業時間</p>
+                <div class="text-sm text-charcoal-700 leading-relaxed">
+                  <p>火〜日：10:00〜20:00</p>
+                  <p class="text-xs text-charcoal-700/70 mt-0.5">定休日：月曜日・年末年始</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Parking -->
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-forest-700/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[10px] font-semibold tracking-[0.2em] text-forest-700 uppercase mb-1">駐車場</p>
+                <p class="text-sm text-charcoal-700 leading-relaxed">
+                  専用駐車場なし。近隣コインパーキングをご利用ください。<br />
+                  <span class="text-xs text-charcoal-700/70">電車・バスでのご来校をおすすめしています。</span>
+                </p>
+              </div>
+            </div>
+          </address>
+
+          <!-- Directions -->
+          <div class="bg-cream-100 border border-cream-200 p-6">
+            <h3 class="font-medium text-charcoal-900 mb-3 flex items-center gap-2 text-sm">
+              <span class="text-gold-500">♩</span> 道案内
+            </h3>
             <p class="text-sm text-charcoal-700 leading-relaxed">
-              〇〇駅の東口改札を出て右へ。〇〇通りを直進し、〇〇交差点を左折すると左手に〇〇ビルが見えます。エレベーターで3Fにお上がりください。
+              中野駅北口改札を出て右へ。サンモール商店街を直進し、
+              中野四丁目交差点を左折すると左手にハーモニービルが見えます。
+              エレベーターで3Fにお上がりください。
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <a
-            href="https://maps.google.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-sm text-forest-700 border-b border-forest-700 pb-1 hover:text-forest-600 transition-colors"
-          >
-            Google マップで開く →
-          </a>
+  <!-- ===== Studio photo strip ===== -->
+  <section class="py-16 bg-cream-100 border-t border-cream-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-8 text-center">Studio</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="fade-in aspect-[4/3] overflow-hidden">
+          <img
+            src="https://images.pexels.com/photos/9391639/pexels-photo-9391639.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop"
+            alt="レッスンルーム — グランドピアノ"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="fade-in aspect-[4/3] overflow-hidden" style="transition-delay:80ms">
+          <img
+            src="https://images.pexels.com/photos/7570759/pexels-photo-7570759.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop"
+            alt="レッスン風景 — ピアノ指導"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="fade-in aspect-[4/3] overflow-hidden col-span-2 sm:col-span-1" style="transition-delay:160ms">
+          <img
+            src="https://images.pexels.com/photos/8106076/pexels-photo-8106076.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop"
+            alt="レッスン風景 — 生徒"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>

@@ -9,6 +9,11 @@ const instructors = [
     instruments: ['ピアノ'],
     bio: '東京音楽大学ピアノ科卒業後、ドイツ・ベルリン芸術大学に留学。帰国後は演奏活動と並行して後進の育成に尽力。国際コンクール受賞者を多数輩出している。',
     career: '東京音楽大学卒業 / ベルリン芸術大学修士課程修了',
+    photo: 'https://images.pexels.com/photos/9418219/pexels-photo-9418219.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&fit=crop',
+    accentColor: 'border-piano-500',
+    rotate: 'polaroid-rotate-1',
+    message: '音楽はあなたの内側にある声を引き出してくれます。',
+    emoji: '🎹',
   },
   {
     name: '田中 太郎',
@@ -17,14 +22,24 @@ const instructors = [
     instruments: ['バイオリン'],
     bio: '桐朋学園大学音楽学部卒業。在学中より各種演奏会に出演し、室内楽演奏者としても活躍。子どもから大人まで丁寧な指導が好評。',
     career: '桐朋学園大学音楽学部卒業',
+    photo: 'https://images.pexels.com/photos/7095052/pexels-photo-7095052.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&fit=crop',
+    accentColor: 'border-violin-500',
+    rotate: 'polaroid-rotate-2',
+    message: '弓を弦に当てた瞬間の感動を、あなたにも。',
+    emoji: '🎻',
   },
   {
     name: '鈴木 美咲',
     nameEn: 'Misaki Suzuki',
-    role: '声楽科 講師',
-    instruments: ['声楽'],
+    role: '声楽・ギター科 講師',
+    instruments: ['声楽', 'ギター'],
     bio: '国立音楽大学声楽科卒業。イタリア・ミラノにてオペラを学ぶ。クラシックからポップスまで幅広く対応し、音楽が初めての方にも親切に指導する。',
     career: '国立音楽大学声楽科卒業 / ミラノ留学',
+    photo: 'https://images.pexels.com/photos/8520514/pexels-photo-8520514.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&fit=crop',
+    accentColor: 'border-vocal-500',
+    rotate: 'polaroid-rotate-3',
+    message: '声は誰もが生まれつき持つ、最高の楽器です。',
+    emoji: '🎤',
   },
 ];
 ---
@@ -33,88 +48,206 @@ const instructors = [
   title="教室紹介"
   description="Harmony Music Schoolのコンセプトと講師紹介。20年以上の指導実績を持つ経験豊かな講師陣が、丁寧に個別指導します。"
 >
-  <!-- Page header -->
-  <section class="py-24 bg-cream-100 border-b border-cream-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">About Us</p>
-      <h1 class="font-serif text-5xl text-charcoal-900">教室紹介</h1>
+
+  <!-- ===== Page Header ===== -->
+  <section class="relative py-28 bg-forest-800 overflow-hidden texture-staff texture-staff-dark">
+    <!-- Decorative notes -->
+    <div class="absolute top-6 right-12 text-5xl text-gold-400 opacity-10 font-serif animate-float select-none" aria-hidden="true">♫</div>
+    <div class="absolute bottom-6 left-8 text-4xl text-cream-50 opacity-8 font-serif animate-drift select-none" aria-hidden="true">♩</div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-12 bg-gold-400" />
+        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">About Us</p>
+      </div>
+      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light">
+        教室<em class="not-italic font-bold italic text-gold-400">紹介</em>
+      </h1>
+      <p class="text-cream-200/70 mt-4 max-w-lg text-sm leading-relaxed">
+        音楽と向き合う時間は、日々の生活に豊かさと活力をもたらしてくれます。
+      </p>
     </div>
   </section>
 
-  <!-- Concept -->
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl fade-in">
-        <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Our Concept</p>
-        <h2 class="font-serif text-3xl text-charcoal-900 mb-8">音楽は、あなたの言葉になる。</h2>
-        <div class="space-y-5 text-charcoal-700 leading-relaxed text-[15px]">
-          <p>
-            Harmony Music Schoolは、音楽を通して一人ひとりの感性・表現力を育てることを大切にしています。
-            楽譜を正確に弾くだけでなく、音楽に込められた感情や物語を感じ取り、自分の言葉として表現できる力を育みます。
-          </p>
-          <p>
-            子ども・社会人・シニアなど、幅広い年齢層の生徒が在籍しています。
-            音楽経験がゼロの方から、発表会・コンクールを目標にする方まで、それぞれの目標に応じた丁寧な個別指導を行っています。
-          </p>
-          <p>
-            音楽と向き合う時間は、日々の生活に豊かさと活力をもたらしてくれます。
-            どうぞ、まずは体験レッスンからお気軽にご参加ください。
-          </p>
+  <!-- ===== Concept ===== -->
+  <section class="py-28 bg-cream-50 texture-staff">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <!-- Studio photo -->
+        <div class="lg:col-span-5 fade-in-left music-frame">
+          <img
+            src="https://images.pexels.com/photos/10933686/pexels-photo-10933686.jpeg?auto=compress&cs=tinysrgb&w=900&h=675&fit=crop"
+            alt="グランドピアノのあるスタジオ"
+            class="w-full aspect-[4/3] object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Concept text -->
+        <div class="lg:col-span-7 fade-in-right">
+          <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-4">Our Concept</p>
+
+          <h2 class="font-serif text-3xl sm:text-4xl text-charcoal-900 mb-8 leading-snug">
+            <span class="font-light">音楽は、</span><br />
+            <span class="font-bold italic text-forest-700">あなたの言葉</span><span class="font-light">になる。</span>
+          </h2>
+
+          <div class="space-y-5 text-charcoal-700 leading-relaxed text-[15px]">
+            <p>
+              Harmony Music Schoolは、音楽を通して一人ひとりの感性・表現力を育てることを大切にしています。
+              楽譜を正確に弾くだけでなく、音楽に込められた感情や物語を感じ取り、自分の言葉として表現できる力を育みます。
+            </p>
+            <p>
+              子ども・社会人・シニアなど、幅広い年齢層の生徒が在籍しています。
+              音楽経験がゼロの方から、発表会・コンクールを目標にする方まで、
+              それぞれの目標に応じた丁寧な個別指導を行っています。
+            </p>
+            <p>
+              音楽と向き合う時間は、日々の生活に豊かさと活力をもたらしてくれます。
+              どうぞ、まずは体験レッスンからお気軽にご参加ください。
+            </p>
+          </div>
+
+          <div class="mt-8 pt-8 border-t border-cream-200 grid grid-cols-3 gap-4">
+            {[
+              { num: '20+年', label: '指導実績' },
+              { num: '150名', label: '在籍生徒' },
+              { num: '95%',   label: '継続率' },
+            ].map(s => (
+              <div class="text-center">
+                <div class="font-serif text-2xl font-semibold text-forest-700">{s.num}</div>
+                <div class="text-xs text-charcoal-700 mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Values -->
-  <section class="py-24 bg-forest-800 text-cream-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- ===== Values ===== -->
+  <section class="py-28 bg-charcoal-900 relative overflow-hidden texture-staff texture-staff-dark">
+    <div class="absolute right-0 top-0 w-64 h-full opacity-[0.03] pointer-events-none select-none" aria-hidden="true">
+      <div class="font-serif text-[20rem] text-white leading-none">♫</div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 fade-in">
-        <p class="text-gold-400 text-xs tracking-widest uppercase mb-3">Our Values</p>
-        <h2 class="font-serif text-3xl">大切にしていること</h2>
+        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold mb-3">Our Values</p>
+        <h2 class="font-serif text-4xl text-cream-50 font-light">
+          大切に<em class="not-italic font-bold italic text-gold-400">していること</em>
+        </h2>
       </div>
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { title: '個性を尊重', body: '正解は一つではありません。生徒一人ひとりの個性と感性を引き出す指導を大切にしています。' },
-          { title: '継続をサポート', body: '無理のないペースで続けられる環境づくりを心がけています。休会制度も設けています。' },
-          { title: '本物の音楽体験', body: '発表会・アンサンブルなど、人前で演奏する機会を通じて、音楽の本当の喜びを体験します。' },
+          {
+            icon: '♩',
+            title: '個性を尊重',
+            body: '正解は一つではありません。生徒一人ひとりの個性と感性を引き出す指導を大切にしています。あなたの「好き」が出発点です。',
+          },
+          {
+            icon: '♪',
+            title: '継続をサポート',
+            body: '無理のないペースで続けられる環境づくりを心がけています。休会制度も設けており、ライフスタイルの変化にも対応します。',
+          },
+          {
+            icon: '♫',
+            title: '本物の音楽体験',
+            body: '発表会・アンサンブルなど、人前で演奏する機会を通じて、音楽の本当の喜びを体験します。聴衆の前で演奏する達成感は格別です。',
+          },
         ].map((v, i) => (
-          <div class="fade-in border-l-2 border-gold-400 pl-8" style={`transition-delay: ${i * 100}ms`}>
-            <h3 class="font-serif text-xl mb-4">{v.title}</h3>
-            <p class="text-cream-200 text-sm leading-relaxed">{v.body}</p>
+          <div class="fade-in group" style={`transition-delay: ${i * 120}ms`}>
+            <div class="border-l-2 border-gold-400 pl-8 py-2 group-hover:border-gold-300 transition-colors">
+              <div class="font-serif text-3xl text-gold-400 mb-4 group-hover:scale-110 transition-transform duration-300 w-fit">
+                {v.icon}
+              </div>
+              <h3 class="font-serif text-xl text-cream-50 mb-4">{v.title}</h3>
+              <p class="text-cream-200/70 text-sm leading-relaxed">{v.body}</p>
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Instructors -->
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 fade-in">
-        <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Instructors</p>
-        <h2 class="font-serif text-4xl text-charcoal-900">講師紹介</h2>
+  <!-- ===== Instructors (Polaroid style) ===== -->
+  <section class="py-28 bg-cream-100 texture-staff overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20 fade-in">
+        <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-3">Instructors</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-charcoal-900 font-light">
+          <em class="not-italic font-bold italic text-forest-700">講師</em>紹介
+        </h2>
+        <p class="text-charcoal-700 text-sm mt-4 max-w-md mx-auto">
+          経験豊かな講師陣があなたの音楽の旅に寄り添います。
+        </p>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 items-start">
         {instructors.map((inst, i) => (
-          <article class="fade-in" style={`transition-delay: ${i * 100}ms`}>
-            <!-- Photo placeholder -->
-            <div class="aspect-[4/5] bg-cream-200 mb-6 relative overflow-hidden">
-              <div class="absolute inset-0 flex items-center justify-center text-cream-50 bg-forest-700">
-                <svg class="w-24 h-24 opacity-30" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                </svg>
+          <article
+            class={`fade-in polaroid ${inst.rotate}`}
+            style={`transition-delay: ${i * 150}ms`}
+          >
+            <!-- Photo -->
+            <div class={`relative overflow-hidden border-b-2 ${inst.accentColor} mb-4`}>
+              <img
+                src={inst.photo}
+                alt={`講師：${inst.name}`}
+                class="w-full aspect-[4/5] object-cover"
+                loading="lazy"
+              />
+              <!-- Instrument emoji badge -->
+              <div class="absolute top-3 right-3 w-9 h-9 bg-white/90 rounded-full flex items-center justify-center text-lg shadow">
+                {inst.emoji}
               </div>
             </div>
-            <div>
-              <p class="text-forest-700 text-xs tracking-wide mb-1">{inst.role}</p>
-              <h3 class="font-serif text-2xl text-charcoal-900 mb-1">{inst.name}</h3>
-              <p class="text-charcoal-700 text-xs mb-4 italic">{inst.nameEn}</p>
-              <p class="text-xs text-charcoal-700 bg-cream-100 px-3 py-1.5 inline-block mb-4">{inst.career}</p>
-              <p class="text-sm text-charcoal-700 leading-relaxed">{inst.bio}</p>
+
+            <!-- Info (polaroid caption area) -->
+            <div class="px-1">
+              <p class="text-forest-700 text-[10px] tracking-[0.18em] uppercase font-semibold mb-1">{inst.role}</p>
+
+              <!-- Name with serif font, "handwritten" feel -->
+              <div class="flex items-baseline gap-2 mb-1">
+                <h3 class="font-serif text-2xl text-charcoal-900">{inst.name}</h3>
+              </div>
+              <p class="text-charcoal-700/60 text-[11px] italic mb-3">{inst.nameEn}</p>
+
+              <!-- Career badge -->
+              <p class="text-[11px] text-charcoal-700 bg-cream-50 border border-cream-200 px-3 py-1.5 inline-block mb-4 leading-relaxed">
+                {inst.career}
+              </p>
+
+              <p class="text-[13px] text-charcoal-700 leading-relaxed mb-4">{inst.bio}</p>
+
+              <!-- Handwritten-style message -->
+              <div class="mt-3 pt-3 border-t border-cream-200">
+                <p class="text-[12px] text-forest-700 italic leading-relaxed">
+                  「{inst.message}」
+                </p>
+              </div>
             </div>
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="py-20 bg-forest-700">
+    <div class="max-w-3xl mx-auto px-4 text-center fade-in">
+      <h2 class="font-serif text-3xl text-cream-50 font-light mb-4">
+        講師との相性を<em class="not-italic font-bold italic text-gold-400">体験</em>してみてください
+      </h2>
+      <p class="text-cream-200/80 text-sm mb-8">
+        体験レッスンでは、担当講師と30分ほど話しながら、あなたに合ったレッスン方法をご提案します。
+      </p>
+      <a href="/trial"
+         class="inline-flex items-center gap-2 px-10 py-4 bg-gold-500 text-forest-900 font-medium text-sm
+                hover:bg-gold-400 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl">
+        <span>♪</span> 体験レッスンを申し込む
+      </a>
     </div>
   </section>
 
