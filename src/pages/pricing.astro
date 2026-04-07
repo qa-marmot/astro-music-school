@@ -68,10 +68,36 @@ const faqs = [
   description="Harmony Music Schoolの料金プラン一覧。月2回12,000円〜。体験レッスン3,000円で随時受付中。"
 >
   <!-- Header -->
-  <section class="py-24 bg-cream-100 border-b border-cream-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-forest-700 text-xs tracking-widest uppercase mb-3">Pricing</p>
-      <h1 class="font-serif text-5xl text-charcoal-900">料金プラン</h1>
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.pexels.com/photos/9391639/pexels-photo-9391639.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        alt=""
+        class="w-full h-full object-cover object-center"
+        loading="eager"
+        aria-hidden="true"
+      />
+      <div class="absolute inset-0 bg-gradient-to-br from-charcoal-900/90 via-forest-900/85 to-charcoal-900/80" />
+      <div
+        class="absolute inset-0 opacity-[0.04]"
+        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
+        aria-hidden="true"
+      />
+    </div>
+    <div class="absolute top-8 right-16 text-5xl text-gold-400 opacity-10 font-serif animate-float select-none pointer-events-none" aria-hidden="true">♩</div>
+    <div class="absolute bottom-8 left-10 text-4xl text-cream-50 opacity-8 font-serif animate-drift select-none pointer-events-none" aria-hidden="true">♪</div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-12 bg-gold-400" />
+        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Pricing</p>
+      </div>
+      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
+        料金<em class="not-italic font-bold italic text-gold-400">プラン</em>
+      </h1>
+      <p class="text-cream-200/70 text-sm max-w-lg leading-relaxed">
+        通いやすい料金で、本格的な音楽教育を。体験レッスン¥3,000から始められます。
+      </p>
     </div>
   </section>
 

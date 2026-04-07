@@ -14,7 +14,7 @@ const DEFAULT_OG = `${SITE_URL}/images/og-default.jpg`;
 
 const {
   title,
-  description = '音楽を通じて豊かな心を育む音楽教室。ピアノ・バイオリン・声楽など多彩なレッスンをご用意しています。体験レッスン随時受付中。',
+  description = '音楽を通じて豊かな心を育む音楽教室。ピアノ・ギター・バイオリンなど多彩なレッスンをご用意しています。体験レッスン随時受付中。',
   ogImage     = DEFAULT_OG,
   ogType      = 'website',
   canonicalURL = Astro.url.href,
@@ -50,10 +50,10 @@ const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-<!-- Fonts -->
+<!-- Fonts: Playfair Display (serif heading) + Noto Sans JP (body) + M PLUS Rounded 1c (friendly CTA) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Sans+JP:wght@300;400;500;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
   rel="stylesheet"
 />

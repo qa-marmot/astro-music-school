@@ -1,226 +1,422 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const instruments = [
+  { value: 'piano',  label: 'ピアノ',     note: '♩' },
+  { value: 'guitar', label: 'ギター',     note: '♪' },
+  { value: 'violin', label: 'バイオリン', note: '♫' },
+  { value: 'vocal',  label: '声楽',       note: '♬' },
+  { value: 'flute',  label: 'フルート',   note: '♩' },
+];
+
+const steps = [
+  { step: '01', title: 'フォームから申込',  desc: '下記フォームより、ご希望の楽器・日時をお選びください。' },
+  { step: '02', title: '日程確認のご連絡', desc: '1〜2営業日以内に担当者よりご確認のご連絡を差し上げます。' },
+  { step: '03', title: '体験レッスン',     desc: '教室へお越しいただき、45〜60分の体験レッスンを受けていただきます。' },
+  { step: '04', title: '入会のご相談',     desc: 'レッスン後に料金・スケジュールなどについてご相談いただけます。' },
+];
 ---
 
 <BaseLayout
   title="体験レッスン"
-  description="Harmony Music Schoolの体験レッスン申し込みページ。3,000円で本格的なレッスンを体験できます。随時受付中。"
+  description="Harmony Music Schoolの体験レッスン申し込みページ。¥3,000で本格的なレッスンを体験できます。随時受付中。"
 >
-  <!-- Header -->
-  <section class="py-24 bg-forest-800 text-cream-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-gold-400 text-xs tracking-widest uppercase mb-3">Trial Lesson</p>
-      <h1 class="font-serif text-5xl">体験レッスン</h1>
-      <p class="text-cream-200 mt-4 max-w-lg">まずは一度、教室の雰囲気を感じてみてください。講師との相性も確かめられます。</p>
+
+  <!-- ===== Page Header ===== -->
+  <section class="relative py-28 overflow-hidden">
+    <!-- Background photo -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.pexels.com/photos/7570759/pexels-photo-7570759.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        alt=""
+        class="w-full h-full object-cover object-top"
+        loading="eager"
+        aria-hidden="true"
+      />
+      <div class="absolute inset-0 bg-gradient-to-br from-forest-900/92 via-forest-800/88 to-charcoal-900/90" />
+      <div
+        class="absolute inset-0 opacity-[0.04]"
+        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
+        aria-hidden="true"
+      />
+    </div>
+
+    <!-- Floating notes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <span class="absolute top-[20%] right-[8%]  text-4xl text-gold-400 opacity-12 animate-float font-serif">♩</span>
+      <span class="absolute bottom-[20%] left-[6%] text-3xl text-cream-50  opacity-8  animate-float-slow font-serif" style="animation-delay:-3s">♪</span>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-12 bg-gold-400" />
+        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Trial Lesson</p>
+      </div>
+      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
+        体験<em class="not-italic font-bold italic text-gold-400">レッスン</em>
+      </h1>
+      <p class="text-cream-200/80 max-w-lg text-sm leading-relaxed">
+        まずは一度、教室の雰囲気を感じてみてください。<br />
+        講師との相性も確かめられます。
+      </p>
+
+      <!-- Price badge -->
+      <div class="mt-8 inline-flex items-center gap-4 bg-white/10 border border-white/20 px-6 py-3">
+        <div>
+          <div class="text-[10px] text-cream-200/70 tracking-widest uppercase">体験レッスン料金</div>
+          <div class="font-serif text-2xl text-cream-50">
+            ¥<strong class="text-gold-400">3,000</strong>
+            <span class="text-sm font-sans font-normal text-cream-200/70 ml-1">（税別）/ 45〜60分</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- How it works -->
-  <section class="py-24 bg-cream-100 border-b border-cream-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 fade-in">
-        <h2 class="font-serif text-3xl text-charcoal-900">体験レッスンの流れ</h2>
+  <!-- ===== How it works ===== -->
+  <section class="py-20 bg-cream-50 border-b border-cream-200 texture-staff">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 fade-in">
+        <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-3">Flow</p>
+        <h2 class="font-serif text-3xl text-charcoal-900 font-light">
+          体験レッスンの<em class="not-italic font-bold italic text-forest-700">流れ</em>
+        </h2>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-8">
-        {[
-          { step: '01', title: 'フォームから申込', desc: '下記フォームより、ご希望の楽器・日時をお選びください。' },
-          { step: '02', title: '日程確認のご連絡', desc: '1〜2営業日以内に担当者よりご確認のご連絡を差し上げます。' },
-          { step: '03', title: '体験レッスン', desc: '教室へお越しいただき、45〜60分の体験レッスンを受けていただきます。' },
-          { step: '04', title: '入会のご相談', desc: 'レッスン後に料金・スケジュールなどについてご相談いただけます。' },
-        ].map((s, i) => (
-          <div class="fade-in text-center" style={`transition-delay: ${i * 80}ms`}>
-            <div class="font-serif text-4xl text-gold-500 mb-4">{s.step}</div>
-            <h3 class="font-medium text-charcoal-900 mb-2">{s.title}</h3>
-            <p class="text-sm text-charcoal-700 leading-relaxed">{s.desc}</p>
-          </div>
-        ))}
+
+      <div class="relative">
+        <!-- Connector line (desktop) -->
+        <div class="hidden sm:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-cream-200 z-0" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 relative z-10">
+          {steps.map((s, i) => (
+            <div class="fade-in text-center" style={`transition-delay: ${i * 100}ms`}>
+              <div class="relative inline-flex">
+                <div class="w-20 h-20 rounded-full bg-white border-2 border-cream-200 flex flex-col items-center justify-center mb-6
+                            shadow-sm group-hover:border-gold-400 transition-colors mx-auto">
+                  <span class="font-serif text-2xl font-bold text-gold-500">{s.step}</span>
+                </div>
+                {i < steps.length - 1 && (
+                  <div class="sm:hidden absolute top-10 left-full w-8 h-px bg-cream-200 -translate-y-1/2" />
+                )}
+              </div>
+              <h3 class="font-medium text-charcoal-900 text-sm mb-2">{s.title}</h3>
+              <p class="text-xs text-charcoal-700 leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Form -->
-  <section class="py-24">
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12 fade-in">
-        <h2 class="font-serif text-3xl text-charcoal-900">体験レッスンを申し込む</h2>
-        <p class="text-sm text-charcoal-700 mt-4">体験レッスン料金：¥3,000（税別） / 45〜60分</p>
+  <!-- ===== Form ===== -->
+  <section class="py-24 bg-cream-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+        <!-- Left: context + instrument selector -->
+        <div class="lg:col-span-4 fade-in-left">
+          <div class="sticky top-28">
+            <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-4">Apply</p>
+            <h2 class="font-serif text-3xl text-charcoal-900 font-light mb-6">
+              申し込みフォーム
+            </h2>
+
+            <!-- Instrument cards -->
+            <div class="space-y-2 mb-8">
+              <p class="text-xs text-charcoal-700 mb-3">ご希望のコースを選択してください：</p>
+              {instruments.map(inst => (
+                <div class="flex items-center gap-3 p-3 bg-white border border-cream-200 rounded-sm
+                            hover:border-gold-400/60 hover:bg-cream-50 transition-all duration-200 cursor-pointer group">
+                  <span class="font-serif text-xl text-gold-500 w-6 text-center group-hover:scale-125 transition-transform">{inst.note}</span>
+                  <span class="text-sm text-charcoal-700 font-medium">{inst.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Note box -->
+            <div class="bg-forest-700/5 border-l-2 border-forest-700 p-4">
+              <p class="text-xs text-charcoal-700 leading-relaxed">
+                <strong class="font-medium">お申込み後の流れ：</strong><br />
+                1〜2営業日以内に担当者よりご連絡いたします。<br />
+                メール・電話どちらでもご対応可能です。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="lg:col-span-8 fade-in-right">
+          <form
+            id="trial-form"
+            class="bg-white p-8 sm:p-12 shadow-sm border border-cream-200/50"
+            data-testid="trial-form"
+            novalidate
+          >
+            <!-- Error summary (hidden by default) -->
+            <div id="form-errors" class="hidden mb-6 p-4 bg-red-50 border border-red-200" role="alert" aria-live="polite">
+              <p class="text-sm text-red-700 font-medium mb-2">以下の項目をご確認ください：</p>
+              <ul id="error-list" class="text-sm text-red-600 space-y-1 list-disc list-inside"></ul>
+            </div>
+
+            <div class="space-y-6">
+              <!-- Name row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="form-label">
+                    お名前 <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    autocomplete="name"
+                    placeholder="山田 花子"
+                    class="form-input"
+                    data-testid="input-name"
+                    aria-required="true"
+                  />
+                  <p class="text-red-500 text-xs mt-1 hidden" data-error="name"></p>
+                </div>
+                <div>
+                  <label for="kana" class="form-label">
+                    フリガナ <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="kana"
+                    name="kana"
+                    required
+                    placeholder="ヤマダ ハナコ"
+                    class="form-input"
+                    data-testid="input-kana"
+                    aria-required="true"
+                  />
+                  <p class="text-red-500 text-xs mt-1 hidden" data-error="kana"></p>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="form-label">
+                  メールアドレス <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="example@email.com"
+                  class="form-input"
+                  data-testid="input-email"
+                  aria-required="true"
+                />
+                <p class="text-red-500 text-xs mt-1 hidden" data-error="email"></p>
+              </div>
+
+              <!-- Phone -->
+              <div>
+                <label for="phone" class="form-label">
+                  電話番号 <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  autocomplete="tel"
+                  placeholder="090-0000-0000"
+                  class="form-input"
+                  data-testid="input-phone"
+                  aria-required="true"
+                />
+                <p class="text-red-500 text-xs mt-1 hidden" data-error="phone"></p>
+              </div>
+
+              <!-- Instrument -->
+              <div>
+                <label for="instrument" class="form-label">
+                  ご希望の楽器 <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
+                </label>
+                <div class="relative">
+                  <select
+                    id="instrument"
+                    name="instrument"
+                    required
+                    class="form-input appearance-none pr-10"
+                    data-testid="select-instrument"
+                    aria-required="true"
+                  >
+                    <option value="">選択してください</option>
+                    {instruments.map(inst => (
+                      <option value={inst.value}>{inst.label}</option>
+                    ))}
+                  </select>
+                  <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-charcoal-700/50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+                <p class="text-red-500 text-xs mt-1 hidden" data-error="instrument"></p>
+              </div>
+
+              <!-- Level -->
+              <div>
+                <label for="level" class="form-label">現在のレベル</label>
+                <div class="relative">
+                  <select id="level" name="level" class="form-input appearance-none pr-10">
+                    <option value="beginner">初心者（まったく未経験）</option>
+                    <option value="elementary">入門（少し経験あり）</option>
+                    <option value="intermediate">中級者</option>
+                    <option value="advanced">上級者</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-charcoal-700/50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preferred date -->
+              <div>
+                <label for="preferred_date" class="form-label">ご希望の日時（第一希望）</label>
+                <input
+                  type="text"
+                  id="preferred_date"
+                  name="preferred_date"
+                  placeholder="例：平日午後 / 土曜日午前 など"
+                  class="form-input"
+                />
+                <p class="text-[11px] text-charcoal-700/60 mt-1.5">
+                  ※火〜日曜 10:00〜20:00 / 月曜定休
+                </p>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="form-label">ご質問・その他ご要望</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  placeholder="例：子どもが通うのですが、何歳から始められますか？"
+                  class="form-input resize-none"
+                ></textarea>
+              </div>
+
+              <!-- Privacy -->
+              <div class="flex items-start gap-3">
+                <div class="relative flex-shrink-0 mt-0.5">
+                  <input
+                    type="checkbox"
+                    id="privacy"
+                    name="privacy"
+                    required
+                    class="w-4 h-4 border-cream-200 text-forest-700 focus:ring-forest-700 cursor-pointer"
+                    data-testid="checkbox-privacy"
+                    aria-required="true"
+                  />
+                </div>
+                <label for="privacy" class="text-sm text-charcoal-700 leading-relaxed cursor-pointer">
+                  <a href="/privacy" class="text-forest-700 underline underline-offset-2 hover:text-forest-600">プライバシーポリシー</a>に同意する
+                  <span class="text-red-500 ml-1" aria-label="必須">*</span>
+                </label>
+              </div>
+              <p class="text-red-500 text-xs -mt-4 hidden" data-error="privacy"></p>
+
+              <!-- Submit -->
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  class="w-full py-4 bg-forest-700 text-cream-50 font-medium text-sm flex items-center justify-center gap-2
+                         hover:bg-forest-600 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg
+                         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  data-testid="trial-submit-btn"
+                >
+                  <span class="text-gold-400 text-base">♪</span>
+                  体験レッスンを申し込む
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+                <p class="text-[11px] text-charcoal-700/50 text-center mt-3">
+                  <span class="text-red-400">*</span> は必須項目です
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-
-      <form
-        id="trial-form"
-        class="fade-in space-y-6"
-        data-testid="trial-form"
-        novalidate
-      >
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label for="name" class="block text-sm font-medium text-charcoal-900 mb-2">
-              お名前 <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              autocomplete="name"
-              placeholder="山田 花子"
-              class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                     focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                     text-sm transition-shadow"
-            />
-          </div>
-          <div>
-            <label for="kana" class="block text-sm font-medium text-charcoal-900 mb-2">
-              フリガナ <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="kana"
-              name="kana"
-              required
-              placeholder="ヤマダ ハナコ"
-              class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                     focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                     text-sm transition-shadow"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-charcoal-900 mb-2">
-            メールアドレス <span class="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            autocomplete="email"
-            placeholder="example@email.com"
-            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                   text-sm transition-shadow"
-          />
-        </div>
-
-        <div>
-          <label for="phone" class="block text-sm font-medium text-charcoal-900 mb-2">
-            電話番号 <span class="text-red-500">*</span>
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            autocomplete="tel"
-            placeholder="090-0000-0000"
-            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                   text-sm transition-shadow"
-          />
-        </div>
-
-        <div>
-          <label for="instrument" class="block text-sm font-medium text-charcoal-900 mb-2">
-            ご希望の楽器 <span class="text-red-500">*</span>
-          </label>
-          <select
-            id="instrument"
-            name="instrument"
-            required
-            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                   text-sm transition-shadow appearance-none"
-          >
-            <option value="">選択してください</option>
-            <option value="piano">ピアノ</option>
-            <option value="violin">バイオリン</option>
-            <option value="vocal">声楽</option>
-            <option value="flute">フルート</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="level" class="block text-sm font-medium text-charcoal-900 mb-2">
-            現在のレベル
-          </label>
-          <select
-            id="level"
-            name="level"
-            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                   text-sm transition-shadow appearance-none"
-          >
-            <option value="beginner">初心者（まったく未経験）</option>
-            <option value="elementary">入門（少し経験あり）</option>
-            <option value="intermediate">中級者</option>
-            <option value="advanced">上級者</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="preferred_date" class="block text-sm font-medium text-charcoal-900 mb-2">
-            ご希望の日時（第一希望）
-          </label>
-          <input
-            type="text"
-            id="preferred_date"
-            name="preferred_date"
-            placeholder="例：平日午後 / 土曜日午前 など"
-            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                   text-sm transition-shadow"
-          />
-        </div>
-
-        <div>
-          <label for="message" class="block text-sm font-medium text-charcoal-900 mb-2">
-            ご質問・その他ご要望
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="4"
-            placeholder="例：子どもが通うのですが、何歳から始められますか？"
-            class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-charcoal-900
-                   focus:outline-none focus:ring-2 focus:ring-forest-700 focus:border-transparent
-                   text-sm transition-shadow resize-none"
-          ></textarea>
-        </div>
-
-        <div class="flex items-start gap-3">
-          <input
-            type="checkbox"
-            id="privacy"
-            name="privacy"
-            required
-            class="mt-1 w-4 h-4 border-cream-200 text-forest-700 focus:ring-forest-700"
-          />
-          <label for="privacy" class="text-sm text-charcoal-700 leading-relaxed">
-            <a href="/privacy" class="text-forest-700 underline hover:text-forest-600">プライバシーポリシー</a>に同意する
-            <span class="text-red-500 ml-1">*</span>
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full py-4 bg-forest-700 text-cream-50 font-medium text-sm
-                 hover:bg-forest-600 transition-colors disabled:opacity-50"
-          data-testid="trial-submit-btn"
-        >
-          申し込む
-        </button>
-      </form>
     </div>
   </section>
 
   <script>
+    import { validateTrialForm } from '../lib/formValidation';
+
     const form = document.getElementById('trial-form') as HTMLFormElement;
+    const errorSummary = document.getElementById('form-errors')!;
+    const errorList = document.getElementById('error-list')!;
+
+    function showFieldError(field: string, message: string) {
+      const el = form.querySelector(`[data-error="${field}"]`) as HTMLElement;
+      if (el) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+      }
+    }
+
+    function clearErrors() {
+      form.querySelectorAll('[data-error]').forEach(el => {
+        (el as HTMLElement).classList.add('hidden');
+        (el as HTMLElement).textContent = '';
+      });
+      errorSummary.classList.add('hidden');
+      errorList.innerHTML = '';
+    }
+
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      clearErrors();
+
+      const data = {
+        name:           (form.elements.namedItem('name')       as HTMLInputElement).value,
+        kana:           (form.elements.namedItem('kana')       as HTMLInputElement).value,
+        email:          (form.elements.namedItem('email')      as HTMLInputElement).value,
+        phone:          (form.elements.namedItem('phone')      as HTMLInputElement).value,
+        instrument:     (form.elements.namedItem('instrument') as HTMLSelectElement).value,
+        privacyAgreed:  (form.elements.namedItem('privacy')    as HTMLInputElement).checked,
+      };
+
+      const result = validateTrialForm(data);
+
+      if (!result.valid) {
+        // Show field-level errors
+        for (const [field, message] of Object.entries(result.errors)) {
+          showFieldError(field, message);
+        }
+        // Show summary
+        errorSummary.classList.remove('hidden');
+        errorList.innerHTML = Object.values(result.errors)
+          .map(msg => `<li>${msg}</li>`)
+          .join('');
+        errorSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
       // TODO: Formspree / Netlify Forms / Cloudflare Workers等に送信
+      const btn = form.querySelector('[type="submit"]') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.textContent = '送信中...';
+
+      await new Promise(r => setTimeout(r, 800)); // Simulate network
+
       alert('お申し込みありがとうございます。担当者より1〜2営業日以内にご連絡いたします。');
       form.reset();
+      btn.disabled = false;
+      btn.innerHTML = '<span class="text-gold-400 text-base">♪</span> 体験レッスンを申し込む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>';
     });
   </script>
 
