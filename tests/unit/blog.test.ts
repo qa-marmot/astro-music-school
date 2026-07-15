@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatBlogPost } from '../../src/lib/blog';
+import { formatBlogPost, getAllBlogPosts, getBlogList, getBlogPost, getCategories } from '../../src/lib/blog';
 import type { BlogPost } from '../../src/types';
 
 const mockPost: BlogPost = {
@@ -35,10 +35,10 @@ describe('formatBlogPost', () => {
   it('eyecatchがある場合はそのURLを返す', () => {
     const postWithEyecatch: BlogPost = {
       ...mockPost,
-      eyecatch: { url: 'https://images.microcms-assets.io/test.jpg', height: 600, width: 1200 },
+      eyecatch: { url: '/images/blog/test.jpg', height: 675, width: 1200 },
     };
     const result = formatBlogPost(postWithEyecatch);
-    expect(result.eyecatchUrl).toBe('https://images.microcms-assets.io/test.jpg');
+    expect(result.eyecatchUrl).toBe('/images/blog/test.jpg');
   });
 
   it('元のposのプロパティをそのまま保持する', () => {
@@ -46,5 +46,31 @@ describe('formatBlogPost', () => {
     expect(result.id).toBe(mockPost.id);
     expect(result.title).toBe(mockPost.title);
     expect(result.category.name).toBe('お知らせ');
+  });
+});
+
+describe('ローカルブログデータ', () => {
+  it('4件の記事と2件のカテゴリを返す', async () => {
+    await expect(getAllBlogPosts()).resolves.toHaveLength(4);
+    await expect(getCategories()).resolves.toHaveLength(2);
+  });
+
+  it('カテゴリで記事を絞り込む', async () => {
+    const result = await getBlogList({ categoryId: 'practice' });
+    expect(result.totalCount).toBe(2);
+    expect(result.contents.every((post) => post.category.id === 'practice')).toBe(true);
+  });
+
+  it('limitとoffsetで記事をページングする', async () => {
+    const result = await getBlogList({ limit: 2, offset: 1 });
+    expect(result.contents).toHaveLength(2);
+    expect(result.totalCount).toBe(4);
+    expect(result.limit).toBe(2);
+    expect(result.offset).toBe(1);
+  });
+
+  it('IDから記事を取得する', async () => {
+    const post = await getBlogPost('piano-practice-rhythm');
+    expect(post.title).toContain('ピアノ初心者');
   });
 });

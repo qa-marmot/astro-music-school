@@ -2,7 +2,7 @@
 
 音楽教室向けのAstroサイトです。ピアノ、ギター、バイオリン、声楽の個人レッスンと、有料体験レッスンの申込導線を扱います。
 
-Astro 4 / Tailwind CSS / microCMS / Vitest / Playwrightで構成し、Cloudflare Pagesへの静的デプロイを想定しています。
+Astro 4 / Tailwind CSS / Vitest / Playwrightで構成し、Cloudflare Pagesへの静的デプロイを想定しています。
 
 ## セットアップ
 
@@ -23,7 +23,7 @@ npm run dev
 - 全ページにサンプル表示を出し、`noindex,nofollow` にする
 - 架空の講師、住所、連絡先、実績を表示しない
 - フォーム送信先がない場合は「送信されません」と明示し、成功扱いにしない
-- microCMS未設定でもビルドし、ブログは空状態を表示する
+- ブログはリポジトリ内のサンプル記事だけで静的生成し、外部CMSへ接続しない
 
 本番化する場合は `.env` を次のように設定し、[src/data/site.ts](./src/data/site.ts) に確認済みの教室情報、講師、料金を設定してください。
 
@@ -32,8 +32,6 @@ PUBLIC_CONTENT_MODE=production
 PUBLIC_SITE_URL=https://example.com
 PUBLIC_SITE_NAME=Harmony Music School
 PUBLIC_FORM_ENDPOINT=https://example.com/api/forms
-MICROCMS_SERVICE_DOMAIN=your-service-domain
-MICROCMS_API_KEY=your-api-key
 ```
 
 本番モードでは、HTTPSの公開URL、フォーム送信先、連絡先、講師が不足しているとビルドを停止します。プライバシーポリシーと料金条件も実際の運用に合わせて確認してください。
@@ -54,20 +52,16 @@ MICROCMS_API_KEY=your-api-key
 
 `type` は `trial` または `contact` です。既存のフォームfield名をそのまま送ります。API側では入力値の再検証、レート制限、スパム対策、適切なCORS設定を行ってください。
 
-## microCMS
+## ブログ
 
-ブログだけをmicroCMSで管理します。スキーマは [microcms-schema/SCHEMA.md](./microcms-schema/SCHEMA.md) を参照してください。
-
-- `categories`: `name`, `slug`
-- `blog`: `title`, `slug`, `excerpt`, `content`, `eyecatch`, `category`
-
-環境変数がない場合、一覧はHTTP 200の空状態になります。架空のフォールバック記事や詳細ルートは生成しません。
+デモ用ブログは [src/data/blog.ts](./src/data/blog.ts) の4記事を静的生成します。アイキャッチ画像も `public/images/blog/` に含まれるため、外部CMS、APIキー、画像CDNは不要です。記事を追加するときは既存データと同じ形式で本文・カテゴリ・画像情報を登録してください。
 
 ## デザインシステム
 
 - Semantic Color Tokenの正本: [src/styles/global.css](./src/styles/global.css)
 - Tailwindとの接続: [tailwind.config.js](./tailwind.config.js)
 - 教室・コース・料金: [src/data/site.ts](./src/data/site.ts)
+- サンプルブログ: [src/data/blog.ts](./src/data/blog.ts)
 - UI primitive: `src/components/ui/`
 - FAQ / Blog component: `src/components/content/`, `src/components/blog/`
 

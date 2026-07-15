@@ -6,6 +6,7 @@ const SITE_URL = process.env.PUBLIC_SITE_URL || 'http://localhost:4321';
 
 export default defineConfig({
   site: SITE_URL,
+  devToolbar: { enabled: false },
   integrations: [
     tailwind(),
     sitemap(),

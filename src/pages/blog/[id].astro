@@ -36,7 +36,7 @@ const jsonLd = !isDemo ? {
       </header>
 
       {post.eyecatchUrl && (
-        <img src={post.eyecatchUrl} alt="" width={post.eyecatch?.width ?? 1200} height={post.eyecatch?.height ?? 630} class="mb-12 aspect-video w-full object-cover" fetchpriority="high" decoding="async" />
+        <img src={post.eyecatchUrl} alt={post.eyecatchAlt ?? ''} width={post.eyecatch?.width ?? 1200} height={post.eyecatch?.height ?? 675} class="mb-12 aspect-video w-full object-cover" fetchpriority="high" decoding="async" />
       )}
       <div class="prose-content" set:html={sanitizeHtml(post.content)} />
       <footer class="mt-14 border-t border-line pt-8"><ActionLink href="/blog" variant="tertiary">ブログ一覧へ戻る</ActionLink></footer>

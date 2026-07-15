@@ -79,9 +79,9 @@ describe('sanitizeHtml', () => {
   });
 
   it('通常の img src は保持する', () => {
-    const html = '<img src="https://images.microcms-assets.io/test.jpg" alt="テスト" />';
+    const html = '<img src="https://cdn.example.com/test.jpg" alt="テスト" />';
     const result = sanitizeHtml(html);
-    expect(result).toContain('src="https://images.microcms-assets.io/test.jpg"');
+    expect(result).toContain('src="https://cdn.example.com/test.jpg"');
     expect(result).toContain('alt="テスト"');
   });
 

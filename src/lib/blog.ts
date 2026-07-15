@@ -1,59 +1,37 @@
-import { client } from './microcms';
 import type { BlogPost, BlogListResponse, Category } from '../types';
-
-const BLOG_ENDPOINT = 'blog';
-const CATEGORY_ENDPOINT = 'categories';
+import { blogCategories, blogPosts } from '../data/blog';
 
 export async function getBlogList(params?: {
   limit?: number;
   offset?: number;
   categoryId?: string;
 }): Promise<BlogListResponse> {
-  if (!client) {
-    return { contents: [], totalCount: 0, offset: params?.offset ?? 0, limit: params?.limit ?? 10 };
-  }
+  const limit = params?.limit ?? 10;
+  const offset = params?.offset ?? 0;
+  const filtered = params?.categoryId
+    ? blogPosts.filter((post) => post.category.id === params.categoryId)
+    : blogPosts;
 
-  const filters = params?.categoryId
-    ? `category[equals]${params.categoryId}`
-    : undefined;
-
-  const response = await client.getList<BlogPost>({
-    endpoint: BLOG_ENDPOINT,
-    queries: {
-      limit: params?.limit ?? 10,
-      offset: params?.offset ?? 0,
-      filters,
-      orders: '-publishedAt',
-    },
-  });
-
-  return response;
+  return {
+    contents: filtered.slice(offset, offset + limit),
+    totalCount: filtered.length,
+    offset,
+    limit,
+  };
 }
 
 export async function getBlogPost(id: string): Promise<BlogPost> {
-  if (!client) throw new Error('microCMS is not configured');
-  return client.get<BlogPost>({
-    endpoint: BLOG_ENDPOINT,
-    contentId: id,
-  });
+  const post = blogPosts.find((item) => item.id === id);
+  if (!post) throw new Error(`Blog post not found: ${id}`);
+  return post;
 }
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  if (!client) return [];
-  const response = await client.getList<BlogPost>({
-    endpoint: BLOG_ENDPOINT,
-    queries: { limit: 100, orders: '-publishedAt' },
-  });
-  return response.contents;
+  return [...blogPosts];
 }
 
 export async function getCategories(): Promise<Category[]> {
-  if (!client) return [];
-  const response = await client.getList<Category>({
-    endpoint: CATEGORY_ENDPOINT,
-    queries: { limit: 20 },
-  });
-  return response.contents;
+  return [...blogCategories];
 }
 
 /** レスポンスから表示用に整形する */

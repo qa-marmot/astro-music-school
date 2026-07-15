@@ -7,6 +7,7 @@ interface Props {
     publishedAt: string;
     formattedDate: string;
     eyecatchUrl?: string;
+    eyecatchAlt?: string;
     eyecatch?: { width: number; height: number };
     category: { name: string };
   };
@@ -20,7 +21,7 @@ const { post } = Astro.props;
       {post.eyecatchUrl ? (
         <img
           src={post.eyecatchUrl}
-          alt=""
+          alt={post.eyecatchAlt ?? ''}
           width={post.eyecatch?.width ?? 1200}
           height={post.eyecatch?.height ?? 630}
           class="h-full w-full object-cover"

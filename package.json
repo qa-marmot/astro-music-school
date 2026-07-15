@@ -18,8 +18,7 @@
   "dependencies": {
     "@astrojs/sitemap": "3.1.6",
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.5.0",
-    "microcms-js-sdk": "^3.1.1"
+    "astro": "^4.5.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",

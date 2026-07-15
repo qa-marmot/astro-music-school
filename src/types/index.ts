@@ -1,4 +1,4 @@
-export interface MicroCMSImage {
+export interface ContentImage {
   url: string;
   height: number;
   width: number;
@@ -20,7 +20,8 @@ export interface BlogPost {
   slug: string;
   excerpt: string;
   content: string;
-  eyecatch?: MicroCMSImage;
+  eyecatch?: ContentImage;
+  eyecatchAlt?: string;
   category: Category;
   tags?: string[];
 }
@@ -38,7 +39,7 @@ export interface Instructor {
   nameKana: string;
   role: string;
   bio: string;
-  photo?: MicroCMSImage;
+  photo?: ContentImage;
   instruments: string[];
   career?: string;
 }

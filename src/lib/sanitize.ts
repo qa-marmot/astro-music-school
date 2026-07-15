@@ -1,5 +1,5 @@
 /**
- * microCMS リッチエディタの HTML 出力をサニタイズする
+ * ブログ本文の HTML 出力をサニタイズする
  *
  * 方針:
  * - 許可タグのみ残し、それ以外は除去（タグごと削除ではなくテキストは保持）
@@ -10,7 +10,7 @@
  *
  * ⚠️ Node.js ビルド時（SSG）専用。ブラウザ DOM API は使用しない。
  *    軽量な正規表現ベース実装。複雑なネストには限界があるが、
- *    CMS入力のリッチテキストには十分なレベル。
+ *    管理されたリッチテキストには十分なレベル。
  */
 
 /** 内容ごと削除するタグ（開始〜終了タグをまるごと除去） */
@@ -88,7 +88,7 @@ function filterAttributes(tagStr: string, tagName: string): string {
 }
 
 /**
- * microCMS リッチエディタ HTML をサニタイズして返す
+ * ブログ本文の HTML をサニタイズして返す
  */
 export function sanitizeHtml(html: string): string {
   if (!html) return '';
