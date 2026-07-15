@@ -1,0 +1,45 @@
+---
+interface Props {
+  post: {
+    id: string;
+    title: string;
+    excerpt: string;
+    publishedAt: string;
+    formattedDate: string;
+    eyecatchUrl?: string;
+    eyecatch?: { width: number; height: number };
+    category: { name: string };
+  };
+}
+const { post } = Astro.props;
+---
+
+<article class="content-card content-card--interactive h-full" data-testid="blog-card">
+  <a href={`/blog/${post.id}`} class="flex h-full flex-col no-underline">
+    <div class="aspect-video overflow-hidden bg-subtle">
+      {post.eyecatchUrl ? (
+        <img
+          src={post.eyecatchUrl}
+          alt=""
+          width={post.eyecatch?.width ?? 1200}
+          height={post.eyecatch?.height ?? 630}
+          class="h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="flex h-full items-end p-5" aria-hidden="true">
+          <span class="border-l-2 border-accent pl-3 text-sm font-bold text-brand">Harmony Journal</span>
+        </div>
+      )}
+    </div>
+    <div class="flex flex-1 flex-col p-5">
+      <div class="mb-3 flex flex-wrap items-center gap-3 text-xs text-ink-muted">
+        <span class="border-l-2 border-accent pl-2 font-bold text-brand">{post.category.name}</span>
+        <time datetime={post.publishedAt}>{post.formattedDate}</time>
+      </div>
+      <h2 class="mb-2 text-xl font-bold leading-8 text-ink">{post.title}</h2>
+      <p class="mb-0 line-clamp-3 text-sm leading-7 text-ink-secondary">{post.excerpt}</p>
+    </div>
+  </a>
+</article>

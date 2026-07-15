@@ -181,7 +181,7 @@ test.describe('トップページ — 主要ボタン', () => {
     await expect(btn).toHaveAttribute('href', '/lessons');
   });
 
-  test('CTAの無料体験ボタンが表示される', async ({ page }) => {
+  test('CTAの有料体験ボタンが表示される', async ({ page }) => {
     await page.goto('/');
     await waitForPageReady(page);
 

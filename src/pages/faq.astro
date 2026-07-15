@@ -1,126 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import FaqList from '../components/content/FaqList.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import StatusPanel from '../components/ui/StatusPanel.astro';
+import { isDemo } from '../data/site';
 
 const categories = [
   {
     title: 'レッスンについて',
     items: [
-      { q: '体験レッスンはありますか？', a: 'はい、随時受付しております。3,000円（税別）で45〜60分の体験レッスンをご受講いただけます。お申し込みはオンラインフォームまたはお電話にて承っております。' },
-      { q: '何歳から通えますか？', a: 'ピアノ・バイオリンは4〜5歳から、声楽は小学生から承っています。上限年齢はございません。シニアの方も多数在籍されています。' },
-      { q: '楽器が自宅にありませんが大丈夫ですか？', a: 'まずは体験レッスンを受けてみてから楽器を選ぶことをおすすめしています。楽器の選び方・購入先についてのアドバイスも行っています。' },
-      { q: 'レッスンは何分ですか？', a: 'プランによって異なりますが、体験レッスンは45〜60分、通常レッスンは45分・60分・90分からお選びいただけます。' },
+      { q: '楽器が初めてでも受講できますか？', a: 'はい。構え方や楽譜の読み方など、基礎から一つずつ進める想定です。経験や目標を体験フォームでお知らせください。' },
+      { q: '子どもや大人の初心者にも対応していますか？', a: '4歳頃のお子さまから大人・シニアまでを想定しています。楽器のサイズや身体的な負担については、個別に確認します。' },
+      { q: '自宅に楽器がなくても始められますか？', a: '練習環境やレンタルの有無は教室ごとに条件が異なるため、本番公開前に確認が必要です。まずはお問い合わせください。' },
     ],
   },
   {
-    title: '料金・手続きについて',
+    title: '料金・通い方について',
     items: [
-      { q: '月の途中から入会できますか？', a: 'はい、月途中からでも入会可能です。その場合の月謝は日割り計算となります。' },
-      { q: '振替レッスンはありますか？', a: 'はい、ご都合の悪い場合は振替レッスンが可能です（プランによって振替回数が異なります）。欠席される場合は前日までにご連絡ください。' },
-      { q: '休会はできますか？', a: '1ヶ月以上の長期休会を希望される場合は、1ヶ月前までにお申し出ください。休会中は月額3,000円の籍保留費をいただいております。' },
+      { q: '体験レッスンの料金はいくらですか？', a: 'デモ上の設定は3,000円（税別）、税込3,300円です。本番では確定した税込総額を主表示します。' },
+      { q: '振替レッスンはできますか？', a: '現在の料金例ではプランごとに回数を設けています。正式な期限、連絡方法、適用条件は本番公開前に確定します。' },
+      { q: '支払い方法は選べますか？', a: '支払い方法は現在確認中です。本番では利用できる方法と支払日を明記します。' },
     ],
   },
   {
-    title: '設備・環境について',
+    title: '体験・お申し込みについて',
     items: [
-      { q: 'レッスン室は防音になっていますか？', a: 'はい、全レッスン室が完全防音になっています。また、グランドピアノ・電子ピアノを各室に完備しています。' },
-      { q: '駐車場はありますか？', a: '教室には専用駐車場はございませんが、近隣にコインパーキングが複数ございます。電車・バスのご利用をおすすめしています。' },
-      { q: '子ども1人で通えますか？', a: '年齢・保護者のご判断によりますが、多くのお子様が1人でご来室されています。教室スタッフが到着・出発時にサポートします。' },
+      { q: '体験では何をしますか？', a: '経験や目標を伺い、実際に音を出しながら、今後の進め方を相談します。所要時間は45〜60分の想定です。' },
+      { q: 'フォームを送れば予約は確定しますか？', a: 'いいえ。フォーム送信後に担当者が候補日時を確認し、双方の合意後に予約確定となります。' },
+      { q: 'どの楽器を選ぶか迷っています。', a: '一般お問い合わせフォームから、興味のある音楽や経験をお知らせください。4コースの特徴をご案内します。' },
     ],
   },
 ];
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: categories.flatMap(cat =>
-    cat.items.map(item => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
-    }))
-  ),
-};
+const allItems = categories.flatMap((category) => category.items);
+const faqJsonLd = !isDemo ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: allItems.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) } : undefined;
 ---
 
-<BaseLayout
-  title="よくあるご質問"
-  description="Harmony Music Schoolへのよくあるご質問。レッスン・料金・設備について詳しく解説しています。"
-  jsonLd={jsonLd}
->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/4861059/pexels-photo-4861059.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt=""
-        class="w-full h-full object-cover object-center"
-        loading="eager"
-        aria-hidden="true"
-      />
-      <div class="absolute inset-0 bg-gradient-to-br from-charcoal-900/88 via-forest-900/80 to-charcoal-900/85" />
-      <div
-        class="absolute inset-0 opacity-[0.04]"
-        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
-        aria-hidden="true"
-      />
-    </div>
-    <div class="absolute bottom-8 right-12 text-5xl text-gold-400 opacity-10 font-serif animate-float select-none pointer-events-none" aria-hidden="true">♬</div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="h-px w-12 bg-gold-400" />
-        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">FAQ</p>
-      </div>
-      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
-        よくある<em class="not-italic font-bold italic text-gold-400">ご質問</em>
-      </h1>
-      <p class="text-cream-200/70 text-sm max-w-lg leading-relaxed">
-        レッスン・料金・設備について、よくいただくご質問をまとめました。
-      </p>
-    </div>
-  </section>
-
-  <section class="py-24">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-      {categories.map((cat, ci) => (
-        <div class="fade-in" style={`transition-delay: ${ci * 100}ms`}>
-          <h2 class="font-serif text-2xl text-charcoal-900 mb-6 pb-3 border-b-2 border-gold-400">
-            {cat.title}
-          </h2>
-          <div class="space-y-3">
-            {cat.items.map((item, i) => (
-              <details class="group border border-cream-200 bg-cream-50">
-                <summary class="flex items-start justify-between p-6 cursor-pointer list-none gap-4">
-                  <h3 class="font-medium text-charcoal-900 flex items-start gap-2">
-                    <span class="text-forest-700 flex-shrink-0">Q.</span>
-                    {item.q}
-                  </h3>
-                  <span class="flex-shrink-0 w-5 h-5 mt-0.5 text-charcoal-700 group-open:rotate-180 transition-transform duration-200">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </summary>
-                <div class="px-6 pb-6 border-t border-cream-200">
-                  <div class="pt-4 flex gap-2 text-sm text-charcoal-700 leading-relaxed">
-                    <span class="text-gold-500 font-medium flex-shrink-0">A.</span>
-                    <p>{item.a}</p>
-                  </div>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      ))}
-
-      <!-- CTA -->
-      <div class="fade-in text-center bg-cream-100 border border-cream-200 p-12">
-        <h2 class="font-serif text-2xl text-charcoal-900 mb-4">解決しない場合は</h2>
-        <p class="text-sm text-charcoal-700 mb-8">お気軽にお問い合わせください。担当者が丁寧にご回答します。</p>
-        <a href="/contact" class="inline-block px-8 py-4 bg-forest-700 text-cream-50 text-sm hover:bg-forest-600 transition-colors">
-          お問い合わせはこちら
-        </a>
+<BaseLayout title="よくあるご質問" description="レッスン、料金、体験申込についてのよくある質問をご案内します。" jsonLd={faqJsonLd}>
+  <PageHeader title="よくあるご質問" eyebrow="FAQ" description="ご検討中によくいただく質問を、テーマ別にまとめています。" />
+  <section class="site-section">
+    <div class="site-container-narrow">
+      {isDemo && <div class="mb-10"><StatusPanel type="warning" title="回答はサンプルです"><p>本番公開前に、料金、設備、振替、対象年齢などの正式な条件と一致させてください。</p></StatusPanel></div>}
+      <div class="space-y-14">
+        {categories.map((category) => (
+          <section>
+            <SectionHeading title={category.title} />
+            <FaqList items={category.items} />
+          </section>
+        ))}
       </div>
     </div>
   </section>
-
+  <CTASection title="解決しないことは、個別にご相談ください" description="体験をご希望の方は体験申込へ、その他のご質問は一般お問い合わせへお進みください。" secondaryHref="/contact" secondaryLabel="一般のお問い合わせ" />
 </BaseLayout>

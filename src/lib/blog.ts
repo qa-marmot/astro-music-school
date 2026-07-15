@@ -9,6 +9,10 @@ export async function getBlogList(params?: {
   offset?: number;
   categoryId?: string;
 }): Promise<BlogListResponse> {
+  if (!client) {
+    return { contents: [], totalCount: 0, offset: params?.offset ?? 0, limit: params?.limit ?? 10 };
+  }
+
   const filters = params?.categoryId
     ? `category[equals]${params.categoryId}`
     : undefined;
@@ -27,6 +31,7 @@ export async function getBlogList(params?: {
 }
 
 export async function getBlogPost(id: string): Promise<BlogPost> {
+  if (!client) throw new Error('microCMS is not configured');
   return client.get<BlogPost>({
     endpoint: BLOG_ENDPOINT,
     contentId: id,
@@ -34,6 +39,7 @@ export async function getBlogPost(id: string): Promise<BlogPost> {
 }
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  if (!client) return [];
   const response = await client.getList<BlogPost>({
     endpoint: BLOG_ENDPOINT,
     queries: { limit: 100, orders: '-publishedAt' },
@@ -42,6 +48,7 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
 }
 
 export async function getCategories(): Promise<Category[]> {
+  if (!client) return [];
   const response = await client.getList<Category>({
     endpoint: CATEGORY_ENDPOINT,
     queries: { limit: 20 },
@@ -56,6 +63,6 @@ export function formatBlogPost(post: BlogPost) {
   return {
     ...post,
     formattedDate: formatted,
-    eyecatchUrl: post.eyecatch?.url ?? '/images/blog-placeholder.jpg',
+    eyecatchUrl: post.eyecatch?.url,
   };
 }

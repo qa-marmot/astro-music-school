@@ -27,9 +27,9 @@ describe('formatBlogPost', () => {
     expect(result.formattedDate).toMatch(/日/);
   });
 
-  it('eyecatchがない場合はプレースホルダーURLを返す', () => {
+  it('eyecatchがない場合はURLを返さない', () => {
     const result = formatBlogPost(mockPost);
-    expect(result.eyecatchUrl).toBe('/images/blog-placeholder.jpg');
+    expect(result.eyecatchUrl).toBeUndefined();
   });
 
   it('eyecatchがある場合はそのURLを返す', () => {

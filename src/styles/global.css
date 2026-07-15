@@ -1,381 +1,212 @@
-/* =====================================================
-   Harmony Music School — Global Design System CSS
-   「感性を刺激する音楽教室」脱AI デザイン戦略
-   ===================================================== */
+:root {
+  --color-brand-primary: 35 72 48;
+  --color-brand-primary-hover: 45 90 61;
+  --color-brand-secondary: 111 78 55;
+  --color-accent: 196 154 60;
+  --color-accent-strong: 122 90 24;
+  --color-bg-canvas: 253 251 247;
+  --color-bg-subtle: 249 244 236;
+  --color-bg-surface: 255 255 255;
+  --color-bg-elevated: 255 255 255;
+  --color-text-primary: 26 26 26;
+  --color-text-secondary: 61 61 61;
+  --color-text-muted: 103 98 88;
+  --color-border-default: 222 213 197;
+  --color-border-strong: 140 128 109;
+  --color-link: 35 72 48;
+  --color-focus-ring: 45 90 61;
+  --color-success: 39 98 61;
+  --color-warning: 138 90 0;
+  --color-error: 180 35 24;
+  --color-disabled-bg: 232 227 218;
+  --color-disabled-text: 110 106 99;
 
-/* ---------- Typography Rhythm ---------- */
-.heading-weight-play {
-  /* 太さのコントラストで躍動感を演出 */
-}
-.heading-weight-play .thin  { font-weight: 300; }
-.heading-weight-play .heavy { font-weight: 700; font-style: italic; }
-
-/* ---------- Fade-in Animations ---------- */
-.fade-in {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-in-left {
-  opacity: 0;
-  transform: translateX(-32px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
-}
-.fade-in-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.fade-in-right {
-  opacity: 0;
-  transform: translateX(32px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
-}
-.fade-in-right.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ---------- Staff Line Texture ---------- */
-/* 背景に薄い五線譜テクスチャを適用 */
-.texture-staff {
-  position: relative;
-}
-.texture-staff::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 19px,
-      rgba(139, 94, 60, 0.055) 19px,
-      rgba(139, 94, 60, 0.055) 20px
-    );
-  background-size: 100% 100px;
-}
-.texture-staff > * { position: relative; z-index: 1; }
-
-.texture-staff-dark::before {
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 19px,
-      rgba(255, 255, 255, 0.07) 19px,
-      rgba(255, 255, 255, 0.07) 20px
-    );
+  --space-2xs: .25rem;
+  --space-xs: .5rem;
+  --space-sm: .75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-section: clamp(4rem, 7vw, 6rem);
+  --content-width: 72rem;
+  --content-width-wide: 80rem;
+  --content-width-narrow: 44rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 1px 2px rgba(17, 36, 24, .08);
+  --shadow-md: 0 8px 24px rgba(17, 36, 24, .12);
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 240ms;
+  --motion-ease: cubic-bezier(.2, 0, 0, 1);
 }
 
-/* ---------- Floating Music Notes ---------- */
-/* 楽譜のような音符のあしらい */
-.music-notes-bg {
-  position: relative;
-  overflow: hidden;
-}
-.music-notes-bg .note {
-  position: absolute;
-  font-size: 1.5rem;
-  opacity: 0.08;
-  pointer-events: none;
-  user-select: none;
-  animation: noteDrift 12s ease-in-out infinite;
-  color: #234830;
-}
-.music-notes-bg .note:nth-child(2) { animation-delay: -3s; animation-duration: 15s; }
-.music-notes-bg .note:nth-child(3) { animation-delay: -6s; animation-duration: 10s; }
-.music-notes-bg .note:nth-child(4) { animation-delay: -9s; animation-duration: 13s; }
-.music-notes-bg .note:nth-child(5) { animation-delay: -2s; animation-duration: 17s; }
-.music-notes-bg .note:nth-child(6) { animation-delay: -7s; animation-duration: 11s; }
+*, *::before, *::after { box-sizing: border-box; }
 
-@keyframes noteDrift {
-  0%   { transform: translateY(0px) rotate(-5deg) scale(1); }
-  25%  { transform: translateY(-18px) rotate(3deg) scale(1.05); }
-  50%  { transform: translateY(-8px) rotate(-8deg) scale(0.95); }
-  75%  { transform: translateY(-22px) rotate(6deg) scale(1.02); }
-  100% { transform: translateY(0px) rotate(-5deg) scale(1); }
+html {
+  color: rgb(var(--color-text-primary));
+  background: rgb(var(--color-bg-canvas));
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
 }
 
-/* ---------- Polaroid Card Style ---------- */
-/* 講師カード：ポラロイド写真風 */
-.polaroid {
-  background: #ffffff;
-  padding: 1rem 1rem 3.5rem;
-  box-shadow:
-    0 1px 3px rgba(0,0,0,0.08),
-    2px 5px 18px rgba(0,0,0,0.14),
-    0 0 0 1px rgba(0,0,0,0.04);
-  position: relative;
-}
-.polaroid::after {
-  /* テープ風の装飾 */
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-2deg);
-  width: 64px;
-  height: 22px;
-  background: rgba(212, 168, 83, 0.35);
-  border-radius: 2px;
-}
-.polaroid-rotate-1  { transform: rotate(-2.5deg); }
-.polaroid-rotate-2  { transform: rotate(1.8deg);  }
-.polaroid-rotate-3  { transform: rotate(-1.2deg); }
-
-.polaroid:hover {
-  transform: rotate(0deg) scale(1.03) !important;
-  box-shadow:
-    0 4px 12px rgba(0,0,0,0.12),
-    4px 12px 36px rgba(0,0,0,0.18);
-  z-index: 10;
-}
-.polaroid { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease; }
-
-/* ---------- Handwritten-style accent ---------- */
-.handwritten {
-  font-family: 'Dancing Script', 'Caveat', 'Brush Script MT', cursive;
-  font-style: italic;
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  background: rgb(var(--color-bg-canvas));
 }
 
-/* ---------- Instrument Texture Gradients ---------- */
-/* 楽器の素材感を感じさせるグラデーション */
-.gradient-piano {
-  background: linear-gradient(135deg,
-    #1a1a2e 0%,
-    #16213e 30%,
-    #0f3460 60%,
-    #1a1a2e 100%
-  );
-}
-.gradient-guitar {
-  background: linear-gradient(135deg,
-    #3d2b1f 0%,
-    #8b5e3c 25%,
-    #c49a3c 50%,
-    #8b5e3c 75%,
-    #3d2b1f 100%
-  );
-}
-.gradient-violin {
-  background: linear-gradient(135deg,
-    #4f1a2e 0%,
-    #7c2d4a 35%,
-    #a84060 60%,
-    #7c2d4a 80%,
-    #4f1a2e 100%
-  );
-}
-.gradient-vocal {
-  background: linear-gradient(135deg,
-    #0d2827 0%,
-    #2a7f7a 40%,
-    #4aaaa5 65%,
-    #2a7f7a 85%,
-    #0d2827 100%
-  );
-}
-.gradient-flute {
-  background: linear-gradient(135deg,
-    #1a3020 0%,
-    #3d6b47 40%,
-    #5e9e6a 65%,
-    #3d6b47 85%,
-    #1a3020 100%
-  );
+h1, h2 {
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  text-wrap: balance;
 }
 
-/* ---------- Piano Key Decoration (CSS Art) ---------- */
-.piano-keys-deco {
-  display: flex;
-  gap: 2px;
-  height: 48px;
-  align-items: flex-start;
+h1, h2, h3, h4, p { margin-top: 0; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; }
+
+.site-container,
+.site-container-wide,
+.site-container-narrow {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
 }
-.piano-keys-deco .key-white {
-  width: 24px;
-  height: 100%;
-  background: #fdfbf7;
-  border: 1px solid #e0d5c5;
-  border-radius: 0 0 3px 3px;
-  box-shadow: inset 0 -4px 6px rgba(0,0,0,0.08);
-}
-.piano-keys-deco .key-black {
-  width: 16px;
-  height: 64%;
-  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
-  border-radius: 0 0 2px 2px;
-  margin-left: -9px;
-  margin-right: -9px;
-  z-index: 1;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+.site-container-wide { max-width: var(--content-width-wide); }
+.site-container-narrow { max-width: var(--content-width-narrow); }
+
+.site-section { padding-block: var(--space-section); }
+.site-section--subtle { background: rgb(var(--color-bg-subtle)); }
+.site-section--dark { color: rgb(var(--color-bg-canvas)); background: rgb(var(--color-brand-primary)); }
+
+.eyebrow {
+  margin-bottom: .75rem;
+  color: rgb(var(--color-accent-strong));
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
 }
 
-/* ---------- Section Rhythm Offset ---------- */
-/* 楽譜のリズムのように要素を少しずらす */
-.rhythm-offset-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  align-items: start;
+.display-title { font-size: clamp(2.75rem, 7vw, 4rem); line-height: 1.2; letter-spacing: -.03em; }
+.page-title { font-size: clamp(2.25rem, 5vw, 3rem); line-height: 1.3; letter-spacing: -.02em; }
+.section-title { font-size: clamp(1.875rem, 4vw, 2.5rem); line-height: 1.4; letter-spacing: -.015em; }
+.lead { max-width: 34em; font-size: clamp(1.0625rem, 2vw, 1.25rem); line-height: 1.8; }
+.measure { max-width: 42em; }
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: .75rem;
+  left: .75rem;
+  padding: .75rem 1rem;
+  color: rgb(var(--color-bg-canvas));
+  background: rgb(var(--color-brand-primary));
+  transform: translateY(-160%);
 }
-.rhythm-offset-grid > :nth-child(2),
-.rhythm-offset-grid > :nth-child(4) {
-  margin-top: 2.5rem;
+.skip-link:focus { transform: translateY(0); }
+
+.demo-banner {
+  padding: .4rem 1rem;
+  color: rgb(var(--color-bg-canvas));
+  background: rgb(var(--color-brand-secondary));
+  font-size: .75rem;
+  font-weight: 700;
+  text-align: center;
 }
 
-@media (max-width: 1023px) {
-  .rhythm-offset-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .rhythm-offset-grid > :nth-child(2) { margin-top: 2rem; }
-  .rhythm-offset-grid > :nth-child(4) { margin-top: 0; }
-}
-@media (max-width: 639px) {
-  .rhythm-offset-grid {
-    grid-template-columns: 1fr;
-  }
-  .rhythm-offset-grid > :nth-child(2),
-  .rhythm-offset-grid > :nth-child(4) { margin-top: 0; }
-}
-
-/* ---------- Course Tag Badge ---------- */
-.course-badge {
+.action {
   display: inline-flex;
+  min-height: 44px;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  justify-content: center;
+  gap: .5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: .9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color var(--motion-base) var(--motion-ease), background-color var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease), transform var(--motion-fast) var(--motion-ease);
 }
+.action:hover { transform: translateY(-1px); }
+.action:active { transform: translateY(0); }
+.action--sm { padding: .625rem 1rem; }
+.action--md { padding: .75rem 1.25rem; }
+.action--lg { min-height: 48px; padding: .875rem 1.5rem; }
+.action--primary { color: #112418; background: rgb(var(--color-accent)); }
+.action--primary:hover { background: #d4a853; }
+.action--secondary { color: rgb(var(--color-brand-primary)); border-color: rgb(var(--color-brand-primary)); background: transparent; }
+.action--secondary:hover { color: rgb(var(--color-bg-canvas)); background: rgb(var(--color-brand-primary)); }
+.action--tertiary { min-height: 44px; padding-inline: .25rem; color: rgb(var(--color-brand-primary)); text-decoration: underline; text-underline-offset: .3em; }
+.action--on-dark.action--secondary, .action--on-dark.action--tertiary { color: rgb(var(--color-bg-canvas)); border-color: rgb(var(--color-bg-canvas) / .7); }
 
-/* ---------- Scroll Indicator ---------- */
-.scroll-indicator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgba(253,251,247,0.6);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-.scroll-indicator .line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(253,251,247,0.6), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.6; transform: scaleY(1); }
-  50%       { opacity: 1;   transform: scaleY(0.7); }
-}
-
-/* ---------- Pull Quote ---------- */
-.pull-quote {
-  position: relative;
-  padding: 2rem 2.5rem;
-  border-left: 3px solid #c49a3c;
-  background: linear-gradient(135deg, rgba(212,168,83,0.06), transparent);
-}
-.pull-quote::before {
-  content: '\201C';
-  position: absolute;
-  top: -0.5rem;
-  left: 1.5rem;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 5rem;
-  color: rgba(196, 154, 60, 0.25);
-  line-height: 1;
-}
-
-/* ---------- Global Smooth Scroll & Focus ---------- */
-html { scroll-behavior: smooth; }
-
-:focus-visible {
-  outline: 2px solid #2d5a3d;
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* ---------- Form Elements ---------- */
+.form-field { display: grid; gap: .5rem; }
+.form-label { font-size: .875rem; font-weight: 700; }
+.form-required { color: rgb(var(--color-error)); }
+.form-hint { margin: 0; color: rgb(var(--color-text-muted)); font-size: .875rem; line-height: 1.7; }
+.form-error { margin: 0; color: rgb(var(--color-error)); font-size: .875rem; font-weight: 500; }
 .form-input {
   width: 100%;
-  padding: 0.875rem 1.125rem;
-  border: 1.5px solid #f2e8d5;
-  background: #fdfbf7;
-  color: #1a1a1a;
-  font-size: 0.875rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 2px;
+  min-height: 48px;
+  padding: .75rem 1rem;
+  border: 1px solid rgb(var(--color-border-strong));
+  border-radius: var(--radius-sm);
+  color: rgb(var(--color-text-primary));
+  background: rgb(var(--color-bg-surface));
+  transition: border-color var(--motion-base), box-shadow var(--motion-base);
 }
-.form-input:focus {
-  outline: none;
-  border-color: #234830;
-  box-shadow: 0 0 0 3px rgba(35, 72, 48, 0.1);
-}
-.form-input::placeholder { color: #a09880; }
+textarea.form-input { min-height: 8rem; resize: vertical; }
+.form-input[aria-invalid="true"] { border-color: rgb(var(--color-error)); }
+.form-input:disabled { color: rgb(var(--color-disabled-text)); background: rgb(var(--color-disabled-bg)); cursor: not-allowed; }
 
-.form-label {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.02em;
-}
+.status-panel { padding: 1rem 1.25rem; border: 1px solid rgb(var(--status-color)); border-left-width: 4px; background: rgb(var(--color-bg-surface)); }
+.status-panel p:last-child { margin-bottom: 0; }
+.status-panel--info { --status-color: var(--color-brand-primary); }
+.status-panel--success { --status-color: var(--color-success); }
+.status-panel--warning { --status-color: var(--color-warning); }
+.status-panel--error { --status-color: var(--color-error); }
+.status-panel--empty { --status-color: var(--color-border-strong); text-align: center; }
 
-/* ---------- Wavy Divider ---------- */
-.wave-top {
-  position: relative;
-  margin-top: -1px;
-}
-.wave-top svg {
-  display: block;
-  width: 100%;
-}
+.content-card { border: 1px solid rgb(var(--color-border-default)); background: rgb(var(--color-bg-surface)); }
+.content-card--interactive { transition: border-color var(--motion-base), transform var(--motion-fast); }
+.content-card--interactive:hover { border-color: rgb(var(--color-border-strong)); transform: translateY(-1px); }
 
-/* ---------- Image with Music Frame ---------- */
-.music-frame {
-  position: relative;
-}
-.music-frame::before {
-  content: '';
-  position: absolute;
-  inset: 12px;
-  border: 1.5px solid rgba(196, 154, 60, 0.4);
-  z-index: 1;
-  pointer-events: none;
-}
-.music-frame::after {
-  content: '♩';
-  position: absolute;
-  bottom: -0.6rem;
-  right: 1rem;
-  font-size: 1.25rem;
-  color: #c49a3c;
-  z-index: 2;
-  opacity: 0.7;
+.prose-content { max-width: 42em; overflow-wrap: anywhere; }
+.prose-content h2 { margin: 3rem 0 1rem; font-size: 1.875rem; line-height: 1.5; }
+.prose-content h3 { margin: 2rem 0 .75rem; font-size: 1.375rem; line-height: 1.6; }
+.prose-content p, .prose-content li { line-height: 1.9; }
+.prose-content a { color: rgb(var(--color-brand-primary)); text-decoration: underline; text-underline-offset: .25em; }
+.prose-content img { width: 100%; height: auto; margin-block: 2rem; }
+.prose-content blockquote { margin: 2rem 0; padding-left: 1.5rem; border-left: 3px solid rgb(var(--color-accent)); color: rgb(var(--color-text-secondary)); }
+.prose-content table { min-width: 36rem; border-collapse: collapse; }
+.prose-content th, .prose-content td { padding: .75rem; border: 1px solid rgb(var(--color-border-default)); text-align: left; }
+
+:focus-visible {
+  outline: 2px solid rgb(var(--color-focus-ring));
+  outline-offset: 3px;
 }
 
-/* ---------- Stat Number Decoration ---------- */
-.stat-number {
-  font-family: 'Playfair Display', Georgia, serif;
-  line-height: 1;
-  background: linear-gradient(135deg, #234830, #2d5a3d, #c49a3c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+[hidden] { display: none !important; }
+
+@media (min-width: 640px) {
+  .site-container, .site-container-wide, .site-container-narrow { width: min(100% - 3rem, var(--content-width)); }
+}
+
+@media (min-width: 1024px) {
+  .site-container, .site-container-wide, .site-container-narrow { width: min(100% - 4rem, var(--content-width)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }

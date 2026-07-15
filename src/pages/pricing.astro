@@ -1,201 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ActionLink from '../components/ui/ActionLink.astro';
+import FaqList from '../components/content/FaqList.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import StatusPanel from '../components/ui/StatusPanel.astro';
+import { siteContent, isDemo } from '../data/site';
 
-const plans = [
-  {
-    name: 'ライトプラン',
-    nameEn: 'Light',
-    desc: '月2回のんびり楽しみたい方に',
-    frequency: '月2回',
-    duration: '45分',
-    price: 12000,
-    trialPrice: 3000,
-    features: [
-      '月2回 / 45分レッスン',
-      '教材費別途',
-      '発表会参加可（参加費別）',
-      '振替：月1回まで',
-    ],
-    recommended: false,
-  },
-  {
-    name: 'スタンダードプラン',
-    nameEn: 'Standard',
-    desc: 'しっかり上達したい方の定番プラン',
-    frequency: '月3回',
-    duration: '60分',
-    price: 18000,
-    trialPrice: 3000,
-    features: [
-      '月3回 / 60分レッスン',
-      '教材費別途',
-      '発表会参加可（参加費別）',
-      '振替：月2回まで',
-      'コンクール相談対応',
-    ],
-    recommended: true,
-  },
-  {
-    name: 'プレミアムプラン',
-    nameEn: 'Premium',
-    desc: '本格的に取り組みたい方・コンクール志望の方',
-    frequency: '月4回〜',
-    duration: '60分〜90分',
-    price: 24000,
-    trialPrice: 3000,
-    features: [
-      '月4回〜 / 60〜90分レッスン',
-      '教材費込み（一部）',
-      '発表会参加可（参加費別）',
-      '振替：月3回まで',
-      'コンクール対策・同行サポート',
-      'ホームページへの掲載（希望者）',
-    ],
-    recommended: false,
-  },
-];
-
-const faqs = [
-  { q: '入会金はかかりますか？', a: 'はじめて入会される方には入会金として10,000円（税込）をいただいております。ご家族2人目以降は5,000円となります。' },
-  { q: 'レッスン料はいつ支払いますか？', a: '毎月末日までに翌月分をお支払いいただきます（銀行振込またはクレジットカード）。' },
-  { q: '途中でプランを変更できますか？', a: 'はい、1ヶ月前にお申し出いただければプラン変更が可能です。' },
-  { q: '休会・退会の手続きは？', a: '1ヶ月前にご連絡いただければ休会・退会が可能です。休会中は月額3,000円の籍保留費がかかります。' },
+const yen = (value: number) => value.toLocaleString('ja-JP');
+const pricingFaqs = [
+  { q: '教材費は月謝に含まれますか？', a: '教材費は原則として別料金のサンプル設定です。必要な教材と費用は購入前にご案内します。' },
+  { q: '欠席した場合、振替できますか？', a: 'プランごとに振替回数を設定する想定です。期限や連絡方法を含む正式な規定は、本番公開前にご確認ください。' },
+  { q: '休会・退会はいつまでに連絡が必要ですか？', a: 'この条件は現在未確定です。本番サイトでは締切日、手続き方法、費用の有無を明記します。' },
 ];
 ---
 
-<BaseLayout
-  title="料金プラン"
-  description="Harmony Music Schoolの料金プラン一覧。月2回12,000円〜。体験レッスン3,000円で随時受付中。"
->
-  <!-- Header -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/9391639/pexels-photo-9391639.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt=""
-        class="w-full h-full object-cover object-center"
-        loading="eager"
-        aria-hidden="true"
-      />
-      <div class="absolute inset-0 bg-gradient-to-br from-charcoal-900/90 via-forest-900/85 to-charcoal-900/80" />
-      <div
-        class="absolute inset-0 opacity-[0.04]"
-        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
-        aria-hidden="true"
-      />
-    </div>
-    <div class="absolute top-8 right-16 text-5xl text-gold-400 opacity-10 font-serif animate-float select-none pointer-events-none" aria-hidden="true">♩</div>
-    <div class="absolute bottom-8 left-10 text-4xl text-cream-50 opacity-8 font-serif animate-drift select-none pointer-events-none" aria-hidden="true">♪</div>
+<BaseLayout title="料金プラン" description="体験レッスンと月額レッスンプランの料金をご案内します。">
+  <PageHeader title="料金プラン" eyebrow="分かりやすい費用案内" description="回数と目標から選べる3つのプラン。まず必要な費用を確認し、無理のない通い方をご検討ください。" />
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="h-px w-12 bg-gold-400" />
-        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Pricing</p>
+  <section class="site-section">
+    <div class="site-container">
+      <SectionHeading title="体験・入会時の費用" description="表示価格はデモ用のサンプルです。本番では税込総額、入会金、教材費などの確定情報を一元管理して表示します。" />
+      <div class="grid gap-px border-y border-line bg-line md:grid-cols-2">
+        <div class="bg-canvas py-7 md:px-8">
+          <p class="mb-2 text-sm font-bold text-brand">体験レッスン</p>
+          <p class="mb-2 font-serif text-3xl font-bold text-ink">{yen(siteContent.trialPriceExTax)}円 <span class="font-sans text-sm">（税別）</span></p>
+          <p class="mb-0 text-sm leading-7 text-ink-secondary">税込 {yen(Math.floor(siteContent.trialPriceExTax * 1.1))}円・{siteContent.trialDuration}。申込前に内容をご確認ください。</p>
+        </div>
+        <div class="bg-canvas py-7 md:px-8">
+          <p class="mb-2 text-sm font-bold text-brand">入会金・その他費用</p>
+          <p class="mb-2 text-xl font-bold text-ink">正式条件を確認中</p>
+          <p class="mb-0 text-sm leading-7 text-ink-secondary">架空の入会金や設備費は表示していません。教材費など別途必要な項目を本番公開前に明記します。</p>
+        </div>
       </div>
-      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
-        料金<em class="not-italic font-bold italic text-gold-400">プラン</em>
-      </h1>
-      <p class="text-cream-200/70 text-sm max-w-lg leading-relaxed">
-        通いやすい料金で、本格的な音楽教育を。体験レッスン¥3,000から始められます。
-      </p>
     </div>
   </section>
 
-  <!-- Plans -->
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {plans.map((plan, i) => (
-          <div
-            class={`fade-in relative flex flex-col ${
-              plan.recommended
-                ? 'bg-forest-800 text-cream-50 ring-2 ring-gold-400'
-                : 'bg-cream-50 text-charcoal-900 border border-cream-200'
-            }`}
-            style={`transition-delay: ${i * 80}ms`}
-          >
-            {plan.recommended && (
-              <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gold-500 text-forest-900 text-xs font-medium tracking-wide">
-                おすすめ
-              </div>
-            )}
-
-            <div class="p-8 border-b border-opacity-20 border-current">
-              <p class={`text-xs tracking-widest uppercase mb-2 ${plan.recommended ? 'text-gold-400' : 'text-forest-700'}`}>
-                {plan.nameEn}
-              </p>
-              <h2 class="font-serif text-2xl mb-2">{plan.name}</h2>
-              <p class={`text-sm ${plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}`}>{plan.desc}</p>
-            </div>
-
-            <div class="p-8 border-b border-opacity-20 border-current">
-              <div class="flex items-end gap-1 mb-1">
-                <span class="font-serif text-4xl">¥{plan.price.toLocaleString()}</span>
-                <span class={`text-sm mb-1 ${plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}`}>/月（税別）</span>
-              </div>
-              <div class={`text-xs ${plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}`}>
-                {plan.frequency} / {plan.duration} ・ 体験レッスン ¥{plan.trialPrice.toLocaleString()}
-              </div>
-            </div>
-
-            <div class="p-8 flex-1">
-              <ul class="space-y-3">
-                {plan.features.map(f => (
-                  <li class="flex items-start gap-3 text-sm">
-                    <span class={`mt-0.5 flex-shrink-0 ${plan.recommended ? 'text-gold-400' : 'text-forest-700'}`}>✓</span>
-                    <span class={plan.recommended ? 'text-cream-200' : 'text-charcoal-700'}>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div class="p-8 pt-0">
-              <a
-                href="/trial"
-                class={`block w-full text-center py-3 text-sm font-medium transition-colors ${
-                  plan.recommended
-                    ? 'bg-gold-500 text-forest-900 hover:bg-gold-400'
-                    : 'border border-forest-700 text-forest-700 hover:bg-forest-700 hover:text-cream-50'
-                }`}
-              >
-                体験レッスンを申し込む
-              </a>
-            </div>
-          </div>
+  <section class="site-section bg-subtle">
+    <div class="site-container">
+      <SectionHeading title="月額3プラン" description="月謝はサンプルです。スタンダードは、月3回で上達を継続したい方に向けた構成です。" />
+      <div class="grid items-stretch gap-5 lg:grid-cols-3">
+        {siteContent.pricing.map((plan) => (
+          <article class={`content-card flex flex-col p-6 sm:p-7 ${plan.recommended ? 'border-brand' : ''}`}>
+            {plan.recommended && <p class="mb-4 self-start bg-brand px-3 py-1 text-xs font-bold text-canvas">月3回で継続したい方向け</p>}
+            <h3 class="mb-1 text-xl font-bold">{plan.name}</h3>
+            <p class="mb-5 min-h-14 text-sm leading-7 text-ink-secondary">{plan.audience}</p>
+            <p class="mb-1 font-serif text-3xl font-bold text-brand">{yen(plan.monthlyPriceExTax)}円</p>
+            <p class="mb-5 text-xs text-ink-muted">月額・税別 / 税込 {yen(Math.floor(plan.monthlyPriceExTax * 1.1))}円</p>
+            <dl class="mb-6 grid grid-cols-2 border-y border-line py-4 text-sm">
+              <div><dt class="text-ink-muted">回数</dt><dd class="mt-1 font-bold">{plan.frequency}</dd></div>
+              <div><dt class="text-ink-muted">1回</dt><dd class="mt-1 font-bold">{plan.duration}</dd></div>
+            </dl>
+            <ul class="mb-7 flex-1 space-y-3 text-sm leading-7 text-ink-secondary">
+              {plan.features.map((feature) => <li class="flex gap-3"><span class="mt-3 h-1.5 w-1.5 flex-none bg-accent"></span><span>{feature}</span></li>)}
+            </ul>
+            <ActionLink href="/trial" variant={plan.recommended ? 'primary' : 'secondary'} class="w-full">体験を申し込む</ActionLink>
+          </article>
         ))}
       </div>
-
-      <p class="text-center text-xs text-charcoal-700 mt-8">
-        ※ 表示価格はすべて税別です。消費税を別途申し受けます。<br />
-        ※ 入会金：10,000円（初回のみ）
-      </p>
+      {isDemo && <div class="mt-6"><StatusPanel type="warning" title="サンプル料金です"><p class="mb-0">実際の料金として利用する前に、税区分、入会金、教材費、振替、休会・退会条件を確認してください。</p></StatusPanel></div>}
     </div>
   </section>
 
-  <!-- FAQ about pricing -->
-  <section class="py-24 bg-cream-100 border-t border-cream-200">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12 fade-in">
-        <h2 class="font-serif text-3xl text-charcoal-900">料金に関するよくある質問</h2>
-      </div>
-      <div class="space-y-4">
-        {faqs.map((item, i) => (
-          <details class="fade-in group bg-cream-50 border border-cream-200" style={`transition-delay: ${i * 60}ms`}>
-            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-              <h3 class="font-medium text-charcoal-900 pr-4">{item.q}</h3>
-              <span class="flex-shrink-0 w-5 h-5 text-forest-700 group-open:rotate-180 transition-transform">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-            </summary>
-            <div class="px-6 pb-6 text-sm text-charcoal-700 leading-relaxed border-t border-cream-200 pt-4">
-              {item.a}
-            </div>
-          </details>
-        ))}
-      </div>
+  <section class="site-section">
+    <div class="site-container-narrow">
+      <SectionHeading title="支払い・振替・休会について" description="費用と通い方に関わる条件は、体験前に確認できることが大切です。未確定事項を推測で表示しません。" />
+      <FaqList items={pricingFaqs} />
     </div>
   </section>
 
+  <CTASection title="料金とレッスンの相性を体験で確認する" description={`体験は${siteContent.trialDuration}、${yen(siteContent.trialPriceExTax)}円（税別）。フォームからご希望の楽器をお知らせください。`} secondaryHref="/contact" secondaryLabel="料金について問い合わせる" />
 </BaseLayout>

@@ -27,7 +27,8 @@ test.describe('フォーム表示確認', () => {
     await expect(select.getByRole('option', { name: 'ピアノ' })).toBeAttached();
     await expect(select.getByRole('option', { name: 'バイオリン' })).toBeAttached();
     await expect(select.getByRole('option', { name: '声楽' })).toBeAttached();
-    await expect(select.getByRole('option', { name: 'フルート' })).toBeAttached();
+    await expect(select.getByRole('option', { name: 'ギター' })).toBeAttached();
+    await expect(select.getByRole('option', { name: 'フルート' })).toHaveCount(0);
   });
 
   test('お問い合わせフォームが正しく表示される', async ({ page }) => {

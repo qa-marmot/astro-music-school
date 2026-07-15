@@ -1,0 +1,23 @@
+---
+interface Props {
+  type?: 'info' | 'success' | 'warning' | 'error' | 'empty';
+  title?: string;
+  id?: string;
+  hidden?: boolean;
+  focusable?: boolean;
+}
+const { type = 'info', title, id, hidden = false, focusable = false } = Astro.props;
+const role = type === 'error' ? 'alert' : type === 'success' ? 'status' : undefined;
+---
+
+<div
+  id={id}
+  class={`status-panel status-panel--${type}`}
+  role={role}
+  aria-live={role ? 'polite' : undefined}
+  tabindex={focusable ? '-1' : undefined}
+  hidden={hidden}
+>
+  {title && <p class="mb-2 font-bold">{title}</p>}
+  <slot />
+</div>

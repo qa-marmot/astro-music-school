@@ -1,0 +1,23 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  required?: boolean;
+  hint?: string;
+  errorKey?: string;
+}
+const { id, label, required = false, hint, errorKey = id } = Astro.props;
+const hintId = hint ? `${id}-hint` : undefined;
+const errorId = `${id}-error`;
+---
+
+<div class="form-field">
+  <label for={id} class="form-label">
+    {label}
+    {required && <span class="form-required" aria-hidden="true"> *</span>}
+    {required && <span class="sr-only">（必須）</span>}
+  </label>
+  <slot />
+  {hint && <p id={hintId} class="form-hint">{hint}</p>}
+  <p id={errorId} class="form-error" data-error={errorKey} hidden></p>
+</div>

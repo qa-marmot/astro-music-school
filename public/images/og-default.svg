@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Harmony Music School</title>
+  <desc id="desc">深緑と生成りを基調にした音楽教室のソーシャル共有画像</desc>
+  <rect width="1200" height="630" fill="#fdfbf7"/>
+  <rect x="64" y="64" width="1072" height="502" fill="none" stroke="#234830" stroke-width="2"/>
+  <path d="M164 398V220l168-42v176" fill="none" stroke="#c49a3c" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="164" cy="398" r="34" fill="#234830"/>
+  <circle cx="332" cy="354" r="34" fill="#234830"/>
+  <text x="424" y="290" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#234830">Harmony</text>
+  <text x="427" y="352" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="8" fill="#6f4e37">MUSIC SCHOOL</text>
+  <text x="427" y="420" font-family="Arial, sans-serif" font-size="28" fill="#3d3d3d">一人ひとりの音が育つ、静かな音楽アトリエ</text>
+</svg>

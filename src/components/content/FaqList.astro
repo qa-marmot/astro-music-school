@@ -1,0 +1,19 @@
+---
+interface FaqItem { q: string; a: string; }
+interface Props { items: FaqItem[]; }
+const { items } = Astro.props;
+---
+
+<div class="divide-y divide-line border-y border-line">
+  {items.map((item) => (
+    <details class="group bg-canvas">
+      <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-5 font-bold text-ink">
+        <span>{item.q}</span>
+        <svg class="h-5 w-5 flex-none text-brand transition-transform duration-base group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
+      <div class="pb-6 pr-10 text-base leading-8 text-ink-secondary"><p class="mb-0">{item.a}</p></div>
+    </details>
+  ))}
+</div>

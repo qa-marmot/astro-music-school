@@ -1,418 +1,141 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ActionLink from '../components/ui/ActionLink.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import FaqList from '../components/content/FaqList.astro';
+import { isDemo, siteContent } from '../data/site';
+
+const faqItems = [
+  { q: '楽器が初めてでも参加できますか？', a: 'はい。楽譜の読み方や楽器の構え方など、必要な基礎から目標に合わせて進める想定です。' },
+  { q: '体験レッスンでは何をしますか？', a: `ご希望を伺い、${siteContent.trialDuration}のレッスンを体験していただく想定です。終了後にコースや通い方をご案内します。` },
+  { q: '子どもと大人のどちらも受講できますか？', a: 'コースごとに対象年齢を設け、子どもから大人まで検討できる構成です。詳しくはレッスンページをご確認ください。' },
+];
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "MusicSchool",
-  name: "Harmony Music School",
-  description: "音楽を通じて豊かな心を育む音楽教室",
-  url: import.meta.env.PUBLIC_SITE_URL,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "東京都",
-    addressCountry: "JP",
-  },
-  telephone: "03-0000-0000",
+  '@context': 'https://schema.org',
+  '@type': 'MusicSchool',
+  name: siteContent.name,
+  url: siteContent.siteUrl,
+  description: '一人ひとりの目標に合わせた個人音楽レッスン',
 };
-
-const features = [
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>`,
-    note: '♩',
-    label: 'Individual',
-    title: '丁寧な個別指導',
-    desc: '一人ひとりのペースと目標に合わせた、完全オーダーメイドのレッスン。あなたの「弾きたい曲」から始められます。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-    note: '♪',
-    label: 'Facility',
-    title: '充実した設備',
-    desc: 'グランドピアノを備えた防音スタジオ。本物の音の響きを感じながら、本格的な環境でレッスンを受けられます。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
-    note: '♫',
-    label: 'Performance',
-    title: '発表会・コンクール',
-    desc: '年2回の発表会で舞台を体験。コンクール挑戦を目指す方への特別サポートも行っています。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-    note: '♬',
-    label: 'Flexible',
-    title: '柔軟な日程調整',
-    desc: '平日・土日、昼・夜のシフトを完備。忙しい社会人や学生の方にも通いやすい環境です。',
-  },
-];
-
-const courses = [
-  {
-    id: 'piano',
-    name: 'ピアノ',
-    nameEn: 'Piano',
-    desc: '感情の深さを鍵盤で表現する、音楽の王道。バイエルから演奏会レベルまで。',
-    href: '/lessons#piano',
-    photo: 'https://images.pexels.com/photos/9391639/pexels-photo-9391639.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop',
-    colorClass: 'from-piano-900 to-piano-700',
-    accentClass: 'text-piano-100',
-    tagBg: 'bg-piano-500/30 text-piano-100',
-  },
-  {
-    id: 'guitar',
-    name: 'ギター',
-    nameEn: 'Guitar',
-    desc: '木の温もりが伝わる弦楽器。弾き語りからソロギターまであなたのスタイルで。',
-    href: '/lessons#guitar',
-    photo: 'https://images.pexels.com/photos/8106076/pexels-photo-8106076.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop',
-    colorClass: 'from-guitar-900 to-guitar-700',
-    accentClass: 'text-guitar-100',
-    tagBg: 'bg-guitar-500/30 text-guitar-100',
-  },
-  {
-    id: 'violin',
-    name: 'バイオリン',
-    nameEn: 'Violin',
-    desc: '魂を揺さぶる弦の響き。正しい姿勢・弓の技術から丁寧に積み上げます。',
-    href: '/lessons#violin',
-    photo: 'https://images.pexels.com/photos/7095052/pexels-photo-7095052.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop',
-    colorClass: 'from-violin-900 to-violin-700',
-    accentClass: 'text-violin-100',
-    tagBg: 'bg-violin-500/30 text-violin-100',
-  },
-  {
-    id: 'vocal',
-    name: '声楽',
-    nameEn: 'Vocal',
-    desc: 'あなたの声が楽器になる。クラシックからポップスまで、表現の世界を広げます。',
-    href: '/lessons#vocal',
-    photo: 'https://images.pexels.com/photos/8520514/pexels-photo-8520514.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop',
-    colorClass: 'from-vocal-900 to-vocal-700',
-    accentClass: 'text-vocal-100',
-    tagBg: 'bg-vocal-500/30 text-vocal-100',
-  },
-];
 ---
 
 <BaseLayout
-  description="音楽が心を動かす瞬間を、あなたにも。ピアノ・ギター・バイオリンなど個別指導の音楽教室。体験レッスン随時受付中。"
+  description="ピアノ・ギター・バイオリン・声楽を、一人ひとりの目標に合わせて学ぶ個人音楽レッスン。体験レッスン受付中。"
   jsonLd={jsonLd}
+  preloadImage="/images/lesson-hero.jpg"
 >
-
-  <!-- ===== HERO ===== -->
-  <section class="relative min-h-screen flex items-center overflow-hidden">
-    <!-- Background photo -->
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/221569/pexels-photo-221569.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt=""
-        class="w-full h-full object-cover object-center"
-        loading="eager"
-        aria-hidden="true"
-      />
-      <!-- Layered overlay: dark gradient + staff line texture -->
-      <div class="absolute inset-0 bg-gradient-to-br from-forest-900/90 via-forest-800/80 to-charcoal-900/85" />
-      <!-- Staff line texture overlay -->
-      <div
-        class="absolute inset-0 opacity-[0.04]"
-        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
-        aria-hidden="true"
-      />
-    </div>
-
-    <!-- Floating music notes (decorative) -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      <span class="absolute top-[15%] right-[12%] text-4xl text-gold-400 opacity-15 animate-float font-serif">♩</span>
-      <span class="absolute top-[30%] right-[6%]  text-2xl text-cream-50  opacity-10 animate-float-slow font-serif" style="animation-delay:-2s">♪</span>
-      <span class="absolute top-[60%] right-[18%] text-3xl text-gold-400 opacity-12 animate-drift font-serif"  style="animation-delay:-4s">♫</span>
-      <span class="absolute top-[75%] left-[5%]  text-2xl text-cream-50  opacity-8  animate-float font-serif"  style="animation-delay:-6s">♬</span>
-      <span class="absolute top-[20%] left-[3%]  text-xl  text-gold-400 opacity-10 animate-float-slow font-serif" style="animation-delay:-1s">♩</span>
-    </div>
-
-    <!-- Hero content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="max-w-2xl">
-        <!-- Label -->
-        <div class="flex items-center gap-3 mb-8">
-          <div class="h-px w-12 bg-gold-400" />
-          <p class="text-gold-400 text-xs font-medium tracking-[0.28em] uppercase">
-            Welcome to Harmony Music School
-          </p>
-        </div>
-
-        <!-- Heading with weight contrast (躍動感) -->
-        <h1 class="font-serif leading-[1.1] mb-8">
-          <span class="block text-cream-50 text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight">
-            音楽が、
-          </span>
-          <span class="block text-gold-400 text-6xl sm:text-7xl lg:text-8xl font-bold italic mt-1">
-            心を動かす。
-          </span>
-        </h1>
-
-        <p class="text-cream-200/85 text-lg leading-relaxed mb-10 max-w-lg font-light">
-          ピアノ・ギター・バイオリン。<br />
-          本格的な音楽の喜びを、丁寧な個別指導でお届けします。<br />
-          初心者の方も、まずは体験レッスンからどうぞ。
+  <section class="border-b border-line bg-canvas">
+    <div class="site-container-wide grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-14 lg:py-20">
+      <div class="lg:col-span-7">
+        <p class="eyebrow">初心者から経験者までの個人レッスン</p>
+        <h1 class="display-title mb-6 text-ink">弾きたい気持ちから、<br class="hidden sm:block" />あなたの音を育てる。</h1>
+        <p class="lead mb-8 text-ink-secondary">
+          ピアノ・ギター・バイオリン・声楽。子どもから大人まで、目標とペースに合わせて音楽を学べる教室です。
         </p>
-
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="/trial"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-gold-500 text-forest-900 font-medium text-sm
-                   hover:bg-gold-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
-                   hover:shadow-gold-500/30"
-            data-testid="hero-trial-btn"
-          >
-            <span class="text-base">♪</span>
-            体験レッスンを申し込む
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-          <a
-            href="/lessons"
-            class="inline-flex items-center gap-2 px-8 py-4 border border-cream-200/50 text-cream-50
-                   text-sm font-medium hover:bg-cream-50/10 hover:border-cream-50 transition-all duration-300"
-            data-testid="hero-lessons-btn"
-          >
-            レッスンを見る
-          </a>
+        <div class="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <ActionLink href="/trial" size="lg" testId="hero-trial-btn">体験レッスン（3,000円）を申し込む</ActionLink>
+          <ActionLink href="/lessons" variant="secondary" size="lg" testId="hero-lessons-btn">レッスンを見る</ActionLink>
         </div>
+        <dl class="flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-5 text-sm text-ink-secondary">
+          <div><dt class="inline font-bold text-ink">体験時間：</dt><dd class="inline">{siteContent.trialDuration}</dd></div>
+          <div><dt class="inline font-bold text-ink">料金：</dt><dd class="inline">3,000円（税別）</dd></div>
+          <div><dt class="inline font-bold text-ink">コース：</dt><dd class="inline">4種類</dd></div>
+        </dl>
       </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
-      <span>Scroll</span>
-      <div class="line" />
-    </div>
-  </section>
-
-  <!-- ===== FEATURES (楽譜のリズム配置) ===== -->
-  <section class="py-28 bg-cream-50 texture-staff overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-20 fade-in">
-        <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-3">Why Choose Us</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-charcoal-900 font-light">
-          選ばれる<em class="not-italic font-semibold italic text-forest-700">理由</em>
-        </h2>
-      </div>
-
-      <!-- Rhythm offset grid (non-uniform like musical notation) -->
-      <div class="rhythm-offset-grid">
-        {features.map((f, i) => (
-          <div
-            class="fade-in group bg-white p-8 border border-cream-200/70
-                   hover:border-gold-400/50 hover:shadow-xl hover:shadow-gold-400/10
-                   transition-all duration-400 cursor-default"
-            style={`transition-delay: ${i * 120}ms`}
-          >
-            <!-- Note decoration top right -->
-            <div class="flex justify-between items-start mb-6">
-              <div class="w-14 h-14 rounded-full bg-forest-700/8 flex items-center justify-center text-forest-700
-                          group-hover:bg-forest-700/15 transition-colors duration-300">
-                <Fragment set:html={f.icon} />
-              </div>
-              <span class="font-serif text-2xl text-gold-400/40 group-hover:text-gold-400/70 transition-colors select-none"
-                    aria-hidden="true">
-                {f.note}
-              </span>
-            </div>
-
-            <p class="text-forest-700 text-[10px] tracking-[0.2em] uppercase font-semibold mb-2">{f.label}</p>
-            <h3 class="font-serif text-xl text-charcoal-900 mb-3">{f.title}</h3>
-            <p class="text-sm text-charcoal-700 leading-relaxed">{f.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== COURSES ===== -->
-  <section class="py-28 bg-charcoal-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between mb-16 fade-in">
-        <div>
-          <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold mb-3">Our Lessons</p>
-          <h2 class="font-serif text-4xl sm:text-5xl text-cream-50 font-light">
-            レッスン<em class="not-italic font-bold italic text-gold-400">コース</em>
-          </h2>
-        </div>
-        <a href="/lessons"
-           class="hidden sm:inline-flex items-center gap-2 text-cream-200/60 text-sm hover:text-gold-400 transition-colors pb-1 border-b border-cream-200/30 hover:border-gold-400">
-          すべて見る →
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {courses.map((course, i) => (
-          <a
-            href={course.href}
-            class="fade-in group relative overflow-hidden aspect-[3/4] block"
-            style={`transition-delay: ${i * 90}ms`}
-          >
-            <!-- Photo -->
-            <img
-              src={course.photo}
-              alt={`${course.name}レッスン`}
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <!-- Color overlay by course -->
-            <div class={`absolute inset-0 bg-gradient-to-t ${course.colorClass} opacity-75 group-hover:opacity-85 transition-opacity duration-300`} />
-
-            <!-- Content -->
-            <div class="absolute inset-0 flex flex-col justify-end p-6">
-              <span class={`course-badge mb-3 w-fit ${course.tagBg}`}>
-                {course.nameEn}
-              </span>
-              <h3 class={`font-serif text-2xl font-semibold mb-2 ${course.accentClass} group-hover:text-white transition-colors`}>
-                {course.name}
-              </h3>
-              <p class={`text-xs leading-relaxed ${course.accentClass} opacity-80`}>
-                {course.desc}
-              </p>
-              <div class={`mt-4 flex items-center gap-1 text-xs font-medium ${course.accentClass}
-                          opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
-                          transition-all duration-300`}>
-                詳しく見る <span class="text-lg leading-none">→</span>
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <div class="text-center mt-6 sm:hidden fade-in">
-        <a href="/lessons" class="text-gold-400 text-sm border-b border-gold-400 pb-1">
-          すべてのレッスンを見る →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PHILOSOPHY / PULL QUOTE ===== -->
-  <section class="py-28 bg-cream-100 texture-staff overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-        <!-- Photo side -->
-        <div class="fade-in-left music-frame relative">
+      <div class="lg:col-span-5">
+        <figure class="border border-line bg-subtle p-2">
           <img
-            src="https://images.pexels.com/photos/7570759/pexels-photo-7570759.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-            alt="レッスンを楽しむ生徒"
-            class="w-full aspect-[4/3] object-cover"
-            loading="lazy"
+            src="/images/lesson-hero.jpg"
+            alt="ピアノの個人レッスンのイメージ"
+            width="800"
+            height="1000"
+            class="aspect-[5/4] h-full w-full object-cover lg:aspect-[4/5]"
+            fetchpriority="high"
           />
-        </div>
-
-        <!-- Text side -->
-        <div class="fade-in-right">
-          <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-6">Our Philosophy</p>
-
-          <div class="pull-quote mb-8">
-            <p class="font-serif text-2xl sm:text-3xl text-charcoal-900 leading-relaxed font-light italic">
-              「音楽は、あなたの<strong class="font-bold not-italic">言葉</strong>になる。」
-            </p>
-          </div>
-
-          <div class="space-y-4 text-charcoal-700 text-sm leading-relaxed">
-            <p>
-              Harmony Music Schoolは、楽譜を正確に弾くだけでなく、音楽に込められた感情や物語を感じ取り、
-              自分の言葉として表現できる力を育みます。
-            </p>
-            <p>
-              子ども・社会人・シニアなど、幅広い年齢層の生徒が在籍。
-              それぞれの目標に合わせた丁寧な個別指導を行っています。
-            </p>
-          </div>
-
-          <a href="/about"
-             class="mt-8 inline-flex items-center gap-2 text-forest-700 font-medium text-sm
-                    border-b-2 border-forest-700/30 pb-1 hover:border-forest-700 transition-all duration-200">
-            教室紹介を読む
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
+          <figcaption class="px-2 pb-1 pt-3 text-xs text-ink-muted">レッスンイメージ（サンプル素材）</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- ===== TRIAL CTA ===== -->
-  <section class="py-28 bg-forest-800 relative overflow-hidden texture-staff texture-staff-dark">
-    <!-- Decorative notes -->
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-      <span class="absolute top-8 left-[10%] text-5xl text-gold-400 opacity-10 animate-float font-serif">♩</span>
-      <span class="absolute bottom-8 right-[10%] text-6xl text-gold-400 opacity-8 animate-float-slow font-serif">♫</span>
-      <span class="absolute top-1/2 right-[5%] text-3xl text-cream-50 opacity-6 animate-drift font-serif">♪</span>
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center fade-in">
-      <div class="inline-flex items-center gap-3 mb-6">
-        <!-- Mini piano keys decoration -->
-        <div class="flex gap-0.5 opacity-60">
-          {[0,1,2,3,4,5,6].map((k) => (
-            <div class={k === 1 || k === 2 || k === 4 || k === 5 || k === 6
-              ? 'w-1.5 h-4 bg-cream-200 rounded-b-sm'
-              : 'w-2.5 h-6 bg-cream-50 rounded-b-sm border border-cream-200/30'} />
-          ))}
-        </div>
-        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Free Trial Lesson</p>
-        <div class="flex gap-0.5 opacity-60 scale-x-[-1]">
-          {[0,1,2,3,4,5,6].map((k) => (
-            <div class={k === 1 || k === 2 || k === 4 || k === 5 || k === 6
-              ? 'w-1.5 h-4 bg-cream-200 rounded-b-sm'
-              : 'w-2.5 h-6 bg-cream-50 rounded-b-sm border border-cream-200/30'} />
-          ))}
-        </div>
-      </div>
-
-      <h2 class="font-serif text-4xl sm:text-5xl text-cream-50 font-light mb-4">
-        まずは<em class="not-italic font-bold italic text-gold-400">体験</em>から
-      </h2>
-      <p class="text-cream-200/80 leading-relaxed mb-10 max-w-xl mx-auto">
-        教室の雰囲気・講師との相性を、体験レッスンで感じてみてください。<br />
-        お子様からシニアの方まで、どなたでも歓迎します。
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-6">
-        <a
-          href="/trial"
-          class="inline-flex items-center gap-2 px-10 py-4 bg-gold-500 text-forest-900 font-medium text-sm
-                 hover:bg-gold-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/30"
-          data-testid="cta-trial-btn"
-        >
-          <span class="text-base">♪</span>
-          無料体験に申し込む →
-        </a>
-        <div class="text-cream-200/60 text-sm">
-          体験レッスン料金：<strong class="text-cream-50">¥3,000</strong>（税別）
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== STATS ===== -->
-  <section class="py-20 bg-cream-50 border-y border-cream-200">
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-cream-200">
-        {[
-          { num: "20+",  unit: "年",  label: "の指導実績" },
-          { num: "150+", unit: "名",  label: "の在籍生徒" },
-          { num: "95%",  unit: "",    label: "継続率" },
-        ].map((stat, i) => (
-          <div class="fade-in bg-cream-50 py-12 px-8 text-center" style={`transition-delay: ${i * 120}ms`}>
-            <div class="stat-number text-5xl sm:text-6xl mb-1">
-              {stat.num}
+  <section class="site-section">
+    <div class="site-container-wide">
+      <SectionHeading title="選べる4つのレッスン" description="楽器ごとの個性を大切にしながら、基礎から表現まで段階的に学びます。" />
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {siteContent.courses.map((course) => (
+          <article class="content-card content-card--interactive flex flex-col">
+            <img src={course.photo} alt={`${course.name}を演奏するイメージ`} width="1000" height="750" class="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" />
+            <div class="flex flex-1 flex-col p-6">
+              <p class="eyebrow mb-2">{course.ages}</p>
+              <h2 class="mb-3 text-2xl font-bold text-ink">{course.name}</h2>
+              <p class="mb-6 flex-1 text-sm leading-7 text-ink-secondary">{course.summary}</p>
+              <ActionLink href={`/lessons#${course.id}`} variant="tertiary" size="sm">詳しく見る</ActionLink>
             </div>
-            <div class="font-serif text-lg text-forest-700 mb-1">{stat.unit}</div>
-            <div class="text-sm text-charcoal-700 tracking-wide">{stat.label}</div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="site-section site-section--subtle">
+    <div class="site-container">
+      <SectionHeading title="目標に合わせた学び方" description="同じ楽器でも、始める理由や続け方は人それぞれ。レッスンの内容とペースを一緒に整えます。" />
+      <div class="grid border-y border-line md:grid-cols-3 md:divide-x md:divide-line">
+        {[
+          ['初めての方', '楽譜や楽器の扱い方から、一つずつ確認して進めます。'],
+          ['好きな曲を弾きたい方', '目標の曲に必要な技術を整理し、練習しやすい順に取り組みます。'],
+          ['舞台を目指す方', '人前での演奏を見据え、音色や表現、曲全体の組み立てを深めます。'],
+        ].map(([title, body]) => (
+          <div class="py-7 md:px-8">
+            <h3 class="mb-3 text-xl font-bold text-ink">{title}</h3>
+            <p class="mb-0 text-base leading-8 text-ink-secondary">{body}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <section class="site-section">
+    <div class="site-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <SectionHeading eyebrow="個別指導" title="話を聞くことから、レッスンを始めます" />
+        <div class="measure space-y-5 text-base leading-8 text-ink-secondary">
+          <p>弾きたい曲、音楽経験、練習できる時間を伺い、その人に合う進め方を考えます。</p>
+          <p>体験レッスンは、講師との相性や教室の雰囲気を確認するための時間です。無理な入会案内を前提にせず、疑問を持ち帰らない説明を目指します。</p>
+        </div>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <ActionLink href="/about" variant="secondary">教室の考え方</ActionLink>
+          <ActionLink href="/pricing" variant="tertiary">料金を確認する</ActionLink>
+        </div>
+      </div>
+      <figure class="border-l-4 border-accent bg-subtle p-6 lg:p-8">
+        <blockquote class="mb-4 font-serif text-2xl font-bold leading-relaxed text-brand">「音楽を、自分の言葉として表現できるように。」</blockquote>
+        <figcaption class="text-sm leading-7 text-ink-muted">Harmony Music Schoolが大切にするレッスン方針</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="site-section site-section--subtle">
+    <div class="site-container-narrow">
+      <SectionHeading title="体験前によくあるご質問" description="初めての方が気になりやすい内容をまとめました。" />
+      <FaqList items={faqItems} />
+      <div class="mt-8"><ActionLink href="/faq" variant="tertiary">すべての質問を見る</ActionLink></div>
+    </div>
+  </section>
+
+  {isDemo && (
+    <section class="border-t border-line bg-canvas py-8">
+      <div class="site-container-narrow text-sm leading-7 text-ink-muted">講師、所在地、実績などの実在情報は、本番用データが設定されるまで表示していません。</div>
+    </section>
+  )}
+
+  <CTASection
+    title="まずは、実際のレッスンを体験してください"
+    description={`体験時間は${siteContent.trialDuration}、料金は3,000円（税別）。ご希望を伺いながら、無理のない始め方をご案内します。`}
+    secondaryHref="/contact"
+    secondaryLabel="質問してから検討する"
+    primaryTestId="cta-trial-btn"
+  />
 </BaseLayout>

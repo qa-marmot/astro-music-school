@@ -1,150 +1,51 @@
 ---
+import ActionLink from '../ui/ActionLink.astro';
+import { isDemo, siteContent } from '../../data/site';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-forest-900 text-cream-100 relative overflow-hidden texture-staff texture-staff-dark">
-  <!-- Decorative music notes -->
-  <div class="absolute top-8 right-16 text-5xl opacity-5 select-none pointer-events-none font-serif rotate-12">♫</div>
-  <div class="absolute bottom-16 left-10 text-4xl opacity-5 select-none pointer-events-none font-serif -rotate-6">♩</div>
-  <div class="absolute top-1/2 right-1/3 text-3xl opacity-4 select-none pointer-events-none font-serif rotate-3">♪</div>
-
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10">
-
-    <!-- Top section -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-forest-700/50">
-
-      <!-- Brand column -->
-      <div class="md:col-span-4">
-        <a href="/" class="flex items-center gap-3 group mb-6 w-fit">
-          <div class="w-10 h-10 rounded-full bg-gold-500 flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-forest-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-            </svg>
-          </div>
-          <div>
-            <div class="font-serif text-xl font-semibold text-cream-50 group-hover:text-gold-400 transition-colors">Harmony</div>
-            <div class="text-[9px] tracking-[0.22em] text-cream-200/70 uppercase">Music School</div>
-          </div>
-        </a>
-
-        <p class="text-sm text-cream-200/80 leading-relaxed mb-6">
-          音楽を通じて、一人ひとりの個性と感性を育む教室です。<br />
-          初心者からプロを目指す方まで、丁寧に寄り添います。
+<footer class="border-t border-brand-hover bg-[#112418] text-canvas">
+  <div class="site-container-wide py-14 lg:py-16">
+    <div class="grid gap-12 border-b border-canvas/20 pb-12 lg:grid-cols-[1.2fr_1fr_1fr]">
+      <div>
+        <p class="mb-3 font-serif text-2xl font-bold">{siteContent.name}</p>
+        <p class="mb-6 max-w-sm text-sm leading-7 text-canvas/75">
+          ピアノ・ギター・バイオリン・声楽を、一人ひとりの目標に合わせて学ぶ個人音楽レッスン。
         </p>
-
-        <!-- Piano key decoration -->
-        <div class="piano-keys-deco">
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-        </div>
+        <ActionLink href="/trial" size="sm" theme="dark">体験レッスン（3,000円）</ActionLink>
       </div>
 
-      <!-- Links columns -->
-      <div class="md:col-span-5 grid grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gold-400 mb-5">Menu</h3>
-          <ul class="space-y-3">
-            {[
-              ['トップ',     '/'],
-              ['教室紹介',   '/about'],
-              ['レッスン',  '/lessons'],
-              ['料金',       '/pricing'],
-              ['体験申込',  '/trial'],
-            ].map(([label, href]) => (
-              <li>
-                <a href={href}
-                   class="text-sm text-cream-200/70 hover:text-gold-400 transition-colors duration-200 flex items-center gap-1.5 group">
-                  <span class="w-3 h-px bg-cream-200/30 group-hover:w-5 group-hover:bg-gold-400 transition-all duration-300" />
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gold-400 mb-5">Info</h3>
-          <ul class="space-y-3">
-            {[
-              ['ブログ',    '/blog'],
-              ['FAQ',       '/faq'],
-              ['アクセス', '/access'],
-              ['お問合せ', '/contact'],
-              ['プライバシー', '/privacy'],
-            ].map(([label, href]) => (
-              <li>
-                <a href={href}
-                   class="text-sm text-cream-200/70 hover:text-gold-400 transition-colors duration-200 flex items-center gap-1.5 group">
-                  <span class="w-3 h-px bg-cream-200/30 group-hover:w-5 group-hover:bg-gold-400 transition-all duration-300" />
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <nav aria-label="フッターナビゲーション">
+        <p class="mb-4 text-sm font-bold text-accent">ご案内</p>
+        <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-canvas/75">
+          <li><a href="/lessons" class="hover:text-accent">レッスン</a></li>
+          <li><a href="/pricing" class="hover:text-accent">料金</a></li>
+          <li><a href="/about" class="hover:text-accent">教室紹介</a></li>
+          <li><a href="/access" class="hover:text-accent">アクセス</a></li>
+          <li><a href="/faq" class="hover:text-accent">FAQ</a></li>
+          <li><a href="/blog" class="hover:text-accent">ブログ</a></li>
+          <li><a href="/contact" class="hover:text-accent">お問い合わせ</a></li>
+          <li><a href="/privacy" class="hover:text-accent">プライバシー</a></li>
+        </ul>
+      </nav>
 
-      <!-- Contact -->
-      <div class="md:col-span-3">
-        <h3 class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gold-400 mb-5">Contact</h3>
-        <address class="not-italic space-y-4">
-          <p class="text-sm text-cream-200/80 leading-relaxed">
-            〒000-0000<br />東京都〇〇区〇〇1-2-3
-          </p>
-          <p>
-            <a href="tel:03-0000-0000"
-               class="text-sm text-cream-200/80 hover:text-gold-400 transition-colors flex items-center gap-2">
-              <svg class="w-3.5 h-3.5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              03-0000-0000
-            </a>
-          </p>
-          <p>
-            <a href="mailto:info@harmony-music.example"
-               class="text-sm text-cream-200/80 hover:text-gold-400 transition-colors flex items-center gap-2">
-              <svg class="w-3.5 h-3.5 text-gold-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              info@harmony-music.example
-            </a>
-          </p>
-          <div class="pt-2 border-t border-forest-700/40">
-            <p class="text-xs text-cream-200/60 leading-relaxed">
-              営業時間：火〜日 10:00〜20:00<br />
-              定休日：月曜日
-            </p>
-          </div>
-        </address>
-
-        <a href="/trial"
-           class="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-gold-500 text-forest-900 text-sm font-medium
-                  hover:bg-gold-400 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
-          <span>♪</span> 体験レッスン申込
-        </a>
+      <div>
+        <p class="mb-4 text-sm font-bold text-accent">教室情報</p>
+        {siteContent.contact ? (
+          <address class="not-italic text-sm leading-7 text-canvas/75">
+            〒{siteContent.contact.postalCode}<br />{siteContent.contact.address}<br />
+            <a href={`tel:${siteContent.contact.phone}`} class="hover:text-accent">{siteContent.contact.phone}</a><br />
+            <a href={`mailto:${siteContent.contact.email}`} class="hover:text-accent">{siteContent.contact.email}</a>
+          </address>
+        ) : (
+          <p class="text-sm leading-7 text-canvas/70">実在の住所・連絡先が設定されるまで、サンプル情報は公開しません。</p>
+        )}
       </div>
     </div>
 
-    <!-- Bottom -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-xs text-cream-200/50">
-        &copy; {year} Harmony Music School. All rights reserved.
-      </p>
-      <div class="flex items-center gap-2 text-cream-200/40 text-lg select-none" aria-hidden="true">
-        ♩ ♪ ♫ ♬
-      </div>
+    <div class="flex flex-col gap-3 pt-7 text-xs text-canvas/55 sm:flex-row sm:items-center sm:justify-between">
+      <p class="mb-0">&copy; {year} {siteContent.name}. All rights reserved.</p>
+      {isDemo && <p class="mb-0">サンプルサイト・検索エンジン非公開</p>}
     </div>
   </div>
 </footer>

@@ -1,423 +1,165 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const instruments = [
-  { value: 'piano',  label: 'ピアノ',     note: '♩' },
-  { value: 'guitar', label: 'ギター',     note: '♪' },
-  { value: 'violin', label: 'バイオリン', note: '♫' },
-  { value: 'vocal',  label: '声楽',       note: '♬' },
-  { value: 'flute',  label: 'フルート',   note: '♩' },
-];
-
-const steps = [
-  { step: '01', title: 'フォームから申込',  desc: '下記フォームより、ご希望の楽器・日時をお選びください。' },
-  { step: '02', title: '日程確認のご連絡', desc: '1〜2営業日以内に担当者よりご確認のご連絡を差し上げます。' },
-  { step: '03', title: '体験レッスン',     desc: '教室へお越しいただき、45〜60分の体験レッスンを受けていただきます。' },
-  { step: '04', title: '入会のご相談',     desc: 'レッスン後に料金・スケジュールなどについてご相談いただけます。' },
-];
+import PageHeader from '../components/ui/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import FormField from '../components/ui/FormField.astro';
+import StatusPanel from '../components/ui/StatusPanel.astro';
+import Button from '../components/ui/Button.astro';
+import { siteContent } from '../data/site';
 ---
 
-<BaseLayout
-  title="体験レッスン"
-  description="Harmony Music Schoolの体験レッスン申し込みページ。¥3,000で本格的なレッスンを体験できます。随時受付中。"
->
+<BaseLayout title="体験レッスン" description="45〜60分、3,000円（税別）の個人音楽レッスンを体験できます。">
+  <PageHeader title="体験レッスン" eyebrow="初めての方へ" description="経験や目標を伺い、実際に音を出しながら、ご自分に合うレッスンか確かめていただけます。" />
 
-  <!-- ===== Page Header ===== -->
-  <section class="relative py-28 overflow-hidden">
-    <!-- Background photo -->
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/7570759/pexels-photo-7570759.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt=""
-        class="w-full h-full object-cover object-top"
-        loading="eager"
-        aria-hidden="true"
-      />
-      <div class="absolute inset-0 bg-gradient-to-br from-forest-900/92 via-forest-800/88 to-charcoal-900/90" />
-      <div
-        class="absolute inset-0 opacity-[0.04]"
-        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
-        aria-hidden="true"
-      />
-    </div>
-
-    <!-- Floating notes -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      <span class="absolute top-[20%] right-[8%]  text-4xl text-gold-400 opacity-12 animate-float font-serif">♩</span>
-      <span class="absolute bottom-[20%] left-[6%] text-3xl text-cream-50  opacity-8  animate-float-slow font-serif" style="animation-delay:-3s">♪</span>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="h-px w-12 bg-gold-400" />
-        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Trial Lesson</p>
-      </div>
-      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
-        体験<em class="not-italic font-bold italic text-gold-400">レッスン</em>
-      </h1>
-      <p class="text-cream-200/80 max-w-lg text-sm leading-relaxed">
-        まずは一度、教室の雰囲気を感じてみてください。<br />
-        講師との相性も確かめられます。
-      </p>
-
-      <!-- Price badge -->
-      <div class="mt-8 inline-flex items-center gap-4 bg-white/10 border border-white/20 px-6 py-3">
-        <div>
-          <div class="text-[10px] text-cream-200/70 tracking-widest uppercase">体験レッスン料金</div>
-          <div class="font-serif text-2xl text-cream-50">
-            ¥<strong class="text-gold-400">3,000</strong>
-            <span class="text-sm font-sans font-normal text-cream-200/70 ml-1">（税別）/ 45〜60分</span>
-          </div>
-        </div>
-      </div>
+  <section class="border-b border-line bg-canvas">
+    <div class="site-container grid gap-px bg-line sm:grid-cols-3">
+      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">料金</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.trialPriceExTax.toLocaleString('ja-JP')}円（税別）</p><p class="mb-0 text-xs text-ink-muted">税込 {Math.floor(siteContent.trialPriceExTax * 1.1).toLocaleString('ja-JP')}円</p></div>
+      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">所要時間</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.trialDuration}</p></div>
+      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">ご連絡の目安</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.responseTime}</p></div>
     </div>
   </section>
 
-  <!-- ===== How it works ===== -->
-  <section class="py-20 bg-cream-50 border-b border-cream-200 texture-staff">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14 fade-in">
-        <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-3">Flow</p>
-        <h2 class="font-serif text-3xl text-charcoal-900 font-light">
-          体験レッスンの<em class="not-italic font-bold italic text-forest-700">流れ</em>
-        </h2>
+  <section class="site-section">
+    <div class="site-container grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-4">
+        <SectionHeading title="体験までの流れ" description="フォーム送信後、日程を確認してから予約が確定します。" />
+        <ol class="border-y border-line">
+          <li class="grid grid-cols-[2rem_1fr] gap-3 border-b border-line py-5"><span class="font-serif text-lg font-bold text-accent-strong">1</span><div><h3 class="mb-1 text-base font-bold">フォームを送信</h3><p class="mb-0 text-sm leading-7 text-ink-secondary">楽器、経験、ご希望をお知らせください。</p></div></li>
+          <li class="grid grid-cols-[2rem_1fr] gap-3 border-b border-line py-5"><span class="font-serif text-lg font-bold text-accent-strong">2</span><div><h3 class="mb-1 text-base font-bold">日程を確認</h3><p class="mb-0 text-sm leading-7 text-ink-secondary">担当者から候補日時をご連絡します。</p></div></li>
+          <li class="grid grid-cols-[2rem_1fr] gap-3 py-5"><span class="font-serif text-lg font-bold text-accent-strong">3</span><div><h3 class="mb-1 text-base font-bold">教室で体験</h3><p class="mb-0 text-sm leading-7 text-ink-secondary">当日の流れとお支払い方法を事前にご案内します。</p></div></li>
+        </ol>
       </div>
 
-      <div class="relative">
-        <!-- Connector line (desktop) -->
-        <div class="hidden sm:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-cream-200 z-0" />
+      <div class="lg:col-span-8">
+        <div class="border border-line bg-surface p-5 shadow-medium sm:p-8">
+          <h2 class="mb-2 text-2xl font-bold">体験レッスン申込フォーム</h2>
+          <p class="mb-7 text-sm leading-7 text-ink-secondary"><span class="text-error">*</span> は必須項目です。フリガナと電話番号は任意です。</p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 relative z-10">
-          {steps.map((s, i) => (
-            <div class="fade-in text-center" style={`transition-delay: ${i * 100}ms`}>
-              <div class="relative inline-flex">
-                <div class="w-20 h-20 rounded-full bg-white border-2 border-cream-200 flex flex-col items-center justify-center mb-6
-                            shadow-sm group-hover:border-gold-400 transition-colors mx-auto">
-                  <span class="font-serif text-2xl font-bold text-gold-500">{s.step}</span>
-                </div>
-                {i < steps.length - 1 && (
-                  <div class="sm:hidden absolute top-10 left-full w-8 h-px bg-cream-200 -translate-y-1/2" />
-                )}
-              </div>
-              <h3 class="font-medium text-charcoal-900 text-sm mb-2">{s.title}</h3>
-              <p class="text-xs text-charcoal-700 leading-relaxed">{s.desc}</p>
+          {!siteContent.formEndpoint && (
+            <div class="mb-6" id="trial-demo-notice">
+              <StatusPanel type="warning" title="デモのため送信されません">
+                <p>送信先が未設定です。入力と検証は試せますが、申込完了にはなりません。</p>
+              </StatusPanel>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+          )}
 
-  <!-- ===== Form ===== -->
-  <section class="py-24 bg-cream-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
-
-        <!-- Left: context + instrument selector -->
-        <div class="lg:col-span-4 fade-in-left">
-          <div class="sticky top-28">
-            <p class="text-forest-700 text-[10px] tracking-[0.28em] uppercase font-semibold mb-4">Apply</p>
-            <h2 class="font-serif text-3xl text-charcoal-900 font-light mb-6">
-              申し込みフォーム
-            </h2>
-
-            <!-- Instrument cards -->
-            <div class="space-y-2 mb-8">
-              <p class="text-xs text-charcoal-700 mb-3">ご希望のコースを選択してください：</p>
-              {instruments.map(inst => (
-                <div class="flex items-center gap-3 p-3 bg-white border border-cream-200 rounded-sm
-                            hover:border-gold-400/60 hover:bg-cream-50 transition-all duration-200 cursor-pointer group">
-                  <span class="font-serif text-xl text-gold-500 w-6 text-center group-hover:scale-125 transition-transform">{inst.note}</span>
-                  <span class="text-sm text-charcoal-700 font-medium">{inst.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <!-- Note box -->
-            <div class="bg-forest-700/5 border-l-2 border-forest-700 p-4">
-              <p class="text-xs text-charcoal-700 leading-relaxed">
-                <strong class="font-medium">お申込み後の流れ：</strong><br />
-                1〜2営業日以内に担当者よりご連絡いたします。<br />
-                メール・電話どちらでもご対応可能です。
-              </p>
-            </div>
+          <div class="mb-6 space-y-4" aria-live="polite">
+            <StatusPanel id="trial-success" type="success" title="申込を受け付けました" hidden focusable><p>ご入力のメールアドレスへ、{siteContent.responseTime}を目安にご連絡します。</p></StatusPanel>
+            <StatusPanel id="trial-submit-error" type="error" title="送信できませんでした" hidden focusable><p data-status-message>時間をおいて、もう一度お試しください。</p></StatusPanel>
           </div>
-        </div>
 
-        <!-- Right: form -->
-        <div class="lg:col-span-8 fade-in-right">
-          <form
-            id="trial-form"
-            class="bg-white p-8 sm:p-12 shadow-sm border border-cream-200/50"
-            data-testid="trial-form"
-            novalidate
-          >
-            <!-- Error summary (hidden by default) -->
-            <div id="form-errors" class="hidden mb-6 p-4 bg-red-50 border border-red-200" role="alert" aria-live="polite">
-              <p class="text-sm text-red-700 font-medium mb-2">以下の項目をご確認ください：</p>
-              <ul id="error-list" class="text-sm text-red-600 space-y-1 list-disc list-inside"></ul>
+          <form id="trial-form" data-testid="trial-form" data-endpoint={siteContent.formEndpoint ?? ''} novalidate class="space-y-6">
+            <div class="grid gap-6 sm:grid-cols-2">
+              <FormField id="name" label="お名前" required><input id="name" name="name" type="text" autocomplete="name" maxlength="50" required class="form-input" data-testid="input-name" aria-describedby="name-error" /></FormField>
+              <FormField id="kana" label="フリガナ" hint="任意。全角カタカナで入力してください。"><input id="kana" name="kana" type="text" autocomplete="off" maxlength="50" class="form-input" aria-describedby="kana-hint kana-error" /></FormField>
             </div>
-
-            <div class="space-y-6">
-              <!-- Name row -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label for="name" class="form-label">
-                    お名前 <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    autocomplete="name"
-                    placeholder="山田 花子"
-                    class="form-input"
-                    data-testid="input-name"
-                    aria-required="true"
-                  />
-                  <p class="text-red-500 text-xs mt-1 hidden" data-error="name"></p>
-                </div>
-                <div>
-                  <label for="kana" class="form-label">
-                    フリガナ <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="kana"
-                    name="kana"
-                    required
-                    placeholder="ヤマダ ハナコ"
-                    class="form-input"
-                    data-testid="input-kana"
-                    aria-required="true"
-                  />
-                  <p class="text-red-500 text-xs mt-1 hidden" data-error="kana"></p>
-                </div>
-              </div>
-
-              <!-- Email -->
-              <div>
-                <label for="email" class="form-label">
-                  メールアドレス <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  autocomplete="email"
-                  placeholder="example@email.com"
-                  class="form-input"
-                  data-testid="input-email"
-                  aria-required="true"
-                />
-                <p class="text-red-500 text-xs mt-1 hidden" data-error="email"></p>
-              </div>
-
-              <!-- Phone -->
-              <div>
-                <label for="phone" class="form-label">
-                  電話番号 <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  autocomplete="tel"
-                  placeholder="090-0000-0000"
-                  class="form-input"
-                  data-testid="input-phone"
-                  aria-required="true"
-                />
-                <p class="text-red-500 text-xs mt-1 hidden" data-error="phone"></p>
-              </div>
-
-              <!-- Instrument -->
-              <div>
-                <label for="instrument" class="form-label">
-                  ご希望の楽器 <span class="text-red-500 ml-0.5" aria-label="必須">*</span>
-                </label>
-                <div class="relative">
-                  <select
-                    id="instrument"
-                    name="instrument"
-                    required
-                    class="form-input appearance-none pr-10"
-                    data-testid="select-instrument"
-                    aria-required="true"
-                  >
-                    <option value="">選択してください</option>
-                    {instruments.map(inst => (
-                      <option value={inst.value}>{inst.label}</option>
-                    ))}
-                  </select>
-                  <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-charcoal-700/50">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-                <p class="text-red-500 text-xs mt-1 hidden" data-error="instrument"></p>
-              </div>
-
-              <!-- Level -->
-              <div>
-                <label for="level" class="form-label">現在のレベル</label>
-                <div class="relative">
-                  <select id="level" name="level" class="form-input appearance-none pr-10">
-                    <option value="beginner">初心者（まったく未経験）</option>
-                    <option value="elementary">入門（少し経験あり）</option>
-                    <option value="intermediate">中級者</option>
-                    <option value="advanced">上級者</option>
-                  </select>
-                  <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-charcoal-700/50">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Preferred date -->
-              <div>
-                <label for="preferred_date" class="form-label">ご希望の日時（第一希望）</label>
-                <input
-                  type="text"
-                  id="preferred_date"
-                  name="preferred_date"
-                  placeholder="例：平日午後 / 土曜日午前 など"
-                  class="form-input"
-                />
-                <p class="text-[11px] text-charcoal-700/60 mt-1.5">
-                  ※火〜日曜 10:00〜20:00 / 月曜定休
-                </p>
-              </div>
-
-              <!-- Message -->
-              <div>
-                <label for="message" class="form-label">ご質問・その他ご要望</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="4"
-                  placeholder="例：子どもが通うのですが、何歳から始められますか？"
-                  class="form-input resize-none"
-                ></textarea>
-              </div>
-
-              <!-- Privacy -->
-              <div class="flex items-start gap-3">
-                <div class="relative flex-shrink-0 mt-0.5">
-                  <input
-                    type="checkbox"
-                    id="privacy"
-                    name="privacy"
-                    required
-                    class="w-4 h-4 border-cream-200 text-forest-700 focus:ring-forest-700 cursor-pointer"
-                    data-testid="checkbox-privacy"
-                    aria-required="true"
-                  />
-                </div>
-                <label for="privacy" class="text-sm text-charcoal-700 leading-relaxed cursor-pointer">
-                  <a href="/privacy" class="text-forest-700 underline underline-offset-2 hover:text-forest-600">プライバシーポリシー</a>に同意する
-                  <span class="text-red-500 ml-1" aria-label="必須">*</span>
-                </label>
-              </div>
-              <p class="text-red-500 text-xs -mt-4 hidden" data-error="privacy"></p>
-
-              <!-- Submit -->
-              <div class="pt-2">
-                <button
-                  type="submit"
-                  class="w-full py-4 bg-forest-700 text-cream-50 font-medium text-sm flex items-center justify-center gap-2
-                         hover:bg-forest-600 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg
-                         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                  data-testid="trial-submit-btn"
-                >
-                  <span class="text-gold-400 text-base">♪</span>
-                  体験レッスンを申し込む
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </button>
-                <p class="text-[11px] text-charcoal-700/50 text-center mt-3">
-                  <span class="text-red-400">*</span> は必須項目です
-                </p>
-              </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <FormField id="email" label="メールアドレス" required><input id="email" name="email" type="email" autocomplete="email" required class="form-input" data-testid="input-email" aria-describedby="email-error" /></FormField>
+              <FormField id="phone" label="電話番号" hint="任意。連絡を電話で希望する場合に入力してください。"><input id="phone" name="phone" type="tel" autocomplete="tel" class="form-input" data-testid="input-phone" aria-describedby="phone-hint phone-error" /></FormField>
             </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <FormField id="instrument" label="ご希望の楽器" required>
+                <select id="instrument" name="instrument" required class="form-input" data-testid="select-instrument" aria-describedby="instrument-error">
+                  <option value="">選択してください</option>
+                  {siteContent.courses.map((course) => <option value={course.id}>{course.name}</option>)}
+                </select>
+              </FormField>
+              <FormField id="level" label="ご経験"><select id="level" name="level" class="form-input"><option value="">選択してください（任意）</option><option value="beginner">初めて</option><option value="experienced">経験あり</option><option value="advanced">本格的に学びたい</option></select></FormField>
+            </div>
+            <FormField id="preferred_date" label="希望日" hint="任意。予約は担当者との確認後に確定します。"><input id="preferred_date" name="preferred_date" type="date" class="form-input" aria-describedby="preferred_date-hint preferred_date-error" /></FormField>
+            <FormField id="message" label="目標・ご質問" hint="弾いてみたい曲、経験、ご希望の曜日などをご記入ください。"><textarea id="message" name="message" maxlength="1000" class="form-input" aria-describedby="message-hint message-error"></textarea></FormField>
+            <div class="form-field">
+              <label class="flex min-h-12 cursor-pointer items-start gap-3 text-sm leading-7"><input id="privacy" name="privacy" type="checkbox" required class="mt-1.5 h-5 w-5 flex-none accent-brand" aria-describedby="privacy-error" /><span><a href="/privacy" class="text-link">プライバシーポリシー</a>を確認し、個人情報の取扱いに同意します <span class="text-error">*</span></span></label>
+              <p id="privacy-error" class="form-error" data-error="privacy" hidden></p>
+            </div>
+            <Button type="submit" size="lg" testId="trial-submit-btn" class="w-full sm:w-auto"><span data-button-label>内容を確認して申し込む</span></Button>
+            <p class="mb-0 text-xs leading-6 text-ink-muted">このボタンを押した時点では、日程は確定しません。</p>
           </form>
         </div>
       </div>
     </div>
   </section>
+</BaseLayout>
 
-  <script>
-    import { validateTrialForm } from '../lib/formValidation';
+<script>
+  import { validateTrialForm } from '../lib/formValidation';
 
-    const form = document.getElementById('trial-form') as HTMLFormElement;
-    const errorSummary = document.getElementById('form-errors')!;
-    const errorList = document.getElementById('error-list')!;
+  const form = document.querySelector<HTMLFormElement>('#trial-form');
+  const allowedInstruments = ['piano', 'guitar', 'violin', 'vocal'];
 
-    function showFieldError(field: string, message: string) {
-      const el = form.querySelector(`[data-error="${field}"]`) as HTMLElement;
-      if (el) {
-        el.textContent = message;
-        el.classList.remove('hidden');
-      }
-    }
+  if (form) {
+    const instrument = form.elements.namedItem('instrument') as HTMLSelectElement;
+    const queryInstrument = new URLSearchParams(window.location.search).get('instrument');
+    if (queryInstrument && allowedInstruments.includes(queryInstrument)) instrument.value = queryInstrument;
 
-    function clearErrors() {
-      form.querySelectorAll('[data-error]').forEach(el => {
-        (el as HTMLElement).classList.add('hidden');
-        (el as HTMLElement).textContent = '';
-      });
-      errorSummary.classList.add('hidden');
-      errorList.innerHTML = '';
-    }
+    const dateInput = form.elements.namedItem('preferred_date') as HTMLInputElement;
+    dateInput.min = new Date().toISOString().slice(0, 10);
 
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    let submitting = false;
+    const clearErrors = () => {
+      form.querySelectorAll<HTMLElement>('[data-error]').forEach((node) => { node.hidden = true; node.textContent = ''; });
+      form.querySelectorAll<HTMLElement>('[aria-invalid="true"]').forEach((node) => node.removeAttribute('aria-invalid'));
+    };
+    const showPanel = (id: string, show: boolean) => { const panel = document.querySelector<HTMLElement>(id); if (panel) panel.hidden = !show; return panel; };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submitting) return;
       clearErrors();
+      showPanel('#trial-success', false);
+      showPanel('#trial-submit-error', false);
 
-      const data = {
-        name:           (form.elements.namedItem('name')       as HTMLInputElement).value,
-        kana:           (form.elements.namedItem('kana')       as HTMLInputElement).value,
-        email:          (form.elements.namedItem('email')      as HTMLInputElement).value,
-        phone:          (form.elements.namedItem('phone')      as HTMLInputElement).value,
-        instrument:     (form.elements.namedItem('instrument') as HTMLSelectElement).value,
-        privacyAgreed:  (form.elements.namedItem('privacy')    as HTMLInputElement).checked,
-      };
-
-      const result = validateTrialForm(data);
+      const data = new FormData(form);
+      const result = validateTrialForm({
+        name: String(data.get('name') ?? ''), kana: String(data.get('kana') ?? ''), email: String(data.get('email') ?? ''),
+        phone: String(data.get('phone') ?? ''), instrument: String(data.get('instrument') ?? ''), privacyAgreed: data.get('privacy') === 'on',
+      });
 
       if (!result.valid) {
-        // Show field-level errors
-        for (const [field, message] of Object.entries(result.errors)) {
-          showFieldError(field, message);
-        }
-        // Show summary
-        errorSummary.classList.remove('hidden');
-        errorList.innerHTML = Object.values(result.errors)
-          .map(msg => `<li>${msg}</li>`)
-          .join('');
-        errorSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        Object.entries(result.errors).forEach(([key, message]) => {
+          const error = form.querySelector<HTMLElement>(`[data-error="${key}"]`);
+          const fieldName = key === 'privacy' ? 'privacy' : key;
+          const field = form.elements.namedItem(fieldName) as HTMLElement | null;
+          if (error) { error.textContent = message; error.hidden = false; }
+          field?.setAttribute('aria-invalid', 'true');
+        });
+        const first = form.querySelector<HTMLElement>('[aria-invalid="true"]');
+        first?.focus();
         return;
       }
 
-      // TODO: Formspree / Netlify Forms / Cloudflare Workers等に送信
-      const btn = form.querySelector('[type="submit"]') as HTMLButtonElement;
-      btn.disabled = true;
-      btn.textContent = '送信中...';
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        document.querySelector<HTMLElement>('#trial-demo-notice')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
 
-      await new Promise(r => setTimeout(r, 800)); // Simulate network
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const label = submit?.querySelector<HTMLElement>('[data-button-label]');
+      submitting = true;
+      if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+      if (label) label.textContent = '送信中…';
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 12000);
 
-      alert('お申し込みありがとうございます。担当者より1〜2営業日以内にご連絡いたします。');
-      form.reset();
-      btn.disabled = false;
-      btn.innerHTML = '<span class="text-gold-400 text-base">♪</span> 体験レッスンを申し込む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>';
+      try {
+        const payload = Object.fromEntries(data.entries());
+        const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'trial', ...payload }), signal: controller.signal });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        form.reset();
+        const success = showPanel('#trial-success', true);
+        success?.focus();
+      } catch (error) {
+        const panel = showPanel('#trial-submit-error', true);
+        const message = panel?.querySelector<HTMLElement>('[data-status-message]');
+        if (message) message.textContent = error instanceof DOMException && error.name === 'AbortError' ? '通信がタイムアウトしました。時間をおいて、もう一度お試しください。' : '通信エラーが発生しました。時間をおいて、もう一度お試しください。';
+        panel?.focus();
+      } finally {
+        window.clearTimeout(timeout);
+        submitting = false;
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+        if (label) label.textContent = '内容を確認して申し込む';
+      }
     });
-  </script>
-
-</BaseLayout>
+  }
+</script>

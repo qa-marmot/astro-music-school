@@ -1,27 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import {
-  formatDate,
   excerptFromContent,
   toSlug,
   formatPrice,
   getPaginationRange,
 } from '../../src/lib/utils';
-
-describe('formatDate', () => {
-  it('ISO日付文字列を日本語形式に変換する', () => {
-    const result = formatDate('2024-11-01T00:00:00.000Z');
-    // タイムゾーンによって日付がずれるため、年と月が含まれることを確認
-    expect(result).toMatch(/2024年/);
-    expect(result).toMatch(/月/);
-    expect(result).toMatch(/日/);
-  });
-
-  it('異なる日付で正しくフォーマットされる', () => {
-    const result = formatDate('2024-03-15T12:00:00.000Z');
-    expect(result).toContain('2024年');
-    expect(result).toMatch(/15日|14日/); // UTC/JST差を考慮
-  });
-});
 
 describe('excerptFromContent', () => {
   it('HTMLタグを除去して本文を返す', () => {

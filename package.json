@@ -10,15 +10,19 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts --project=chromium",
+    "test:visual": "playwright test tests/e2e/visual.spec.ts --project=chromium",
+    "test:visual:update": "playwright test tests/e2e/visual.spec.ts --project=chromium --update-snapshots",
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/sitemap": "3.1.6",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.5.0",
     "microcms-js-sdk": "^3.1.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.42.1",
     "@types/node": "^20.11.25",
     "@vitest/coverage-v8": "^1.4.0",

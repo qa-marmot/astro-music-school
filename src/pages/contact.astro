@@ -1,154 +1,133 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import FormField from '../components/ui/FormField.astro';
+import StatusPanel from '../components/ui/StatusPanel.astro';
+import Button from '../components/ui/Button.astro';
+import ActionLink from '../components/ui/ActionLink.astro';
+import { siteContent } from '../data/site';
 ---
 
-<BaseLayout
-  title="お問い合わせ"
-  description="Harmony Music Schoolへのお問い合わせページ。レッスンや料金に関するご質問はお気軽にどうぞ。"
->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img
-        src="https://images.pexels.com/photos/534283/pexels-photo-534283.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt=""
-        class="w-full h-full object-cover object-center"
-        loading="eager"
-        aria-hidden="true"
-      />
-      <div class="absolute inset-0 bg-gradient-to-br from-forest-900/92 via-forest-800/88 to-charcoal-900/85" />
-      <div
-        class="absolute inset-0 opacity-[0.04]"
-        style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 19px, rgba(255,255,255,1) 19px, rgba(255,255,255,1) 20px);"
-        aria-hidden="true"
-      />
-    </div>
-    <div class="absolute top-10 right-14 text-4xl text-gold-400 opacity-10 font-serif animate-float-slow select-none pointer-events-none" aria-hidden="true">♫</div>
+<BaseLayout title="お問い合わせ" description="レッスン、料金、通い方に関する一般的なお問い合わせはこちらから。">
+  <PageHeader title="お問い合わせ" eyebrow="一般的なご相談" description="レッスン内容、料金、通い方についてのご質問を受け付けています。体験をご希望の方は専用フォームをご利用ください。" />
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="h-px w-12 bg-gold-400" />
-        <p class="text-gold-400 text-[10px] tracking-[0.28em] uppercase font-semibold">Contact</p>
-      </div>
-      <h1 class="font-serif text-5xl sm:text-6xl text-cream-50 font-light mb-4">
-        お問い<em class="not-italic font-bold italic text-gold-400">合わせ</em>
-      </h1>
-      <p class="text-cream-200/70 text-sm max-w-lg leading-relaxed">
-        ご質問・ご見学のお申込みなど、お気軽にご連絡ください。
-      </p>
-    </div>
-  </section>
-
-  <section class="py-24">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
-        <!-- Contact info -->
-        <div class="fade-in">
-          <h2 class="font-serif text-2xl text-charcoal-900 mb-8">お気軽にどうぞ</h2>
-          <div class="space-y-8">
-            <div>
-              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">電話</p>
-              <a href="tel:03-0000-0000" class="text-charcoal-900 hover:text-forest-700 transition-colors">
-                03-0000-0000
-              </a>
-              <p class="text-xs text-charcoal-700 mt-1">受付：火〜日 10:00〜19:00</p>
-            </div>
-            <div>
-              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">メール</p>
-              <a href="mailto:info@harmony-music.example" class="text-charcoal-900 hover:text-forest-700 transition-colors break-all">
-                info@harmony-music.example
-              </a>
-            </div>
-            <div>
-              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">所在地</p>
-              <address class="not-italic text-charcoal-700 text-sm leading-relaxed">
-                〒000-0000<br />東京都〇〇区〇〇1-2-3<br />〇〇ビル3F
-              </address>
-            </div>
-            <div>
-              <p class="text-xs font-medium tracking-widest text-forest-700 uppercase mb-2">営業時間</p>
-              <p class="text-sm text-charcoal-700">火〜日：10:00〜20:00<br />定休日：月曜日・年末年始</p>
-            </div>
-          </div>
+  <section class="site-section">
+    <div class="site-container grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <aside class="lg:col-span-4">
+        <SectionHeading title="お問い合わせの前に" description="内容に合う窓口を選ぶと、必要な情報を早くお届けできます。" />
+        <div class="mb-8 border-y border-line py-6">
+          <h3 class="mb-2 text-lg font-bold">体験レッスンをご希望の方</h3>
+          <p class="mb-5 text-sm leading-7 text-ink-secondary">楽器と経験を専用フォームからお知らせください。</p>
+          <ActionLink href="/trial" size="sm">体験申込フォームへ</ActionLink>
         </div>
+        <p class="mb-2 text-sm font-bold">返信の目安</p>
+        <p class="mb-6 text-base text-ink-secondary">{siteContent.responseTime}</p>
+        {siteContent.contact ? (
+          <address class="not-italic text-sm leading-8 text-ink-secondary"><p class="mb-1">{siteContent.contact.email}</p><p class="mb-0">{siteContent.contact.phone}</p></address>
+        ) : (
+          <StatusPanel type="info" title="連絡先を確認中です"><p>本番では、確認済みの電話番号とメールアドレスを表示します。</p></StatusPanel>
+        )}
+      </aside>
 
-        <!-- Form -->
-        <div class="lg:col-span-2 fade-in">
-          <form id="contact-form" class="space-y-6" data-testid="contact-form" novalidate>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label for="c-name" class="block text-sm font-medium text-charcoal-900 mb-2">
-                  お名前 <span class="text-red-500">*</span>
-                </label>
-                <input type="text" id="c-name" name="name" required placeholder="山田 花子"
-                  class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
-                         focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow" />
-              </div>
-              <div>
-                <label for="c-email" class="block text-sm font-medium text-charcoal-900 mb-2">
-                  メールアドレス <span class="text-red-500">*</span>
-                </label>
-                <input type="email" id="c-email" name="email" required placeholder="example@email.com"
-                  class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
-                         focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow" />
-              </div>
+      <div class="lg:col-span-8">
+        <div class="border border-line bg-surface p-5 shadow-medium sm:p-8">
+          <h2 class="mb-2 text-2xl font-bold">一般お問い合わせフォーム</h2>
+          <p class="mb-7 text-sm leading-7 text-ink-secondary"><span class="text-error">*</span> は必須項目です。</p>
+
+          {!siteContent.formEndpoint && <div id="contact-demo-notice" class="mb-6"><StatusPanel type="warning" title="デモのため送信されません"><p>送信先が未設定です。入力と検証は試せますが、お問い合わせ完了にはなりません。</p></StatusPanel></div>}
+          <div class="mb-6 space-y-4" aria-live="polite">
+            <StatusPanel id="contact-success" type="success" title="お問い合わせを受け付けました" hidden focusable><p>{siteContent.responseTime}を目安にご連絡します。</p></StatusPanel>
+            <StatusPanel id="contact-submit-error" type="error" title="送信できませんでした" hidden focusable><p data-status-message>時間をおいて、もう一度お試しください。</p></StatusPanel>
+          </div>
+
+          <form id="contact-form" data-testid="contact-form" data-endpoint={siteContent.formEndpoint ?? ''} novalidate class="space-y-6">
+            <div class="grid gap-6 sm:grid-cols-2">
+              <FormField id="contact-name" label="お名前" required errorKey="name"><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="50" required class="form-input" aria-describedby="contact-name-error" /></FormField>
+              <FormField id="contact-email" label="メールアドレス" required errorKey="email"><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required class="form-input" aria-describedby="contact-email-error" /></FormField>
             </div>
-
-            <div>
-              <label for="c-subject" class="block text-sm font-medium text-charcoal-900 mb-2">
-                お問い合わせ種別 <span class="text-red-500">*</span>
-              </label>
-              <select id="c-subject" name="subject" required
-                class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow appearance-none">
+            <FormField id="contact-type" label="お問い合わせ種別" required errorKey="inquiry_type">
+              <select id="contact-type" name="inquiry_type" required class="form-input" aria-describedby="contact-type-error">
                 <option value="">選択してください</option>
                 <option value="trial">体験レッスンについて</option>
                 <option value="lesson">レッスン内容について</option>
                 <option value="pricing">料金・スケジュールについて</option>
                 <option value="other">その他</option>
               </select>
+            </FormField>
+            <FormField id="contact-message" label="お問い合わせ内容" required errorKey="message"><textarea id="contact-message" name="message" maxlength="2000" required class="form-input" aria-describedby="contact-message-error"></textarea></FormField>
+            <div class="form-field">
+              <label class="flex min-h-12 cursor-pointer items-start gap-3 text-sm leading-7"><input id="contact-privacy" name="privacy" type="checkbox" required class="mt-1.5 h-5 w-5 flex-none accent-brand" aria-describedby="contact-privacy-error" /><span><a href="/privacy" class="text-link">プライバシーポリシー</a>を確認し、個人情報の取扱いに同意します <span class="text-error">*</span></span></label>
+              <p id="contact-privacy-error" class="form-error" data-error="privacy" hidden></p>
             </div>
-
-            <div>
-              <label for="c-message" class="block text-sm font-medium text-charcoal-900 mb-2">
-                お問い合わせ内容 <span class="text-red-500">*</span>
-              </label>
-              <textarea id="c-message" name="message" required rows="6"
-                placeholder="ご質問・ご要望をご記入ください"
-                class="w-full px-4 py-3 border border-cream-200 bg-cream-50 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-forest-700 transition-shadow resize-none">
-              </textarea>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <input type="checkbox" id="c-privacy" name="privacy" required
-                class="mt-1 w-4 h-4 border-cream-200" />
-              <label for="c-privacy" class="text-sm text-charcoal-700">
-                <a href="/privacy" class="text-forest-700 underline hover:text-forest-600">プライバシーポリシー</a>に同意する
-                <span class="text-red-500 ml-1">*</span>
-              </label>
-            </div>
-
-            <button type="submit"
-              class="w-full py-4 bg-forest-700 text-cream-50 font-medium text-sm
-                     hover:bg-forest-600 transition-colors"
-              data-testid="contact-submit-btn"
-            >
-              送信する
-            </button>
+            <Button type="submit" size="lg" testId="contact-submit-btn" class="w-full sm:w-auto"><span data-button-label>お問い合わせを送信する</span></Button>
           </form>
         </div>
       </div>
     </div>
   </section>
-
-  <script>
-    const form = document.getElementById('contact-form') as HTMLFormElement;
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      // TODO: 送信処理を実装
-      alert('お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。');
-      form.reset();
-    });
-  </script>
-
 </BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  if (form) {
+    let submitting = false;
+    const showPanel = (id: string, show: boolean) => { const panel = document.querySelector<HTMLElement>(id); if (panel) panel.hidden = !show; return panel; };
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+      form.querySelectorAll<HTMLElement>('[data-error]').forEach((node) => { node.hidden = true; node.textContent = ''; });
+      form.querySelectorAll<HTMLElement>('[aria-invalid="true"]').forEach((node) => node.removeAttribute('aria-invalid'));
+      showPanel('#contact-success', false); showPanel('#contact-submit-error', false);
+      const data = new FormData(form);
+      const errors: Record<string, string> = {};
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const type = String(data.get('inquiry_type') ?? '');
+      const message = String(data.get('message') ?? '').trim();
+      if (!name) errors.name = 'お名前を入力してください';
+      if (!email) errors.email = 'メールアドレスを入力してください'; else if (!emailPattern.test(email)) errors.email = '正しいメールアドレスを入力してください';
+      if (!type) errors.inquiry_type = 'お問い合わせ種別を選択してください';
+      if (!message) errors.message = 'お問い合わせ内容を入力してください';
+      if (data.get('privacy') !== 'on') errors.privacy = 'プライバシーポリシーへの同意が必要です';
+
+      if (Object.keys(errors).length > 0) {
+        for (const [key, value] of Object.entries(errors)) {
+          const error = form.querySelector<HTMLElement>(`[data-error="${key}"]`);
+          const field = form.elements.namedItem(key === 'privacy' ? 'privacy' : key) as HTMLElement | null;
+          if (error) { error.textContent = value; error.hidden = false; }
+          field?.setAttribute('aria-invalid', 'true');
+        }
+        form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+        return;
+      }
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) { document.querySelector<HTMLElement>('#contact-demo-notice')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const label = submit?.querySelector<HTMLElement>('[data-button-label]');
+      submitting = true;
+      if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+      if (label) label.textContent = '送信中…';
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 12000);
+      try {
+        const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'contact', ...Object.fromEntries(data.entries()) }), signal: controller.signal });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        form.reset();
+        showPanel('#contact-success', true)?.focus();
+      } catch (error) {
+        const panel = showPanel('#contact-submit-error', true);
+        const messageNode = panel?.querySelector<HTMLElement>('[data-status-message]');
+        if (messageNode) messageNode.textContent = error instanceof DOMException && error.name === 'AbortError' ? '通信がタイムアウトしました。時間をおいて、もう一度お試しください。' : '通信エラーが発生しました。時間をおいて、もう一度お試しください。';
+        panel?.focus();
+      } finally {
+        window.clearTimeout(timeout); submitting = false;
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+        if (label) label.textContent = 'お問い合わせを送信する';
+      }
+    });
+  }
+</script>

@@ -1,247 +1,112 @@
-# 🎵 Harmony Music School — Webサイト
+# Harmony Music School
 
-音楽教室・習い事教室向けのWebサイトです。  
-**Astro + Tailwind CSS + microCMS** で構築し、**Cloudflare Pages** にデプロイします。
+音楽教室向けのAstroサイトです。ピアノ、ギター、バイオリン、声楽の個人レッスンと、有料体験レッスンの申込導線を扱います。
 
----
+Astro 4 / Tailwind CSS / microCMS / Vitest / Playwrightで構成し、Cloudflare Pagesへの静的デプロイを想定しています。
 
-## 技術スタック
+## セットアップ
 
-| 役割 | 技術 |
-|------|------|
-| フレームワーク | Astro (SSG) |
-| スタイリング | Tailwind CSS |
-| CMS | microCMS |
-| 開発環境 | Docker |
-| 単体テスト | Vitest |
-| E2Eテスト | Playwright |
-| デプロイ | Cloudflare Pages |
-
----
-
-## ページ構成
-
-| パス | ページ名 |
-|------|---------|
-| `/` | トップページ |
-| `/about` | 教室紹介・講師紹介 |
-| `/lessons` | レッスン内容 |
-| `/pricing` | 料金プラン |
-| `/trial` | 体験レッスン申込 |
-| `/blog` | ブログ一覧 |
-| `/blog/[id]` | ブログ詳細 |
-| `/blog/category/[id]` | カテゴリ別一覧 |
-| `/contact` | お問い合わせ |
-| `/faq` | FAQ |
-| `/access` | アクセス |
-
----
-
-## セットアップ手順
-
-### 前提条件
-
-- Node.js 20+
-- npm 9+
-- Docker（オプション）
-
-### 1. リポジトリの準備
-
-```bash
-git clone <your-repo-url>
-cd music-school-website
-```
-
-### 2. 環境変数の設定
-
-```bash
-cp .env.example .env
-```
-
-`.env` を編集して microCMS の情報を入力してください:
-
-```env
-MICROCMS_SERVICE_DOMAIN=your-service-domain   # ← 変更
-MICROCMS_API_KEY=your-api-key                  # ← 変更
-PUBLIC_SITE_URL=https://your-school.pages.dev  # ← 変更
-PUBLIC_SITE_NAME=Harmony Music School          # ← 変更（任意）
-```
-
-### 3. 依存関係のインストール
+Node.js 20以上を使用してください。
 
 ```bash
 npm install
-```
-
-### 4. 開発サーバーの起動
-
-```bash
+copy .env.example .env
 npm run dev
-# http://localhost:4321 でアクセス
 ```
 
-### Docker を使う場合
+開発サーバーは通常 `http://localhost:4321` で起動します。
 
-```bash
-docker compose up dev
-# http://localhost:4321 でアクセス
+## デモモードと本番モード
+
+初期値は `PUBLIC_CONTENT_MODE=demo` です。デモモードでは次の安全策が有効になります。
+
+- 全ページにサンプル表示を出し、`noindex,nofollow` にする
+- 架空の講師、住所、連絡先、実績を表示しない
+- フォーム送信先がない場合は「送信されません」と明示し、成功扱いにしない
+- microCMS未設定でもビルドし、ブログは空状態を表示する
+
+本番化する場合は `.env` を次のように設定し、[src/data/site.ts](./src/data/site.ts) に確認済みの教室情報、講師、料金を設定してください。
+
+```env
+PUBLIC_CONTENT_MODE=production
+PUBLIC_SITE_URL=https://example.com
+PUBLIC_SITE_NAME=Harmony Music School
+PUBLIC_FORM_ENDPOINT=https://example.com/api/forms
+MICROCMS_SERVICE_DOMAIN=your-service-domain
+MICROCMS_API_KEY=your-api-key
 ```
 
----
+本番モードでは、HTTPSの公開URL、フォーム送信先、連絡先、講師が不足しているとビルドを停止します。プライバシーポリシーと料金条件も実際の運用に合わせて確認してください。
 
-## microCMS 設定手順
+## フォームAPI
 
-詳細は [`microcms-schema/SCHEMA.md`](./microcms-schema/SCHEMA.md) を参照してください。
+`/trial` と `/contact` は `PUBLIC_FORM_ENDPOINT` へJSONをPOSTします。HTTP 2xxが返った場合だけ完了表示になります。
 
-### 最小手順
+```json
+{
+  "type": "trial",
+  "name": "山田 花子",
+  "email": "hanako@example.com",
+  "instrument": "piano",
+  "privacy": "on"
+}
+```
 
-1. [microCMS](https://microcms.io/) でアカウント作成・サービス作成
-2. `categories` エンドポイントを作成（リスト形式）
-   - `name` (テキスト) / `slug` (テキスト)
-3. `blog` エンドポイントを作成（リスト形式）
-   - `title`, `slug`, `excerpt`, `content` (リッチエディタ), `eyecatch` (画像), `category` (コンテンツ参照)
-4. APIキーを取得して `.env` に設定
+`type` は `trial` または `contact` です。既存のフォームfield名をそのまま送ります。API側では入力値の再検証、レート制限、スパム対策、適切なCORS設定を行ってください。
 
-> **microCMS なしでの動作確認**  
-> 環境変数が未設定の場合、ブログ一覧・詳細ページはサンプルデータで表示されます（開発用フォールバック）。
+## microCMS
 
----
+ブログだけをmicroCMSで管理します。スキーマは [microcms-schema/SCHEMA.md](./microcms-schema/SCHEMA.md) を参照してください。
 
-## テスト実行
+- `categories`: `name`, `slug`
+- `blog`: `title`, `slug`, `excerpt`, `content`, `eyecatch`, `category`
 
-### 単体テスト（Vitest）
+環境変数がない場合、一覧はHTTP 200の空状態になります。架空のフォールバック記事や詳細ルートは生成しません。
+
+## デザインシステム
+
+- Semantic Color Tokenの正本: [src/styles/global.css](./src/styles/global.css)
+- Tailwindとの接続: [tailwind.config.js](./tailwind.config.js)
+- 教室・コース・料金: [src/data/site.ts](./src/data/site.ts)
+- UI primitive: `src/components/ui/`
+- FAQ / Blog component: `src/components/content/`, `src/components/blog/`
+
+本文はNoto Sans JP、見出しはNoto Serif JPを使用します。Primary CTAは「体験レッスン（3,000円）を申し込む」で統一しています。
+
+## テストとビルド
 
 ```bash
 npm test
-# カバレッジ付き
-npm run test -- --coverage
-```
-
-### E2Eテスト（Playwright）
-
-```bash
-# 開発サーバーが起動している状態で
-npm run test:e2e
-
-# UIモードで実行
-npm run test:e2e:ui
-```
-
-> E2EテストはローカルのAstro dev serverに対して実行されます。  
-> 初回実行時は `npx playwright install` でブラウザをインストールしてください。
-
----
-
-## ビルド
-
-```bash
-# ローカルビルド
 npm run build
-
-# ビルド結果プレビュー
-npm run preview
-
-# Docker でビルド
-docker compose run --rm build
+npx playwright install chromium
+npm run test:e2e
+npm run test:a11y
+npm run test:visual
 ```
 
----
-
-## Cloudflare Pages デプロイ手順
-
-### GitHubと連携する場合（推奨）
-
-1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → 「Workers & Pages」→「Create application」→「Pages」
-2. 「Connect to Git」→ GitHubリポジトリを選択
-3. ビルド設定:
-
-   | 項目 | 値 |
-   |------|-----|
-   | Framework preset | Astro |
-   | Build command | `npm run build` |
-   | Build output directory | `dist` |
-
-4. 環境変数を Cloudflare Pages の設定画面で追加:
-   - `MICROCMS_SERVICE_DOMAIN`
-   - `MICROCMS_API_KEY`
-   - `PUBLIC_SITE_URL`（`https://xxx.pages.dev` 形式）
-
-5. 「Save and Deploy」をクリック
-
-### Wrangler CLI を使う場合
+Visual Regressionの基準画像を意図的に更新する場合だけ、次を実行します。
 
 ```bash
-npm install -g wrangler
-wrangler login
-wrangler pages deploy dist --project-name=music-school-website
+npm run test:visual:update
 ```
 
----
+Visual Regressionは360、390、768、1024、1280、1440pxで主要9ページを確認します。外部写真の通信差分を除くため、テスト中だけ固定プレースホルダーへ置換します。
 
-## プロジェクト構成
+## 主なページ
 
-```
-/
-├── src/
-│   ├── components/
-│   │   └── common/          # Header, Footer, SEOHead
-│   ├── layouts/
-│   │   └── BaseLayout.astro # 全ページ共通レイアウト
-│   ├── lib/
-│   │   ├── microcms.ts      # microCMS クライアント
-│   │   ├── blog.ts          # ブログAPI・整形関数
-│   │   └── utils.ts         # ユーティリティ関数
-│   ├── pages/               # Astro ページ
-│   │   ├── index.astro      # トップ
-│   │   ├── about.astro      # 教室紹介
-│   │   ├── lessons.astro    # レッスン内容
-│   │   ├── pricing.astro    # 料金
-│   │   ├── trial.astro      # 体験レッスン
-│   │   ├── contact.astro    # お問い合わせ
-│   │   ├── faq.astro        # FAQ
-│   │   ├── access.astro     # アクセス
-│   │   ├── 404.astro
-│   │   └── blog/
-│   │       ├── index.astro         # ブログ一覧
-│   │       ├── [id].astro          # 記事詳細
-│   │       └── category/[id].astro # カテゴリ絞り込み
-│   └── types/
-│       └── index.ts         # TypeScript型定義
-├── public/
-│   └── images/              # 静的画像（OG画像等）
-├── tests/
-│   ├── unit/                # Vitest 単体テスト
-│   └── e2e/                 # Playwright E2Eテスト
-├── docker/
-│   ├── Dockerfile.dev
-│   └── Dockerfile.prod
-├── microcms-schema/
-│   └── SCHEMA.md            # microCMSスキーマ設計
-├── docker-compose.yml
-├── astro.config.mjs
-├── tailwind.config.js
-├── playwright.config.ts
-├── vitest.config.ts
-└── .env.example
-```
+| パス | 内容 |
+| --- | --- |
+| `/` | トップ |
+| `/about` | 教室方針・講師 |
+| `/lessons` | 4コース |
+| `/pricing` | 体験・月額料金 |
+| `/trial` | 体験申込 |
+| `/contact` | 一般問い合わせ |
+| `/faq` | よくある質問 |
+| `/access` | 教室情報・地図 |
+| `/blog` | ブログ |
+| `/privacy` | プライバシーポリシー |
 
----
+## デプロイ
 
-## カスタマイズガイド
-
-### 教室情報の変更
-
-- **名前・連絡先**: `src/components/common/Footer.astro`, `src/pages/contact.astro`, `src/pages/access.astro`
-- **ナビゲーション**: `src/components/common/Header.astro`
-- **SEO（サイト名・OGP）**: `src/components/common/SEOHead.astro` + `.env` の `PUBLIC_SITE_NAME`
-
-### カラー・フォントの変更
-
-`tailwind.config.js` の `theme.extend.colors` でブランドカラーを変更できます。
-
-### フォームのバックエンド連携
-
-`src/pages/trial.astro` と `src/pages/contact.astro` の `<script>` ブロック内にある  
-`// TODO: 送信処理を実装` の箇所に、Formspree / Cloudflare Workers / EmailJS などのAPIコールを追加してください。
-
----
+Cloudflare PagesではBuild commandを `npm run build`、Output directoryを `dist` に設定し、上記の本番環境変数を登録してください。`PUBLIC_SITE_URL` はcanonical、sitemap、robots、OG URLの基準になります。

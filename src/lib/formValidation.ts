@@ -5,9 +5,9 @@
 
 export interface TrialFormData {
   name: string;
-  kana: string;
+  kana?: string;
   email: string;
-  phone: string;
+  phone?: string;
   instrument: string;
   privacyAgreed: boolean;
 }
@@ -17,7 +17,7 @@ export interface ValidationResult {
   errors: Record<string, string>;
 }
 
-const VALID_INSTRUMENTS = ['piano', 'guitar', 'violin', 'vocal', 'flute'] as const;
+const VALID_INSTRUMENTS = ['piano', 'guitar', 'violin', 'vocal'] as const;
 export type Instrument = typeof VALID_INSTRUMENTS[number];
 
 // Katakana pattern (full-width katakana + space)
@@ -50,11 +50,10 @@ export function validateTrialForm(data: TrialFormData): ValidationResult {
   }
 
   // --- Kana ---
-  if (!data.kana.trim()) {
-    errors.kana = 'フリガナを入力してください';
-  } else if (!KATAKANA_RE.test(data.kana.trim())) {
+  const kana = data.kana?.trim() ?? '';
+  if (kana && !KATAKANA_RE.test(kana)) {
     errors.kana = 'フリガナはカタカナで入力してください';
-  } else if (data.kana.trim().length > 50) {
+  } else if (kana.length > 50) {
     errors.kana = 'フリガナは50文字以内で入力してください';
   }
 
@@ -68,13 +67,12 @@ export function validateTrialForm(data: TrialFormData): ValidationResult {
   }
 
   // --- Phone ---
-  if (!data.phone.trim()) {
-    errors.phone = '電話番号を入力してください';
-  } else if (!PHONE_RE.test(data.phone)) {
+  const phone = data.phone?.trim() ?? '';
+  if (phone && !PHONE_RE.test(phone)) {
     errors.phone = '電話番号は数字・ハイフンで入力してください';
-  } else if (countDigits(data.phone) < PHONE_MIN_DIGITS) {
+  } else if (phone && countDigits(phone) < PHONE_MIN_DIGITS) {
     errors.phone = '電話番号は10桁以上で入力してください';
-  } else if (countDigits(data.phone) > 15) {
+  } else if (phone && countDigits(phone) > 15) {
     errors.phone = '電話番号が長すぎます';
   }
 

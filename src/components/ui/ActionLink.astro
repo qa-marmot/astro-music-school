@@ -1,0 +1,27 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'sm' | 'md' | 'lg';
+  theme?: 'light' | 'dark';
+  testId?: string;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  theme = 'light',
+  testId,
+  class: className = '',
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class={`action action--${variant} action--${size} ${theme === 'dark' ? 'action--on-dark' : ''} ${className}`}
+  data-testid={testId}
+>
+  <slot />
+</a>

@@ -34,7 +34,7 @@ describe('validateTrialForm — 正常系', () => {
   });
 
   it('すべての有効な楽器で valid=true になる', () => {
-    for (const inst of ['piano', 'guitar', 'violin', 'vocal', 'flute']) {
+    for (const inst of ['piano', 'guitar', 'violin', 'vocal']) {
       const result = validateTrialForm(withOverride({ instrument: inst }));
       expect(result.valid, `instrument="${inst}" should be valid`).toBe(true);
     }
@@ -68,9 +68,9 @@ describe('validateTrialForm — name フィールド', () => {
 // ─── kana field ────────────────────────────────────────────────────────────
 
 describe('validateTrialForm — kana フィールド', () => {
-  it('空文字 → エラー', () => {
+  it('空文字（任意）→ エラーなし', () => {
     const { errors } = validateTrialForm(withOverride({ kana: '' }));
-    expect(errors.kana).toBeTruthy();
+    expect(errors.kana).toBeUndefined();
   });
 
   it('ひらがな → カタカナエラー', () => {
@@ -133,9 +133,9 @@ describe('validateTrialForm — email フィールド', () => {
 // ─── phone field ───────────────────────────────────────────────────────────
 
 describe('validateTrialForm — phone フィールド', () => {
-  it('空文字 → エラー', () => {
+  it('空文字（任意）→ エラーなし', () => {
     const { errors } = validateTrialForm(withOverride({ phone: '' }));
-    expect(errors.phone).toBeTruthy();
+    expect(errors.phone).toBeUndefined();
   });
 
   it('英字混入 → フォーマットエラー', () => {
@@ -205,7 +205,7 @@ describe('validateTrialForm — 複数エラー', () => {
       privacyAgreed: false,
     });
     expect(result.valid).toBe(false);
-    expect(Object.keys(result.errors).length).toBeGreaterThanOrEqual(5);
+    expect(Object.keys(result.errors).length).toBe(4);
   });
 
   it('name と email だけ不正 → errors に name と email のみ', () => {
