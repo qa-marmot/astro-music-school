@@ -1,15 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
-import StatusPanel from '../components/ui/StatusPanel.astro';
 import { siteContent, isDemo } from '../data/site';
 ---
 
 <BaseLayout title="プライバシーポリシー" description="個人情報の取扱いについてご案内します。" noindex={isDemo}>
-  <PageHeader title="プライバシーポリシー" description="フォームでお預かりする個人情報の取扱いについて" />
+  <PageHeader variant="compact" title="プライバシーポリシー" description="フォームでお預かりする個人情報の取扱いについて" />
   <article class="site-section">
     <div class="site-container-narrow">
-      {isDemo && <div class="mb-10"><StatusPanel type="warning" title="公開前の確認が必要です"><p>この文面はデモ用です。実際の送信先、保存期間、委託先、問い合わせ窓口に合わせて法務確認を行ってください。</p></StatusPanel></div>}
+      {isDemo && <p class="demo-note mb-8 border-l-2 border-accent pl-4">デモ用の文面です。公開前に、実際の送信先、保存期間、委託先、問い合わせ窓口に合わせて法務確認が必要です。</p>}
       <p class="mb-10 text-sm text-ink-muted">最終更新日：本番公開時に設定</p>
       <div class="prose-content">
         <h2>1. 取得する情報</h2><p>体験レッスン申込およびお問い合わせフォームに入力された氏名、メールアドレス、任意で入力された電話番号、希望内容などを取得します。</p>

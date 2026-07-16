@@ -4,32 +4,29 @@ import PageHeader from '../components/ui/PageHeader.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import FaqList from '../components/content/FaqList.astro';
 import CTASection from '../components/ui/CTASection.astro';
-import StatusPanel from '../components/ui/StatusPanel.astro';
-import { isDemo } from '../data/site';
+import { isDemo, siteContent } from '../data/site';
 
+const taxIncluded = Math.floor(siteContent.trialPriceExTax * 1.1).toLocaleString('ja-JP');
 const categories = [
   {
     title: 'レッスンについて',
     items: [
-      { q: '楽器が初めてでも受講できますか？', a: 'はい。構え方や楽譜の読み方など、基礎から一つずつ進める想定です。経験や目標を体験フォームでお知らせください。' },
-      { q: '子どもや大人の初心者にも対応していますか？', a: '4歳頃のお子さまから大人・シニアまでを想定しています。楽器のサイズや身体的な負担については、個別に確認します。' },
-      { q: '自宅に楽器がなくても始められますか？', a: '練習環境やレンタルの有無は教室ごとに条件が異なるため、本番公開前に確認が必要です。まずはお問い合わせください。' },
+      { q: '楽器が初めてでも受講できますか？', a: 'はい。構え方や楽譜の読み方など、必要な基礎から一つずつ進めます。経験や弾いてみたい曲を体験フォームでお知らせください。' },
+      { q: '子どもと大人のどちらも受講できますか？', a: 'はい。コースごとに対象年齢の目安を設けています。お子さまは楽器のサイズや集中できる時間も体験時に確認し、大人の方は経験や生活のペースに合わせて進めます。' },
     ],
   },
   {
     title: '料金・通い方について',
     items: [
-      { q: '体験レッスンの料金はいくらですか？', a: 'デモ上の設定は3,000円（税別）、税込3,300円です。本番では確定した税込総額を主表示します。' },
-      { q: '振替レッスンはできますか？', a: '現在の料金例ではプランごとに回数を設けています。正式な期限、連絡方法、適用条件は本番公開前に確定します。' },
-      { q: '支払い方法は選べますか？', a: '支払い方法は現在確認中です。本番では利用できる方法と支払日を明記します。' },
+      { q: '体験レッスンの料金はいくらですか？', a: `税込${taxIncluded}円、所要時間は${siteContent.trialDuration}です。フォーム送信後に日程をご相談し、予約を確定します。` },
+      { q: '教材費は月謝に含まれますか？', a: 'ライト・スタンダードプランは教材費が別途必要です。プレミアムプランは一部を含みます。必要な教材と金額は購入前にご案内します。' },
     ],
   },
   {
     title: '体験・お申し込みについて',
     items: [
-      { q: '体験では何をしますか？', a: '経験や目標を伺い、実際に音を出しながら、今後の進め方を相談します。所要時間は45〜60分の想定です。' },
-      { q: 'フォームを送れば予約は確定しますか？', a: 'いいえ。フォーム送信後に担当者が候補日時を確認し、双方の合意後に予約確定となります。' },
-      { q: 'どの楽器を選ぶか迷っています。', a: '一般お問い合わせフォームから、興味のある音楽や経験をお知らせください。4コースの特徴をご案内します。' },
+      { q: '体験では何をしますか？', a: '経験や目標を伺い、実際に音を出しながら、今後の進め方をご相談します。先生との距離や説明の分かりやすさもご確認ください。' },
+      { q: 'フォームを送れば予約は確定しますか？', a: 'いいえ。フォーム送信後に担当者が候補日時を確認し、双方で日時を確認した後に予約確定となります。' },
     ],
   },
 ];
@@ -38,19 +35,25 @@ const faqJsonLd = !isDemo ? { '@context': 'https://schema.org', '@type': 'FAQPag
 ---
 
 <BaseLayout title="よくあるご質問" description="レッスン、料金、体験申込についてのよくある質問をご案内します。" jsonLd={faqJsonLd}>
-  <PageHeader title="よくあるご質問" eyebrow="FAQ" description="ご検討中によくいただく質問を、テーマ別にまとめています。" />
+  <PageHeader variant="compact" title="よくあるご質問" description="初めて音楽を学ぶ方、保護者の方、大人になって再開する方から寄せられやすい質問をまとめました。" />
   <section class="site-section">
     <div class="site-container-narrow">
-      {isDemo && <div class="mb-10"><StatusPanel type="warning" title="回答はサンプルです"><p>本番公開前に、料金、設備、振替、対象年齢などの正式な条件と一致させてください。</p></StatusPanel></div>}
       <div class="space-y-14">
         {categories.map((category) => (
           <section>
-            <SectionHeading title={category.title} />
+            <SectionHeading title={category.title} spacing="compact" />
             <FaqList items={category.items} />
           </section>
         ))}
       </div>
     </div>
   </section>
-  <CTASection title="解決しないことは、個別にご相談ください" description="体験をご希望の方は体験申込へ、その他のご質問は一般お問い合わせへお進みください。" secondaryHref="/contact" secondaryLabel="一般のお問い合わせ" />
+  <CTASection
+    tone="quiet"
+    align="left"
+    title="ここにない質問は、個別にお送りください"
+    description="体験をご希望の方は体験申込へ、料金や通い方など一般的なご質問はお問い合わせへお進みください。"
+    secondaryHref="/contact"
+    secondaryLabel="一般的な質問をする"
+  />
 </BaseLayout>

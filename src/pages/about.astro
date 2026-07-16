@@ -3,88 +3,99 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import CTASection from '../components/ui/CTASection.astro';
-import StatusPanel from '../components/ui/StatusPanel.astro';
-import { siteContent, isDemo } from '../data/site';
+import EditorialImage from '../components/media/EditorialImage.astro';
+import { siteContent } from '../data/site';
+import { siteImages } from '../data/images';
+
+const principles = [
+  {
+    title: '目的を、最初に言葉にする',
+    body: '好きな曲、困っていること、生活のペースを伺います。目標は先生が一方的に決めず、続けられる形へ一緒に整えます。',
+  },
+  {
+    title: '基礎を、音楽の中で確かめる',
+    body: '姿勢や指づかいを切り離して覚えるだけでなく、曲の音がどう変わるかを聴きながら基礎の意味を確かめます。',
+  },
+  {
+    title: '振り返り、次回を調整する',
+    body: 'できたことと次に試すことを短く整理します。練習時間や目標が変わったときは、教材や進度も見直します。',
+  },
+];
 ---
 
-<BaseLayout
-  title="教室紹介"
-  description="Harmony Music Schoolが個人レッスンで大切にしていることをご紹介します。"
->
+<BaseLayout title="教室紹介" description="Harmony Music Schoolが個人レッスンで大切にしていることをご紹介します。">
   <PageHeader
+    variant="compact"
     title="教室紹介"
-    eyebrow="私たちの考え方"
+    eyebrow="音を聴く距離を大切に"
     description="できたことを一緒に見つけ、次の一歩を急がない。音楽を長く楽しむための個人レッスンを大切にしています。"
   />
 
   <section class="site-section">
     <div class="site-container grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-7">
-        <SectionHeading title="一人ひとりの音が育つ場所" description="同じ楽器、同じ曲でも、目標や心地よい進み方は人によって違います。まずは話を聞き、その日の状態を確かめながら、無理のない課題を一緒に決めます。" />
-        <p class="body-copy mb-0">弾けるようになることだけを急がず、音を聴くこと、試すこと、できた変化に気づくことを大切にします。初心者の方にも、もう一度音楽を始めたい方にも、本格的に学びたい方にも開かれた教室を目指しています。</p>
+      <div class="lg:col-span-6">
+        <SectionHeading title="一人ひとりの音が育つ、静かな時間" spacing="compact" />
+        <div class="measure space-y-5 text-base leading-8 text-ink-secondary">
+          <p>同じ楽器、同じ曲でも、目標や心地よい進み方は人によって違います。まずは話を聞き、その日の状態を確かめながら、無理のない課題を一緒に決めます。</p>
+          <p>弾けるようになることだけを急がず、音を聴くこと、試すこと、変化に気づくことを大切にします。初めての方にも、もう一度音楽を始めたい方にも開かれた教室を目指しています。</p>
+        </div>
       </div>
-      <figure class="lg:col-span-5">
-        <img
-          src="/images/lesson-hero.jpg"
-          alt="ピアノの個人レッスンを受ける生徒と指導者のイメージ"
-          width="800"
-          height="1000"
-          class="aspect-[5/4] w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-        <figcaption class="mt-3 text-xs leading-6 text-ink-muted">写真はレッスンイメージです。</figcaption>
-      </figure>
+      <div class="lg:col-span-5 lg:col-start-8">
+        <EditorialImage image={siteImages.aboutGuidance} aspect="4 / 5" sizes="(min-width: 1024px) 38vw, 100vw" />
+      </div>
     </div>
   </section>
 
-  <section class="site-section bg-subtle">
+  <section class="site-section site-section--subtle">
     <div class="site-container">
-      <SectionHeading title="指導で大切にする3つのこと" description="教材や進度を先に決めるのではなく、対話からレッスンを組み立てます。" />
-      <div class="grid gap-px border-y border-line bg-line md:grid-cols-3">
-        <article class="bg-subtle py-8 md:px-7">
-          <p class="eyebrow">01</p>
-          <h3 class="mb-3 text-xl font-bold">目的を言葉にする</h3>
-          <p class="mb-0 text-base leading-8 text-ink-secondary">好きな曲、困っていること、生活のペースを伺い、続けられる目標を一緒に考えます。</p>
-        </article>
-        <article class="bg-subtle py-8 md:px-7">
-          <p class="eyebrow">02</p>
-          <h3 class="mb-3 text-xl font-bold">基礎と楽しさをつなぐ</h3>
-          <p class="mb-0 text-base leading-8 text-ink-secondary">基礎練習の意味を曲の中で確かめながら、上達の手応えが見える進め方を選びます。</p>
-        </article>
-        <article class="bg-subtle py-8 md:px-7">
-          <p class="eyebrow">03</p>
-          <h3 class="mb-3 text-xl font-bold">振り返って調整する</h3>
-          <p class="mb-0 text-base leading-8 text-ink-secondary">できたことと次に試すことを整理し、練習時間や目標の変化に合わせて内容を調整します。</p>
-        </article>
+      <SectionHeading title="指導で大切にすること" description="教材や進度を先に決めるのではなく、対話と観察からレッスンを組み立てます。" />
+      <div class="border-t border-line">
+        {principles.map((principle) => (
+          <article class="grid gap-3 border-b border-line py-7 md:grid-cols-12 md:gap-8">
+            <h3 class="font-serif text-xl font-bold leading-8 text-ink md:col-span-4">{principle.title}</h3>
+            <p class="mb-0 text-base leading-8 text-ink-secondary md:col-span-7 md:col-start-6">{principle.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="site-section">
-    <div class="site-container">
-      <SectionHeading title="講師・教室について" description="本番サイトでは、確認済みの講師情報と実際の教室写真だけを掲載します。" />
-      {siteContent.instructors.length > 0 ? (
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {siteContent.instructors.map((instructor) => (
-            <article class="content-card overflow-hidden">
-              <img src={instructor.photo} alt={`${instructor.name}講師`} width="640" height="800" class="aspect-[4/5] w-full object-cover" loading="lazy" />
-              <div class="p-6">
-                <p class="mb-1 text-sm font-bold text-accent-strong">{instructor.role}</p>
-                <h3 class="mb-3 text-xl font-bold">{instructor.name}</h3>
-                <p class="mb-0 text-sm leading-7 text-ink-secondary">{instructor.bio}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <StatusPanel type="empty" title="確認済みの講師情報を準備中です">
-          <p class="mb-0">架空の氏名やストック人物写真は掲載していません。デモでは、個人レッスンの情報設計と表示例をご確認いただけます。</p>
-        </StatusPanel>
-      )}
-      {isDemo && <p class="mt-4 text-sm leading-7 text-ink-muted">このページはサンプルです。本番では講師の氏名・担当・略歴と、実際の教室・設備写真の確認が必要です。</p>}
+    <div class="site-container grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <SectionHeading eyebrow="一対一の指導" title="その場で音を聴き、言葉を交わす" spacing="compact" />
+      </div>
+      <div class="space-y-5 text-base leading-8 text-ink-secondary lg:col-span-6 lg:col-start-7">
+        <p>レッスンは、演奏を聴いて気づいたことを短く伝え、もう一度試す流れを大切にします。分からないまま進めず、質問しやすい間をつくります。</p>
+        <p>ご自宅で取り組める量も一緒に考えます。毎日長く練習することを前提にせず、生活の中で音楽に戻ってこられる形を探します。</p>
+      </div>
     </div>
   </section>
 
-  <CTASection title="まずは、話しながら音を出してみませんか" description={`体験は${siteContent.trialDuration}、${siteContent.trialPriceExTax.toLocaleString('ja-JP')}円（税別）。経験や目標を伺い、レッスンの進め方をご提案します。`} secondaryHref="/contact" secondaryLabel="一般のお問い合わせ" />
+  {siteContent.instructors.length > 0 && (
+    <section class="site-section border-t border-line">
+      <div class="site-container">
+        <SectionHeading title="講師" description="担当楽器と指導方針をご紹介します。" />
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {siteContent.instructors.map((instructor) => (
+            <article class="border-t-2 border-accent pt-5">
+              {instructor.photo && <EditorialImage image={instructor.photo} aspect="4 / 5" sizes="(min-width: 1024px) 30vw, 100vw" />}
+              <p class="mb-1 mt-5 text-sm font-bold text-accent-strong">{instructor.role}</p>
+              <h3 class="mb-3 text-xl font-bold">{instructor.name}</h3>
+              <p class="mb-0 text-sm leading-7 text-ink-secondary">{instructor.bio}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTASection
+    tone="quiet"
+    align="left"
+    title="先生との相性や、説明の分かりやすさを体験で"
+    description={`体験は${siteContent.trialDuration}。経験や目標を伺い、実際に音を出しながら進め方をご相談します。`}
+    secondaryHref="/contact"
+    secondaryLabel="一般的な質問をする"
+  />
 </BaseLayout>

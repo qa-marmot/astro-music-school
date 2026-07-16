@@ -35,7 +35,11 @@ describe('formatBlogPost', () => {
   it('eyecatchがある場合はそのURLを返す', () => {
     const postWithEyecatch: BlogPost = {
       ...mockPost,
-      eyecatch: { url: '/images/blog/test.jpg', height: 675, width: 1200 },
+      eyecatch: {
+        src: { src: '/images/blog/test.jpg', height: 675, width: 1200, format: 'jpg' },
+        alt: 'テスト画像',
+        source: 'owned',
+      },
     };
     const result = formatBlogPost(postWithEyecatch);
     expect(result.eyecatchUrl).toBe('/images/blog/test.jpg');

@@ -20,7 +20,7 @@ npm run dev
 
 初期値は `PUBLIC_CONTENT_MODE=demo` です。デモモードでは次の安全策が有効になります。
 
-- 全ページにサンプル表示を出し、`noindex,nofollow` にする
+- フッターにデモ注記を集約し、全ページを `noindex,nofollow` にする
 - 架空の講師、住所、連絡先、実績を表示しない
 - フォーム送信先がない場合は「送信されません」と明示し、成功扱いにしない
 - ブログはリポジトリ内のサンプル記事だけで静的生成し、外部CMSへ接続しない
@@ -54,18 +54,27 @@ PUBLIC_FORM_ENDPOINT=https://example.com/api/forms
 
 ## ブログ
 
-デモ用ブログは [src/data/blog.ts](./src/data/blog.ts) の4記事を静的生成します。アイキャッチ画像も `public/images/blog/` に含まれるため、外部CMS、APIキー、画像CDNは不要です。記事を追加するときは既存データと同じ形式で本文・カテゴリ・画像情報を登録してください。
+デモ用ブログは [src/data/blog.ts](./src/data/blog.ts) の4記事を静的生成します。権利記録のない旧アイキャッチは表示せず、記事を追加するときはローカル画像と出典記録をセットで登録してください。
+
+## 写真とライセンス
+
+- 編集写真は `src/assets/images/editorial/` に置き、[src/data/images.ts](./src/data/images.ts) でalt、焦点位置、出典を管理します。
+- `EditorialImage` コンポーネントがAVIF / WebP / JPEG、responsive widths、画像領域の確保、lazy loadingを担当します。
+- ストック写真は必ず「イメージ」と明記し、実際の教室・講師・生徒として扱いません。
+- 素材ページ、撮影者、取得日、ライセンス、加工履歴は [IMAGE_LICENSES.md](./IMAGE_LICENSES.md) に記録します。
+- 実写へ差し替える場合は、成人または未成年者の保護者からWeb掲載範囲・期限・撤回窓口を含む同意を記録してください。
 
 ## デザインシステム
 
 - Semantic Color Tokenの正本: [src/styles/global.css](./src/styles/global.css)
 - Tailwindとの接続: [tailwind.config.js](./tailwind.config.js)
 - 教室・コース・料金: [src/data/site.ts](./src/data/site.ts)
+- 編集画像とfocal point: [src/data/images.ts](./src/data/images.ts)
 - サンプルブログ: [src/data/blog.ts](./src/data/blog.ts)
 - UI primitive: `src/components/ui/`
 - FAQ / Blog component: `src/components/content/`, `src/components/blog/`
 
-本文はNoto Sans JP、見出しはNoto Serif JPを使用します。Primary CTAは「体験レッスン（3,000円）を申し込む」で統一しています。
+本文はNoto Sans JP系、見出しはNoto Serif JP系のシステムフォントスタックを使用し、外部フォント読み込みによる表示遅延を避けます。Primary CTAは短い「体験レッスンを申し込む」を基本とし、料金は判断材料の近くで税込総額を表示します。
 
 ## テストとビルド
 
@@ -76,6 +85,7 @@ npx playwright install chromium
 npm run test:e2e
 npm run test:a11y
 npm run test:visual
+npm run test:lighthouse
 ```
 
 Visual Regressionの基準画像を意図的に更新する場合だけ、次を実行します。
@@ -84,7 +94,9 @@ Visual Regressionの基準画像を意図的に更新する場合だけ、次を
 npm run test:visual:update
 ```
 
-Visual Regressionは360、390、768、1024、1280、1440pxで主要9ページを確認します。外部写真の通信差分を除くため、テスト中だけ固定プレースホルダーへ置換します。
+Visual Regressionは360、390、768、1024、1280、1440pxで主要ページとブログ記事を確認します。ローカルの最適化画像も比較対象となるため、被写体のcrop、画像読み込み、キャプションを差分レビューしてください。
+
+Lighthouse CIはビルド後のトップ、レッスン、体験ページをモバイル条件で3回計測します。デモの意図的な`noindex`はSEO失敗として扱わず、Performance 90、Accessibility / Best Practices 95を基準にします。
 
 ## 主なページ
 

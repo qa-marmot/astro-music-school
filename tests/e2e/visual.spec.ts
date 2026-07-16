@@ -10,6 +10,7 @@ const pages = [
   { path: '/faq', name: 'faq' },
   { path: '/access', name: 'access' },
   { path: '/blog', name: 'blog' },
+  { path: '/blog/piano-practice-rhythm', name: 'blog-article' },
 ];
 
 const widths = [360, 390, 768, 1024, 1280, 1440];
@@ -23,11 +24,6 @@ test.describe('主要ページのvisual regression', () => {
       test(`${pageInfo.name}-${width}`, async ({ page }) => {
         await page.setViewportSize({ width, height: width < 768 ? 844 : 1000 });
         await page.emulateMedia({ reducedMotion: 'reduce' });
-        await page.route('https://images.pexels.com/**', (route) => route.fulfill({
-          status: 200,
-          contentType: 'image/svg+xml',
-          body: '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900"><rect width="1200" height="900" fill="#ded5c5"/></svg>',
-        }));
         await page.route('https://fonts.googleapis.com/**', (route) => route.abort());
         await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
         await page.goto(pageInfo.path);

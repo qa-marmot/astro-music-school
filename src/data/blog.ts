@@ -15,8 +15,6 @@ export const blogPosts: BlogPost[] = [
     revisedAt: '2026-06-18T09:00:00.000Z',
     title: 'ピアノ初心者が続けやすい、15分練習の組み立て方',
     excerpt: '短い時間でも「準備・部分練習・通して弾く」を分けると、毎日の練習に小さな手応えが生まれます。',
-    eyecatch: { url: '/images/blog/piano-practice.jpg', width: 1200, height: 675 },
-    eyecatchAlt: 'ピアノの鍵盤と、五線ノート、鉛筆を置いた練習風景のイメージ',
     category: blogCategories[0],
     tags: ['ピアノ', '初心者', '練習'],
     content: `
@@ -44,8 +42,6 @@ export const blogPosts: BlogPost[] = [
     revisedAt: '2026-06-10T09:00:00.000Z',
     title: 'ギターのコードチェンジをなめらかにする3つの練習',
     excerpt: '指を速く動かす前に、共通する指と動く距離を見つけることが、コードチェンジの近道です。',
-    eyecatch: { url: '/images/blog/guitar-practice.jpg', width: 1200, height: 675 },
-    eyecatchAlt: '木の椅子に置いたアコースティックギターとメトロノーム、練習ノート',
     category: blogCategories[0],
     tags: ['ギター', 'コード', '練習'],
     content: `
@@ -73,8 +69,6 @@ export const blogPosts: BlogPost[] = [
     revisedAt: '2026-05-28T09:00:00.000Z',
     title: 'バイオリンで最初の音を出す前に確認したい準備',
     excerpt: '楽器と弓を安全に扱い、姿勢を整える時間が、無理のない演奏と落ち着いた音につながります。',
-    eyecatch: { url: '/images/blog/violin-preparation.jpg', width: 1200, height: 675 },
-    eyecatchAlt: 'ケースのそばにバイオリンと弓、練習ノートを並べた準備風景',
     category: blogCategories[1],
     tags: ['バイオリン', '初心者', '準備'],
     content: `
@@ -102,8 +96,6 @@ export const blogPosts: BlogPost[] = [
     revisedAt: '2026-05-16T09:00:00.000Z',
     title: '歌う前の5分で整える、やさしいウォームアップ',
     excerpt: '姿勢と呼吸を確かめ、小さな声から始めることで、その日の声の状態に気づきやすくなります。',
-    eyecatch: { url: '/images/blog/vocal-warmup.jpg', width: 1200, height: 675 },
-    eyecatchAlt: '譜面台と楽譜、水のグラス、音叉を置いた発声練習前の部屋',
     category: blogCategories[1],
     tags: ['声楽', '発声', '準備'],
     content: `

@@ -23,11 +23,11 @@ const posts = rawPosts.map(formatBlogPost);
 
 <BaseLayout title={`${category.name}の記事`} description={`${category.name}カテゴリの記事一覧です。`}>
   <Breadcrumbs items={[{ label: 'トップ', href: '/' }, { label: 'ブログ', href: '/blog' }, { label: category.name }]} />
-  <PageHeader title={category.name} eyebrow="ブログカテゴリ" description={`${category.name}に関する記事をまとめています。`} />
+  <PageHeader variant="compact" title={category.name} eyebrow="Harmony Journal" description={`${category.name}に関する記事をまとめています。`} />
   <section class="site-section">
     <div class="site-container">
       <div class="mb-9"><ActionLink href="/blog" variant="tertiary">すべての記事を見る</ActionLink></div>
-      {posts.length > 0 ? <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{posts.map((post) => <BlogCard post={post} />)}</div> : <StatusPanel type="empty" title="このカテゴリの記事はまだありません"><p>新しい記事が公開されるまでお待ちください。</p></StatusPanel>}
+      {posts.length > 0 ? <div class="border-t border-line">{posts.map((post) => <BlogCard post={post} variant="compact" />)}</div> : <StatusPanel type="empty" title="このカテゴリの記事はまだありません"><p>新しい記事が公開されるまでお待ちください。</p></StatusPanel>}
     </div>
   </section>
 </BaseLayout>

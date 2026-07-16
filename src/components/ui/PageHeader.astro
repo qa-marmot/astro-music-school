@@ -3,12 +3,14 @@ interface Props {
   title: string;
   description?: string;
   eyebrow?: string;
+  variant?: 'standard' | 'compact' | 'editorial';
 }
-const { title, description, eyebrow } = Astro.props;
+const { title, description, eyebrow, variant = 'standard' } = Astro.props;
+const padding = variant === 'compact' ? 'py-10 sm:py-12' : variant === 'editorial' ? 'py-14 sm:py-20 lg:py-24' : 'py-12 sm:py-16 lg:py-20';
 ---
 
-<header class="border-b border-line bg-subtle">
-  <div class="site-container py-14 sm:py-16 lg:py-20">
+<header class={`border-b border-line ${variant === 'editorial' ? 'bg-canvas' : 'bg-subtle'}`}>
+  <div class={`site-container ${padding}`}>
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1 class="page-title mb-4 text-ink">{title}</h1>
     {description && <p class="lead mb-0 text-ink-secondary">{description}</p>}

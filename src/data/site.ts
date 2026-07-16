@@ -1,3 +1,6 @@
+import type { EditorialImage } from '../types';
+import { courseImages } from './images';
+
 export type ContentMode = 'demo' | 'production';
 export type CourseId = 'piano' | 'guitar' | 'violin' | 'vocal';
 
@@ -9,7 +12,7 @@ export interface Course {
   ages: string;
   levels: string[];
   features: string[];
-  photo: string;
+  photo: EditorialImage;
 }
 
 export interface PricingPlan {
@@ -27,8 +30,29 @@ export interface Instructor {
   name: string;
   role: string;
   bio: string;
-  photo: string;
+  photo?: EditorialImage;
 }
+
+export const audienceGuides = [
+  {
+    title: 'お子さまの初めての習いごとに',
+    body: '楽器に触れる時間を楽しみながら、姿勢や音の聴き方を一つずつ身につけます。体験では、集中できる時間や先生との相性もご確認いただけます。',
+  },
+  {
+    title: '大人になって、初めて楽器を手にする方に',
+    body: '楽譜が読めなくても大丈夫です。好きな曲や生活のペースを伺い、無理なく続けられる練習の形を一緒に探します。',
+  },
+  {
+    title: '再開や、具体的な目標がある方に',
+    body: '以前の経験、弾きたい曲、発表の予定などをもとに、いま必要な基礎と表現を整理します。体験時に目標までの進め方をご相談ください。',
+  },
+] as const;
+
+export const trialSteps = [
+  { title: 'お申し込み', body: '楽器、ご希望の日時、経験などをフォームからお知らせください。' },
+  { title: '日程のご相談', body: `内容を確認し、${'1〜2営業日以内'}に候補日時をご案内します。` },
+  { title: '体験レッスン', body: '目標を伺ってから楽器に触れ、今後の進め方をご相談します。' },
+] as const;
 
 export interface ContactDetails {
   postalCode: string;
@@ -75,7 +99,7 @@ export const siteContent: SiteContent = {
       ages: '4歳〜大人',
       levels: ['初めて', '経験者', '本格的に学びたい方'],
       features: ['個別の目標に合わせた選曲', '基礎と表現を両立', '発表に向けた相談にも対応'],
-      photo: 'https://images.pexels.com/photos/9391639/pexels-photo-9391639.jpeg?auto=compress&cs=tinysrgb&w=1000&h=750&fit=crop',
+      photo: courseImages.piano,
     },
     {
       id: 'guitar',
@@ -85,7 +109,7 @@ export const siteContent: SiteContent = {
       ages: '6歳〜大人',
       levels: ['初めて', '経験者', '弾き語り・ソロ'],
       features: ['コード・タブ譜に対応', '弾き語りとソロの両方に対応', '好きな曲を軸にしたレッスン'],
-      photo: 'https://images.pexels.com/photos/8106076/pexels-photo-8106076.jpeg?auto=compress&cs=tinysrgb&w=1000&h=750&fit=crop',
+      photo: courseImages.guitar,
     },
     {
       id: 'violin',
@@ -95,7 +119,7 @@ export const siteContent: SiteContent = {
       ages: '5歳〜大人',
       levels: ['初めて', '経験者', 'アンサンブル'],
       features: ['姿勢と弓の基礎から指導', '音程・音色を丁寧に確認', 'アンサンブルの相談にも対応'],
-      photo: 'https://images.pexels.com/photos/7095052/pexels-photo-7095052.jpeg?auto=compress&cs=tinysrgb&w=1000&h=750&fit=crop',
+      photo: courseImages.violin,
     },
     {
       id: 'vocal',
@@ -105,7 +129,7 @@ export const siteContent: SiteContent = {
       ages: '小学生〜大人',
       levels: ['初めて', '経験者', '舞台を目指す方'],
       features: ['呼吸・発声の基礎', '幅広いジャンルに対応', '言葉と音楽の表現を重視'],
-      photo: 'https://images.pexels.com/photos/7520354/pexels-photo-7520354.jpeg?auto=compress&cs=tinysrgb&w=1000&h=750&fit=crop',
+      photo: courseImages.vocal,
     },
   ],
   pricing: [

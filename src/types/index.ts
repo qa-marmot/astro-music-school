@@ -1,7 +1,18 @@
-export interface ContentImage {
-  url: string;
-  height: number;
-  width: number;
+import type { ImageMetadata } from 'astro';
+
+export interface EditorialImage {
+  src: ImageMetadata;
+  mobileSrc?: ImageMetadata;
+  alt: string;
+  caption?: string;
+  source: 'owned' | 'licensed-stock';
+  sourcePage?: string;
+  photographer?: string;
+  licenseUrl?: string;
+  focalPoint?: {
+    desktop: string;
+    mobile: string;
+  };
 }
 
 export interface Category {
@@ -20,8 +31,7 @@ export interface BlogPost {
   slug: string;
   excerpt: string;
   content: string;
-  eyecatch?: ContentImage;
-  eyecatchAlt?: string;
+  eyecatch?: EditorialImage;
   category: Category;
   tags?: string[];
 }
@@ -33,22 +43,11 @@ export interface BlogListResponse {
   limit: number;
 }
 
-export interface Instructor {
-  id: string;
-  name: string;
-  nameKana: string;
-  role: string;
-  bio: string;
-  photo?: ContentImage;
-  instruments: string[];
-  career?: string;
-}
-
 export interface LessonPlan {
   id: string;
   name: string;
   description: string;
-  duration: number; // minutes
+  duration: number;
   frequency: string;
   price: number;
   trialPrice: number;

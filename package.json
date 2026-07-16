@@ -13,7 +13,8 @@
     "test:a11y": "playwright test tests/e2e/accessibility.spec.ts --project=chromium",
     "test:visual": "playwright test tests/e2e/visual.spec.ts --project=chromium",
     "test:visual:update": "playwright test tests/e2e/visual.spec.ts --project=chromium --update-snapshots",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:lighthouse": "npm run build && lhci autorun"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.1.6",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.42.1",
     "@types/node": "^20.11.25",
     "@vitest/coverage-v8": "^1.4.0",

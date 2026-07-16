@@ -31,14 +31,14 @@ export default {
           error: 'rgb(var(--color-error) / <alpha-value>)',
         },
         // Compatibility aliases kept while page templates migrate.
-        cream: { 50: '#fdfbf7', 100: '#f9f4ec', 200: '#ded5c5' },
-        forest: { 600: '#2d5a3d', 700: '#234830', 800: '#1a3623', 900: '#112418' },
-        gold: { 400: '#d4a853', 500: '#c49a3c', 600: '#7a5a18' },
-        charcoal: { 700: '#3d3d3d', 800: '#2a2a2a', 900: '#1a1a1a' },
+        cream: { 50: '#fffdfc', 100: '#fbf8f2', 200: '#f3ede3' },
+        forest: { 600: '#214b37', 700: '#173a2b', 800: '#173a2b', 900: '#102b20' },
+        gold: { 400: '#c49a48', 500: '#b88a32', 600: '#7a5a18' },
+        charcoal: { 700: '#514d46', 800: '#3b3833', 900: '#24221f' },
       },
       fontFamily: {
         serif: ['"Noto Serif JP"', '"Yu Mincho"', '"Hiragino Mincho ProN"', 'serif'],
-        sans: ['"Noto Sans JP"', '"Hiragino Kaku Gothic ProN"', 'sans-serif'],
+        sans: ['"Noto Sans JP"', '"Yu Gothic"', '"Hiragino Kaku Gothic ProN"', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         content: '72rem',

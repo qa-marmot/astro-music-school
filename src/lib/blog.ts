@@ -41,6 +41,6 @@ export function formatBlogPost(post: BlogPost) {
   return {
     ...post,
     formattedDate: formatted,
-    eyecatchUrl: post.eyecatch?.url,
+    eyecatchUrl: post.eyecatch?.src.src,
   };
 }

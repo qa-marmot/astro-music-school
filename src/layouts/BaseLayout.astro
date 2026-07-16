@@ -28,7 +28,6 @@ const { jsonLd, ...seoProps } = Astro.props;
   </head>
   <body>
     <a href="#main-content" class="skip-link">本文へ移動</a>
-    {isDemo && <div class="demo-banner">これは音楽教室サイトのサンプルです。掲載内容は実在情報ではありません。</div>}
     <Header />
     <main id="main-content" tabindex="-1"><slot /></main>
     <Footer />

@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/ui/PageHeader.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
-import StatusPanel from '../../components/ui/StatusPanel.astro';
 import { getBlogList, getCategories, formatBlogPost } from '../../lib/blog';
 
 const LIMIT = 9;
@@ -11,7 +10,7 @@ const posts = postResponse.contents.map(formatBlogPost);
 ---
 
 <BaseLayout title="ブログ" description="音楽やレッスンに関するお知らせと読みものをお届けします。">
-  <PageHeader title="ブログ" eyebrow="Harmony Journal" description="教室からのお知らせと、音楽を学ぶための読みもの。" />
+  <PageHeader variant="editorial" title="ブログ" eyebrow="Harmony Journal" description="日々の練習を少し続けやすくする、楽器と声の小さな読みもの。" />
 
   <section class="site-section">
     <div class="site-container">
@@ -22,13 +21,10 @@ const posts = postResponse.contents.map(formatBlogPost);
         </nav>
       )}
 
-      {posts.length > 0 ? (
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{posts.map((post) => <BlogCard post={post} />)}</div>
-      ) : (
-        <div class="site-container-narrow px-0">
-          <StatusPanel type="empty" title="記事はまだありません">
-            <p>新しい記事が公開されるまでお待ちください。</p>
-          </StatusPanel>
+      {posts.length > 0 && (
+        <div>
+          <BlogCard post={posts[0]} variant="featured" />
+          <div class="mt-10 border-t border-line">{posts.slice(1).map((post) => <BlogCard post={post} variant="compact" />)}</div>
         </div>
       )}
     </div>

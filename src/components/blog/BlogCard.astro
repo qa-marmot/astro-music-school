@@ -1,4 +1,7 @@
 ---
+import EditorialImage from '../media/EditorialImage.astro';
+import type { EditorialImage as EditorialImageData } from '../../types';
+
 interface Props {
   post: {
     id: string;
@@ -6,41 +9,39 @@ interface Props {
     excerpt: string;
     publishedAt: string;
     formattedDate: string;
-    eyecatchUrl?: string;
-    eyecatchAlt?: string;
-    eyecatch?: { width: number; height: number };
+    eyecatch?: EditorialImageData;
     category: { name: string };
   };
+  variant?: 'featured' | 'standard' | 'compact';
 }
-const { post } = Astro.props;
+const { post, variant = 'standard' } = Astro.props;
+const featured = variant === 'featured';
+const compact = variant === 'compact';
 ---
 
-<article class="content-card content-card--interactive h-full" data-testid="blog-card">
-  <a href={`/blog/${post.id}`} class="flex h-full flex-col no-underline">
-    <div class="aspect-video overflow-hidden bg-subtle">
-      {post.eyecatchUrl ? (
-        <img
-          src={post.eyecatchUrl}
-          alt={post.eyecatchAlt ?? ''}
-          width={post.eyecatch?.width ?? 1200}
-          height={post.eyecatch?.height ?? 630}
-          class="h-full w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-      ) : (
-        <div class="flex h-full items-end p-5" aria-hidden="true">
-          <span class="border-l-2 border-accent pl-3 text-sm font-bold text-brand">Harmony Journal</span>
-        </div>
-      )}
-    </div>
-    <div class="flex flex-1 flex-col p-5">
-      <div class="mb-3 flex flex-wrap items-center gap-3 text-xs text-ink-muted">
-        <span class="border-l-2 border-accent pl-2 font-bold text-brand">{post.category.name}</span>
-        <time datetime={post.publishedAt}>{post.formattedDate}</time>
+<article class={`blog-card blog-card--${variant}`} data-testid="blog-card">
+  <a href={`/blog/${post.id}`} class={`group no-underline ${featured ? 'md:grid md:grid-cols-12 md:items-stretch' : ''}`}>
+    {!compact && (
+      <div class={`${featured ? 'md:col-span-5' : ''} min-h-36 bg-subtle`}>
+        {post.eyecatch ? (
+          <EditorialImage image={post.eyecatch} aspect={featured ? '4 / 3' : '16 / 9'} sizes={featured ? '(min-width: 768px) 40vw, 100vw' : '(min-width: 1024px) 32vw, 100vw'} showCaption={false} />
+        ) : (
+          <div class={`flex h-full min-h-36 items-end border border-line p-5 ${featured ? 'md:min-h-64' : ''}`} aria-hidden="true">
+            <span class="border-l-2 border-accent pl-3 font-serif text-sm font-bold text-brand">Harmony Journal</span>
+          </div>
+        )}
       </div>
-      <h2 class="mb-2 text-xl font-bold leading-8 text-ink">{post.title}</h2>
-      <p class="mb-0 line-clamp-3 text-sm leading-7 text-ink-secondary">{post.excerpt}</p>
+    )}
+    <div class={`${featured ? 'border border-line border-t-0 p-6 md:col-span-7 md:border-l-0 md:border-t md:p-9' : compact ? 'grid gap-3 border-b border-line py-6 sm:grid-cols-[1fr_auto] sm:items-end' : 'border border-line border-t-0 p-5'}`}>
+      <div>
+        <div class="mb-3 flex flex-wrap items-center gap-3 text-xs text-ink-muted">
+          <span class="font-bold text-brand">{post.category.name}</span>
+          <time datetime={post.publishedAt}>{post.formattedDate}</time>
+        </div>
+        <h2 class={`${featured ? 'text-2xl sm:text-3xl sm:leading-[1.5]' : compact ? 'text-xl' : 'text-xl'} mb-2 font-serif font-bold leading-8 text-ink group-hover:text-brand`}>{post.title}</h2>
+        {!compact && <p class="mb-0 text-sm leading-7 text-ink-secondary">{post.excerpt}</p>}
+      </div>
+      {compact && <span class="text-sm font-bold text-brand">記事を読む <span aria-hidden="true">→</span></span>}
     </div>
   </a>
 </article>

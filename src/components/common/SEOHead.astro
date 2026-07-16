@@ -9,6 +9,9 @@ interface Props {
   canonicalURL?: string;
   noindex?: boolean;
   preloadImage?: string;
+  preloadImageSrcset?: string;
+  preloadImageSizes?: string;
+  preloadImageType?: string;
 }
 
 const {
@@ -19,6 +22,9 @@ const {
   canonicalURL = new URL(Astro.url.pathname, siteContent.siteUrl).href,
   noindex = false,
   preloadImage,
+  preloadImageSrcset,
+  preloadImageSizes,
+  preloadImageType,
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${siteContent.name}` : siteContent.name;
@@ -31,7 +37,7 @@ const shouldNoindex = noindex || isDemo;
 <meta name="description" content={description} />
 <meta name="robots" content={shouldNoindex ? 'noindex,nofollow' : 'index,follow'} />
 <link rel="canonical" href={canonicalURL} />
-{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+{preloadImage && <link rel="preload" as="image" href={preloadImage} imagesrcset={preloadImageSrcset} imagesizes={preloadImageSizes} type={preloadImageType} fetchpriority="high" />}
 
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL} />
@@ -46,13 +52,3 @@ const shouldNoindex = noindex || isDemo;
 <meta name="twitter:image" content={ogImage} />
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://images.pexels.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=optional"
-  rel="stylesheet"
-  media="print"
-  onload="this.media='all'"
-/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=optional" rel="stylesheet" /></noscript>

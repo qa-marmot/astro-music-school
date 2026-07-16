@@ -5,15 +5,16 @@ import SectionHeading from '../components/ui/SectionHeading.astro';
 import FormField from '../components/ui/FormField.astro';
 import StatusPanel from '../components/ui/StatusPanel.astro';
 import Button from '../components/ui/Button.astro';
+import TrialSteps from '../components/content/TrialSteps.astro';
 import { siteContent } from '../data/site';
 ---
 
 <BaseLayout title="体験レッスン" description="45〜60分、3,000円（税別）の個人音楽レッスンを体験できます。">
-  <PageHeader title="体験レッスン" eyebrow="初めての方へ" description="経験や目標を伺い、実際に音を出しながら、ご自分に合うレッスンか確かめていただけます。" />
+  <PageHeader variant="compact" title="体験レッスン" eyebrow="初めての方へ" description="経験や目標を伺い、実際に音を出しながら、ご自分に合うレッスンか確かめていただけます。" />
 
   <section class="border-b border-line bg-canvas">
     <div class="site-container grid gap-px bg-line sm:grid-cols-3">
-      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">料金</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.trialPriceExTax.toLocaleString('ja-JP')}円（税別）</p><p class="mb-0 text-xs text-ink-muted">税込 {Math.floor(siteContent.trialPriceExTax * 1.1).toLocaleString('ja-JP')}円</p></div>
+      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">料金</p><p class="mb-0 text-lg font-bold text-brand">税込 {Math.floor(siteContent.trialPriceExTax * 1.1).toLocaleString('ja-JP')}円</p><p class="mb-0 text-xs text-ink-muted">税別 {siteContent.trialPriceExTax.toLocaleString('ja-JP')}円</p></div>
       <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">所要時間</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.trialDuration}</p></div>
       <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">ご連絡の目安</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.responseTime}</p></div>
     </div>
@@ -22,16 +23,16 @@ import { siteContent } from '../data/site';
   <section class="site-section">
     <div class="site-container grid gap-12 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-4">
-        <SectionHeading title="体験までの流れ" description="フォーム送信後、日程を確認してから予約が確定します。" />
-        <ol class="border-y border-line">
-          <li class="grid grid-cols-[2rem_1fr] gap-3 border-b border-line py-5"><span class="font-serif text-lg font-bold text-accent-strong">1</span><div><h3 class="mb-1 text-base font-bold">フォームを送信</h3><p class="mb-0 text-sm leading-7 text-ink-secondary">楽器、経験、ご希望をお知らせください。</p></div></li>
-          <li class="grid grid-cols-[2rem_1fr] gap-3 border-b border-line py-5"><span class="font-serif text-lg font-bold text-accent-strong">2</span><div><h3 class="mb-1 text-base font-bold">日程を確認</h3><p class="mb-0 text-sm leading-7 text-ink-secondary">担当者から候補日時をご連絡します。</p></div></li>
-          <li class="grid grid-cols-[2rem_1fr] gap-3 py-5"><span class="font-serif text-lg font-bold text-accent-strong">3</span><div><h3 class="mb-1 text-base font-bold">教室で体験</h3><p class="mb-0 text-sm leading-7 text-ink-secondary">当日の流れとお支払い方法を事前にご案内します。</p></div></li>
-        </ol>
+        <SectionHeading title="体験までの流れ" description="フォーム送信後、日程を確認してから予約が確定します。" spacing="compact" />
+        <TrialSteps density="detailed" />
+        <div class="mt-8 border-t border-line pt-6 text-sm leading-7 text-ink-secondary">
+          <h3 class="mb-2 text-base font-bold text-ink">当日の持ち物</h3>
+          <p class="mb-0">お持ちの楽器や楽譜がある場合はご持参ください。初めての方に必要なものは、日程のご案内時にお知らせします。</p>
+        </div>
       </div>
 
       <div class="lg:col-span-8">
-        <div class="border border-line bg-surface p-5 shadow-medium sm:p-8">
+        <div class="border border-line bg-surface p-5 sm:p-8">
           <h2 class="mb-2 text-2xl font-bold">体験レッスン申込フォーム</h2>
           <p class="mb-7 text-sm leading-7 text-ink-secondary"><span class="text-error">*</span> は必須項目です。フリガナと電話番号は任意です。</p>
 

@@ -31,3 +31,4 @@ Thumbs.db
 test-results/
 playwright-report/
 coverage/
+.lighthouseci/

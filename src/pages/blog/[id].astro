@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
 import ActionLink from '../../components/ui/ActionLink.astro';
+import EditorialImage from '../../components/media/EditorialImage.astro';
 import { getAllBlogPosts, formatBlogPost } from '../../lib/blog';
 import { sanitizeHtml } from '../../lib/sanitize';
 import { isDemo } from '../../data/site';
@@ -35,8 +36,8 @@ const jsonLd = !isDemo ? {
         <p class="lead mb-0 text-ink-secondary">{post.excerpt}</p>
       </header>
 
-      {post.eyecatchUrl && (
-        <img src={post.eyecatchUrl} alt={post.eyecatchAlt ?? ''} width={post.eyecatch?.width ?? 1200} height={post.eyecatch?.height ?? 675} class="mb-12 aspect-video w-full object-cover" fetchpriority="high" decoding="async" />
+      {post.eyecatch && (
+        <EditorialImage image={post.eyecatch} aspect="16 / 9" sizes="(min-width: 768px) 44rem, 100vw" loading="eager" fetchpriority="high" class="mb-12" />
       )}
       <div class="prose-content" set:html={sanitizeHtml(post.content)} />
       <footer class="mt-14 border-t border-line pt-8"><ActionLink href="/blog" variant="tertiary">ブログ一覧へ戻る</ActionLink></footer>
