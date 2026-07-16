@@ -47,5 +47,5 @@ test('モバイルでは設定した焦点位置を適用する', async ({ page 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const position = await page.locator('main picture img').first().evaluate((image) => getComputedStyle(image).objectPosition);
-  expect(position).toBe('58% 50%');
+  expect(position).toBe('52% 58%');
 });

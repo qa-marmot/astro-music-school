@@ -13,13 +13,13 @@ const pexelsLicense = 'https://www.pexels.com/license/';
 export const siteImages = {
   homeHero: {
     src: homeHero,
-    alt: '講師が生徒のピアノ演奏をそばで見守る個人レッスンのイメージ',
+    alt: '自然光の入る部屋で、講師と生徒が並んでピアノに向かう個人レッスンのイメージ',
     caption: '個人レッスンのイメージ（実際の教室・講師・生徒ではありません）',
     source: 'licensed-stock',
-    sourcePage: 'https://www.pexels.com/photo/piano-teacher-watching-a-student-playing-a-piano-10222314/',
+    sourcePage: 'https://www.pexels.com/photo/teacher-teaching-piano-to-a-student-10222304/',
     photographer: 'cottonbro studio',
     licenseUrl: pexelsLicense,
-    focalPoint: { desktop: '52% 52%', mobile: '58% 50%' },
+    focalPoint: { desktop: '50% 58%', mobile: '52% 58%' },
   },
   homeGuidance: {
     src: homeGuidance,

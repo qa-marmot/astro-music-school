@@ -6,7 +6,7 @@ Acquired: 2026-07-16. License for every Pexels item: <https://www.pexels.com/lic
 
 | File | Photographer | Source page | Use |
 |---|---|---|---|
-| `home-hero.jpg` | cottonbro studio | <https://www.pexels.com/photo/piano-teacher-watching-a-student-playing-a-piano-10222314/> | Home hero, lesson image |
+| `home-hero.jpg` | cottonbro studio | <https://www.pexels.com/photo/teacher-teaching-piano-to-a-student-10222304/> | Home hero, lesson image |
 | `home-guidance.jpg` | cottonbro studio | <https://www.pexels.com/photo/piano-teacher-playing-a-piano-10222306/> | Home guidance, lesson image |
 | `lesson-piano.jpg` | cottonbro studio | <https://www.pexels.com/photo/piano-teacher-sitting-with-the-young-boy-10222299/> | Piano course, lesson image |
 | `lesson-guitar.jpg` | Yan Krukau | <https://www.pexels.com/photo/music-teacher-teaching-a-boy-to-play-a-guitar-8190779/> | Guitar course, lesson image |
