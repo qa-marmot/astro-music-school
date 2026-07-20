@@ -22,7 +22,7 @@ const isCurrent = (href: string) => href === '/' ? currentPath === '/' : current
     </a>
 
     <nav class="site-header__primary" aria-label="主要ナビゲーション">
-      {navItems.slice(0, 2).map((item) => (
+      {navItems.map((item) => (
         <a
           href={item.href}
           class={isCurrent(item.href) ? 'is-current' : ''}
@@ -32,6 +32,7 @@ const isCurrent = (href: string) => href === '/' ? currentPath === '/' : current
     </nav>
 
     <div class="site-header__actions">
+      <ActionLink href="/trial" size="sm" class="site-header__trial">体験レッスン</ActionLink>
       <button
         id="mobile-menu-btn"
         type="button"
@@ -40,14 +41,13 @@ const isCurrent = (href: string) => href === '/' ? currentPath === '/' : current
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <span class="menu-icon" aria-hidden="true">メニュー</span>
-        <span class="close-icon hidden" aria-hidden="true">閉じる</span>
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="close-icon hidden" aria-hidden="true"><i></i><i></i></span>
       </button>
-      <ActionLink href="/trial" size="sm" class="site-header__trial">体験レッスン</ActionLink>
     </div>
   </div>
 
-  <div id="mobile-menu" class="site-menu hidden">
+  <div id="mobile-menu" class="site-menu hidden" aria-hidden="true">
     <div class="site-container-wide site-menu__inner">
       <nav class="site-menu__links" aria-label="メインナビゲーション">
         {navItems.map((item) => (
@@ -69,31 +69,51 @@ const isCurrent = (href: string) => href === '/' ? currentPath === '/' : current
 </header>
 
 <style>
+  /* Hallmark · component: site-header · genre: editorial · theme: custom navy and copper
+   * states: default · hover · focus · active · current · expanded · disabled · contrast: pass
+   */
   .site-header { position: sticky; z-index: var(--z-sticky-nav); top: 0; border-bottom: var(--rule-hair) solid var(--color-rule); color: var(--color-ink); background: var(--color-paper); }
-  .site-header__bar { display: grid; min-height: var(--header-height); grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-sm); }
-  .site-wordmark { display: inline-flex; width: fit-content; min-height: 44px; flex-direction: column; justify-content: center; color: var(--color-brand); font-size: 1.25rem; font-weight: 500; letter-spacing: -.02em; line-height: .95; text-decoration: none; white-space: nowrap; }
-  .site-wordmark small { margin-block-start: .3rem; color: var(--color-muted); font-family: var(--font-body); font-size: .5625rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-  .site-header__primary { display: none; align-items: stretch; justify-content: center; gap: var(--space-lg); }
-  .site-header__primary a { display: inline-flex; min-height: 44px; align-items: center; border-bottom: var(--rule-fine) solid transparent; color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 700; white-space: nowrap; text-decoration: none; }
-  .site-header__primary a.is-current { border-bottom-color: var(--color-accent); color: var(--color-brand); }
+  .site-header__bar { display: grid; min-height: var(--header-height); grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-xs); }
+  .site-wordmark { display: inline-flex; width: fit-content; min-height: 48px; flex-direction: column; justify-content: center; color: var(--color-brand); font-size: 1.375rem; font-weight: 500; letter-spacing: -.025em; line-height: .9; text-decoration: none; white-space: nowrap; }
+  .site-wordmark small { margin-block-start: var(--space-2xs); color: var(--color-ink-2); font-family: var(--font-body); font-size: .625rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .site-header__primary { display: none; min-width: 0; align-items: stretch; justify-content: center; gap: clamp(var(--space-sm), 2.2vw, var(--space-lg)); }
+  .site-header__primary a { position: relative; display: inline-flex; min-height: 48px; align-items: center; color: var(--color-ink-2); font-size: .875rem; font-weight: 700; white-space: nowrap; text-decoration: none; }
+  .site-header__primary a::after { position: absolute; right: 0; bottom: var(--space-2xs); left: 0; height: 2px; background: transparent; content: ''; }
+  .site-header__primary a.is-current { color: var(--color-brand); }
+  .site-header__primary a.is-current::after { background: var(--color-accent); }
   .site-header__actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2xs); }
-  .site-header__menu-button { min-width: 4.25rem; min-height: 44px; padding-inline: var(--space-xs); border: 0; color: var(--color-brand); background: transparent; font-size: var(--text-xs); font-weight: 700; letter-spacing: .03em; white-space: nowrap; }
+  .site-header__menu-button { display: grid; width: 44px; min-width: 44px; height: 44px; place-items: center; padding: 0; border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-sm); color: var(--color-brand); background: transparent; }
+  .menu-icon, .close-icon { position: relative; width: 18px; height: 14px; }
+  .menu-icon i, .close-icon i { position: absolute; left: 0; display: block; width: 18px; height: 1.5px; background: currentColor; content: ''; }
+  .menu-icon i:nth-child(1) { top: 1px; }
+  .menu-icon i:nth-child(2) { top: 6px; }
+  .menu-icon i:nth-child(3) { top: 11px; }
+  .close-icon i { top: 6px; }
+  .close-icon i:first-child { transform: rotate(45deg); }
+  .close-icon i:last-child { transform: rotate(-45deg); }
   .site-menu { position: absolute; inset-inline: 0; top: 100%; border-bottom: var(--rule-hair) solid var(--color-rule-2); background: var(--color-surface); box-shadow: var(--shadow-overlay); }
-  .site-menu__inner { display: grid; gap: var(--space-lg); padding-block: var(--space-md) var(--space-lg); }
+  .site-menu__inner { display: grid; gap: var(--space-md); padding-block: var(--space-sm) var(--space-lg); }
   .site-menu__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--rule-hair) solid var(--color-rule); }
-  .site-menu__links a { display: flex; min-height: 52px; align-items: center; border-bottom: var(--rule-hair) solid var(--color-rule); color: var(--color-ink-2); font-weight: 700; white-space: nowrap; text-decoration: none; }
-  .site-menu__links a.is-current { color: var(--color-brand); }
+  .site-menu__links a { display: flex; min-height: 52px; align-items: center; border-bottom: var(--rule-hair) solid var(--color-rule); color: var(--color-ink-2); font-size: .9375rem; font-weight: 700; white-space: nowrap; text-decoration: none; }
+  .site-menu__links a.is-current { color: var(--color-brand); text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: .4em; }
   .site-menu__note { display: grid; align-content: end; color: var(--color-muted); font-size: var(--text-sm); line-height: 1.7; }
   .site-menu__note p { margin: 0; }
-  @media (max-width: 24rem) { .site-header__bar { gap: var(--space-2xs); } .site-wordmark { font-size: 1.0625rem; } .site-header__menu-button { min-width: 3.5rem; padding-inline: var(--space-2xs); } }
-  @media (min-width: 60rem) {
-    .site-header__bar { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .site-header__menu-button:active { color: var(--color-paper); background: var(--color-brand-dark); transform: translateY(1px); }
+  .site-header__menu-button:disabled { color: var(--color-disabled-ink); border-color: var(--color-rule); background: var(--color-disabled-paper); cursor: not-allowed; opacity: .55; transform: none; }
+  @media (max-width: 22.5rem) { .site-header__bar { gap: var(--space-3xs); } .site-wordmark { font-size: 1.125rem; } .site-wordmark small { font-size: .5rem; } }
+  @media (min-width: 40rem) { .site-menu__inner { grid-template-columns: minmax(0, 2fr) minmax(14rem, 1fr); } }
+  @media (min-width: 70rem) {
+    .site-header__bar { grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-lg); }
     .site-header__primary { display: flex; }
-    .site-menu__inner { grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr); }
-    .site-menu__links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .site-header__menu-button { display: none; }
   }
   @media (hover: hover) and (pointer: fine) {
-    .site-header__primary a:hover, .site-menu__links a:hover, .site-header__menu-button:hover { color: var(--color-brand-dark); }
+    .site-header__primary a:hover, .site-menu__links a:hover { color: var(--color-brand-dark); }
+    .site-header__menu-button:hover { border-color: var(--color-brand); background: var(--color-paper-2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header__menu-button { transition: none; }
+    .site-header__menu-button:active { transform: none; }
   }
 </style>
 
@@ -110,6 +130,7 @@ const isCurrent = (href: string) => href === '/' ? currentPath === '/' : current
     closeIcon?.classList.toggle('hidden', !open);
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    menu.setAttribute('aria-hidden', String(!open));
   };
 
   button?.addEventListener('click', () => setMenu(button.getAttribute('aria-expanded') !== 'true'));
@@ -122,5 +143,8 @@ const isCurrent = (href: string) => href === '/' ? currentPath === '/' : current
   document.addEventListener('click', (event) => {
     const header = document.getElementById('site-header');
     if (header && !header.contains(event.target as Node)) setMenu(false);
+  });
+  window.addEventListener('resize', () => {
+    if (window.matchMedia('(min-width: 70rem)').matches) setMenu(false);
   });
 </script>

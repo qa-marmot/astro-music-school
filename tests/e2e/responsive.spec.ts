@@ -74,9 +74,10 @@ test.describe('Desktop (1280px)', () => {
       const desktopNav = page.locator('nav[aria-label="主要ナビゲーション"]');
       await expect(desktopNav).toBeVisible();
 
-      // N9-derived menu trigger remains available on desktop
+      // Desktop uses direct navigation without a redundant menu trigger
       const mobileBtn = page.locator('#mobile-menu-btn');
-      await expect(mobileBtn).toBeVisible();
+      await expect(mobileBtn).toBeHidden();
+      await expect(desktopNav.locator('a')).toHaveCount(6);
     });
   }
 });
@@ -95,6 +96,9 @@ test.describe('Tablet (768px)', () => {
       await checkMainContentVisible(page, VIEWPORTS[1]);
       await checkFooterVisible(page, VIEWPORTS[1]);
       await checkNoHorizontalScroll(page, VIEWPORTS[1]);
+
+      await expect(page.locator('#mobile-menu-btn')).toBeVisible();
+      await expect(page.locator('nav[aria-label="主要ナビゲーション"]')).toBeHidden();
     });
   }
 });

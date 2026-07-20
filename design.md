@@ -81,9 +81,10 @@ Hallmarkで固定した、Harmony Music School全体のEditorial design system�
 
 ## Navigation and footer
 
-- Navigation: **N9-derived edge alignment**。左ワードマーク、主要2リンク、メニュー、体験CTA。
-- Menu panel: 罫線主体、外側クリック／Escape／focus復帰を維持。
-- Footer: **Ft1 Mast-headed**を3層へ圧縮。ブランド文、必要リンク、確認済み連絡先、著作権、デモ注記。
+- Navigation: **Direct service navigation**。PCは主要6リンクを常設し、メニューボタンと役割を重複させない。
+- Mobile menu: 70rem未満だけ表示。罫線主体、外側クリック／Escape／focus復帰を維持。
+- Footer: **Compact service footer**。読める大きさのブランド文、教室リンク、ご案内、確認済み連絡先、著作権、デモ注記で閉じる。
+- ヘッダーとフッターは実用性を優先し、紙面風の小さすぎる文字や過剰なマストヘッド演出を使わない。
 
 ## Non-negotiable product contracts
 

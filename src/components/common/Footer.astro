@@ -3,32 +3,39 @@ import { isDemo, siteContent } from '../../data/site';
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-colophon">
-  <div class="site-container-wide site-colophon__inner">
-    <div class="site-colophon__mast">
-      <div>
-        <p class="site-colophon__name brand-wordmark">Harmony</p>
-        <p class="site-colophon__school">Music School</p>
+<footer class="site-footer">
+  <div class="site-container-wide site-footer__inner">
+    <div class:list={['site-footer__top', { 'has-contact': siteContent.contact }]}>
+      <div class="site-footer__brand">
+        <a href="/" class="site-footer__wordmark brand-wordmark" aria-label="トップページへ">Harmony</a>
+        <p class="site-footer__school">Music School</p>
+        <p class="site-footer__statement">一人ひとりの音を聴き、続け方まで一緒に考える個人音楽レッスン。</p>
       </div>
-      <p class="site-colophon__statement">一人ひとりの音を聴き、続け方まで一緒に考える個人音楽レッスン。</p>
-    </div>
 
-    <div class="site-colophon__body">
-      <nav aria-label="フッターナビゲーション">
-        <ul class="site-colophon__links">
+      <div class="site-footer__navs">
+        <nav aria-labelledby="footer-school-links">
+          <p id="footer-school-links" class="site-footer__label">教室について</p>
+          <ul class="site-footer__links">
           <li><a href="/lessons">レッスン</a></li>
           <li><a href="/pricing">料金</a></li>
           <li><a href="/about">教室紹介</a></li>
           <li><a href="/access">アクセス</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-support-links">
+          <p id="footer-support-links" class="site-footer__label">ご案内</p>
+          <ul class="site-footer__links">
           <li><a href="/faq">FAQ</a></li>
           <li><a href="/blog">ブログ</a></li>
           <li><a href="/contact">お問い合わせ</a></li>
           <li><a href="/privacy">プライバシー</a></li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </div>
 
       {siteContent.contact && (
-        <address class="site-colophon__address">
+        <address class="site-footer__address">
+          <span class="site-footer__label">教室情報</span>
           <span>〒{siteContent.contact.postalCode} {siteContent.contact.address}</span>
           <a href={`tel:${siteContent.contact.phone}`}>{siteContent.contact.phone}</a>
           <a href={`mailto:${siteContent.contact.email}`}>{siteContent.contact.email}</a>
@@ -36,7 +43,7 @@ const year = new Date().getFullYear();
       )}
     </div>
 
-    <div class="site-colophon__meta">
+    <div class="site-footer__meta">
       <p>&copy; {year} {siteContent.name}. All rights reserved.</p>
       {isDemo && <p>デモサイトです。掲載写真・料金・文章は構成確認用で、実在の教室情報ではありません。検索エンジンには公開されません。</p>}
     </div>
@@ -44,27 +51,31 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .site-colophon { border-top: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); background: var(--color-paper); }
-  .site-colophon__inner { padding-block: var(--space-xl) var(--space-lg); }
-  .site-colophon__mast { display: grid; gap: var(--space-md); padding-block-end: var(--space-lg); }
-  .site-colophon__name { margin: 0; color: var(--color-brand); font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 500; letter-spacing: -.04em; line-height: 1; }
-  .site-colophon__school { margin: var(--space-2xs) 0 0; color: var(--color-muted); font-size: var(--text-xs); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-  .site-colophon__statement { max-width: 32em; margin: 0; color: var(--color-ink-2); line-height: 1.8; }
-  .site-colophon__body { display: grid; gap: var(--space-lg); padding-block: var(--space-lg); border-block: var(--rule-hair) solid var(--color-rule); }
-  .site-colophon__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-lg); margin: 0; padding: 0; list-style: none; }
-  .site-colophon__links a { display: inline-flex; min-height: 44px; align-items: center; color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 700; white-space: nowrap; text-decoration: none; }
-  .site-colophon__address { display: grid; align-content: start; gap: var(--space-2xs); margin: 0; color: var(--color-ink-2); font-size: var(--text-sm); font-style: normal; line-height: 1.8; }
-  .site-colophon__meta { display: grid; gap: var(--space-xs); padding-block-start: var(--space-lg); color: var(--color-muted); font-size: var(--text-xs); line-height: 1.7; }
-  .site-colophon__meta p { margin: 0; }
-  .site-colophon a:active { color: var(--color-brand-dark); }
-  @media (min-width: 60rem) {
-    .site-colophon__mast { grid-template-columns: minmax(0, 1fr) minmax(22rem, .7fr); align-items: end; }
-    .site-colophon__body { grid-template-columns: minmax(0, 1.5fr) minmax(18rem, .5fr); }
-    .site-colophon__links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .site-colophon__meta { grid-template-columns: .7fr 1.3fr; }
-    .site-colophon__meta p:last-child { text-align: right; }
+  /* Hallmark · component: site-footer · genre: editorial · theme: custom navy and copper
+   * states: default · hover · focus · active · contrast: pass
+   */
+  .site-footer { border-top: 4px solid var(--color-brand); color: var(--color-ink); background: var(--color-paper-2); }
+  .site-footer__inner { padding-block: var(--space-xl) var(--space-md); }
+  .site-footer__top { display: grid; gap: var(--space-xl); padding-block-end: var(--space-xl); }
+  .site-footer__wordmark { display: inline-flex; min-height: 44px; align-items: center; color: var(--color-brand); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 500; letter-spacing: -.035em; line-height: 1; text-decoration: none; }
+  .site-footer__school { margin: 0; color: var(--color-ink-2); font-size: .6875rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .site-footer__statement { max-width: 31em; margin: var(--space-sm) 0 0; color: var(--color-ink-2); font-size: .9375rem; line-height: 1.8; }
+  .site-footer__navs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); }
+  .site-footer__label { margin: 0 0 var(--space-2xs); color: var(--color-brand); font-size: .75rem; font-weight: 800; letter-spacing: .08em; }
+  .site-footer__links { display: grid; margin: 0; padding: 0; list-style: none; }
+  .site-footer__links a { display: inline-flex; min-height: 44px; align-items: center; color: var(--color-ink-2); font-size: .875rem; font-weight: 700; white-space: nowrap; text-decoration: none; }
+  .site-footer__address { display: grid; align-content: start; gap: var(--space-2xs); margin: 0; color: var(--color-ink-2); font-size: .875rem; font-style: normal; line-height: 1.8; }
+  .site-footer__address .site-footer__label { margin-block-end: var(--space-2xs); }
+  .site-footer__meta { display: grid; gap: var(--space-xs); padding-block-start: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule-2); color: var(--color-muted); font-size: .75rem; line-height: 1.7; }
+  .site-footer__meta p { margin: 0; }
+  .site-footer a:active { color: var(--color-brand-dark); }
+  @media (min-width: 48rem) {
+    .site-footer__top { grid-template-columns: minmax(0, 1fr) minmax(22rem, 1fr); align-items: start; }
+    .site-footer__top.has-contact { grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 1fr) minmax(14rem, .65fr); }
+    .site-footer__meta { grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: var(--space-lg); }
+    .site-footer__meta p:last-child { justify-self: end; max-width: 56em; text-align: right; }
   }
   @media (hover: hover) and (pointer: fine) {
-    .site-colophon a:hover { color: var(--color-brand); }
+    .site-footer a:hover { color: var(--color-brand); text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: .3em; }
   }
 </style>
