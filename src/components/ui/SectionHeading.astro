@@ -12,7 +12,7 @@ const { title, description, eyebrow, align = 'left', inverse = false, spacing = 
 
 <div class={`section-heading section-heading--${align} section-heading--${spacing}`}>
   {eyebrow && <p class={`eyebrow ${inverse ? '!text-accent' : ''}`}>{eyebrow}</p>}
-  <h2 class={`section-title mb-4 ${inverse ? 'text-canvas' : 'text-ink'}`}>{title}</h2>
+  <h2 class={`section-title mb-4 ${inverse ? 'text-canvas' : 'text-brand'}`}>{title}</h2>
   {description && <p class={`mb-0 text-base leading-8 ${inverse ? 'text-canvas/80' : 'text-ink-secondary'}`}>{description}</p>}
 </div>
 

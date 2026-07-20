@@ -29,7 +29,14 @@ test.describe('主要ページのvisual regression', () => {
         await page.goto(pageInfo.path);
         await page.evaluate(async () => {
           await document.fonts?.ready;
-          document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach((image) => { image.loading = 'eager'; });
+          const lazyImages = Array.from(document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]'));
+          for (const image of lazyImages) {
+            image.loading = 'eager';
+            image.scrollIntoView({ block: 'center' });
+            await image.decode().catch(() => {});
+          }
+          window.scrollTo(0, 0);
+          await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
         });
         await page.waitForFunction(() => Array.from(document.images).every((image) => image.complete), undefined, { timeout: 5_000 }).catch(() => {});
         await expect(page).toHaveScreenshot(`${pageInfo.name}-${width}.png`, {

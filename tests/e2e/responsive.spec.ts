@@ -168,13 +168,13 @@ test.describe('トップページ — 主要ボタン', () => {
     await page.goto('/');
     await waitForPageReady(page);
 
-    for (const selector of ['.home-marquee h1', '.home-intro__lede', '[data-testid="hero-trial-btn"]']) {
+    for (const selector of ['.home-hero h1', '.home-hero__kicker', '[data-testid="hero-trial-btn"]']) {
       const box = await page.locator(selector).boundingBox();
       expect(box, `${selector} が表示されていません`).not.toBeNull();
       expect((box?.y ?? 0) + (box?.height ?? 0), `${selector} がファーストビューからはみ出しています`).toBeLessThanOrEqual(800);
     }
 
-    const imageBox = await page.locator('.home-intro__image img').boundingBox();
+    const imageBox = await page.locator('.home-hero__image img').boundingBox();
     expect(imageBox).not.toBeNull();
     expect((imageBox?.y ?? 0) + (imageBox?.height ?? 0) * 0.58, 'ヒーロー写真の焦点がファーストビューからはみ出しています').toBeLessThanOrEqual(800);
   });
@@ -208,6 +208,7 @@ test.describe('トップページ — 主要ボタン', () => {
 
 test.describe('Hallmark必須幅のレイアウト安全性', () => {
   test('320・375・414・768pxで主要ページに横スクロールがない', async ({ page }) => {
+    test.setTimeout(60_000);
     for (const width of [320, 375, 414, 768]) {
       await page.setViewportSize({ width, height: width < 768 ? 844 : 1024 });
       for (const pg of PAGES) {

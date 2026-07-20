@@ -28,23 +28,24 @@ const {
 const strong = tone === 'strong';
 ---
 
-<section class={`cta-section cta-section--${tone} site-section ${strong ? 'site-section--dark' : 'quiet-rule bg-canvas'}`}>
+<section class={`cta-section cta-section--${tone} site-section ${strong ? 'cta-section--warm' : 'quiet-rule bg-canvas'}`}>
   <div class={`site-container cta-section__inner cta-section__inner--${align}`}>
     <div class="cta-section__copy">
-      {eyebrow && <p class={`eyebrow ${strong ? '!text-accent' : ''}`}>{eyebrow}</p>}
-      <h2 class={`section-title ${strong ? 'text-canvas' : 'text-ink'}`}>{title}</h2>
-      <p class={`cta-section__description ${strong ? 'text-canvas/80' : 'text-ink-secondary'}`}>{description}</p>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 class="section-title text-brand">{title}</h2>
+      <p class="cta-section__description text-ink-secondary">{description}</p>
     </div>
     <div class="cta-section__actions">
-      <ActionLink href={primaryHref} size="lg" theme={strong ? 'dark' : 'light'} testId={primaryTestId}>{primaryLabel}</ActionLink>
+      <ActionLink href={primaryHref} size="lg" theme="light" testId={primaryTestId}>{primaryLabel}</ActionLink>
       {secondaryHref && secondaryLabel && (
-        <ActionLink href={secondaryHref} variant="secondary" size="lg" theme={strong ? 'dark' : 'light'}>{secondaryLabel}</ActionLink>
+        <ActionLink href={secondaryHref} variant="secondary" size="lg" theme="light">{secondaryLabel}</ActionLink>
       )}
     </div>
   </div>
 </section>
 
 <style>
+  .cta-section--warm { border-block: var(--rule-hair) solid var(--color-rule); color: var(--color-ink); background: var(--color-paper-3); }
   .cta-section__inner { display: grid; gap: var(--space-md); }
   .cta-section__copy { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
   .cta-section h2, .cta-section__description { margin: 0; }

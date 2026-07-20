@@ -7,6 +7,7 @@ interface Props {
   widths?: number[];
   sizes?: string;
   aspect?: string;
+  mobileAspect?: string;
   class?: string;
   loading?: 'eager' | 'lazy';
   fetchpriority?: 'high' | 'low' | 'auto';
@@ -18,17 +19,18 @@ const {
   widths = [480, 720, 960, 1280, 1600],
   sizes = '(min-width: 1024px) 50vw, 100vw',
   aspect = '4 / 3',
+  mobileAspect = aspect,
   class: className = '',
   loading = 'lazy',
   fetchpriority = 'auto',
   showCaption = true,
 } = Astro.props;
 
-const style = `--editorial-position-desktop:${image.focalPoint?.desktop ?? '50% 50%'};--editorial-position-mobile:${image.focalPoint?.mobile ?? '50% 50%'}`;
+const style = `--editorial-position-desktop:${image.focalPoint?.desktop ?? '50% 50%'};--editorial-position-mobile:${image.focalPoint?.mobile ?? '50% 50%'};--editorial-aspect-desktop:${aspect};--editorial-aspect-mobile:${mobileAspect}`;
 ---
 
 <figure class={`editorial-image ${className}`} style={style}>
-  <div class="editorial-image__frame" style={`aspect-ratio:${aspect}`}>
+  <div class="editorial-image__frame">
     <Picture
       src={image.src}
       formats={['avif', 'webp']}

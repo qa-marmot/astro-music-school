@@ -19,13 +19,15 @@ const { title, description, eyebrow, variant = 'standard' } = Astro.props;
 </header>
 
 <style>
-  .page-intro { border-bottom: var(--rule-hair) solid var(--color-rule); background: var(--color-paper); }
-  .page-intro__inner { display: grid; gap: var(--space-lg); padding-block: var(--space-2xl); }
+  .page-intro { border-bottom: var(--rule-hair) solid var(--color-rule); background: var(--color-paper-2); }
+  .page-intro__inner { display: grid; gap: var(--space-lg); padding-block: clamp(2.25rem, 5vw, 3.25rem); }
   .page-intro__heading, .page-intro__description { min-width: 0; }
-  .page-intro h1 { margin: 0; }
+  .page-intro h1 { margin: 0; color: var(--color-brand); }
   .page-intro__description { max-width: 64ch; margin: 0; color: var(--color-ink-2); font-size: clamp(1rem, 2vw, 1.1875rem); line-height: 1.9; }
+  .page-intro--compact { background: var(--color-paper); }
   .page-intro--compact .page-intro__inner { padding-block: var(--space-xl); }
   .page-intro--compact h1 { font-size: clamp(2rem, 4vw, 3.25rem); }
+  .page-intro--editorial { background: var(--color-paper); }
   .page-intro--editorial .page-intro__inner { padding-block: var(--space-2xl) var(--space-3xl); }
   .page-intro--editorial h1 { font-size: var(--text-display-s); }
   @media (min-width: 60rem) {
