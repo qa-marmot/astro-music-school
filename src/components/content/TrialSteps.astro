@@ -22,14 +22,15 @@ const { density = 'summary' } = Astro.props;
 
 <style>
   .trial-steps { display: grid; margin: 0; padding: 0; list-style: none; }
-  .trial-steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 1.25rem 0; border-top: 1px solid rgb(var(--color-border-default)); }
-  .trial-steps li:last-child { border-bottom: 1px solid rgb(var(--color-border-default)); }
-  .trial-steps__number { display: flex; width: 2.25rem; height: 2.25rem; align-items: center; justify-content: center; border: 1px solid rgb(var(--color-accent)); border-radius: 50%; color: rgb(var(--color-brand-primary)); font-weight: 700; }
-  .trial-steps h3 { margin-bottom: .25rem; font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: 1.125rem; }
-  .trial-steps p { margin: 0; color: rgb(var(--color-text-secondary)); font-size: .9375rem; line-height: 1.8; }
-  @media (min-width: 768px) {
-    .trial-steps--summary { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
-    .trial-steps--summary li { display: block; border-bottom: 1px solid rgb(var(--color-border-default)); }
-    .trial-steps--summary .trial-steps__number { margin-bottom: 1rem; }
+  .trial-steps li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: var(--space-md); padding-block: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule-2); }
+  .trial-steps li:last-child { border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+  .trial-steps__number { color: var(--color-accent-dark); font-family: var(--font-display); font-size: var(--text-xl); font-variant-numeric: tabular-nums; font-weight: 700; line-height: 1; }
+  .trial-steps__number::after { content: "."; }
+  .trial-steps h3 { margin-bottom: var(--space-2xs); font-family: var(--font-display); font-size: 1.125rem; }
+  .trial-steps p { margin: 0; color: var(--color-ink-2); font-size: .9375rem; line-height: 1.8; }
+  @media (min-width: 48rem) {
+    .trial-steps--summary { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); border-block: var(--rule-fine) solid var(--color-ink); }
+    .trial-steps--summary li { display: block; border: 0; }
+    .trial-steps--summary .trial-steps__number { display: block; margin-bottom: var(--space-md); }
   }
 </style>

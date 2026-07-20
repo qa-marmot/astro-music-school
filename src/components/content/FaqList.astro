@@ -4,16 +4,30 @@ interface Props { items: FaqItem[]; }
 const { items } = Astro.props;
 ---
 
-<div class="divide-y divide-line border-y border-line">
+<div class="faq-list">
   {items.map((item) => (
-    <details class="group bg-canvas">
-      <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-5 font-bold text-ink">
+    <details class="faq-list__item group">
+      <summary class="faq-list__question">
         <span>{item.q}</span>
-        <svg class="h-5 w-5 flex-none text-brand transition-transform duration-base group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-          <path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        <span class="faq-list__mark" aria-hidden="true">＋</span>
       </summary>
-      <div class="pb-6 pr-10 text-base leading-8 text-ink-secondary"><p class="mb-0">{item.a}</p></div>
+      <div class="faq-list__answer"><p>{item.a}</p></div>
     </details>
   ))}
 </div>
+
+<style>
+  .faq-list { border-top: var(--rule-fine) solid var(--color-ink); }
+  .faq-list__item { border-bottom: var(--rule-hair) solid var(--color-rule-2); background: transparent; }
+  .faq-list__question { display: grid; min-height: 64px; cursor: pointer; list-style: none; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-md); padding-block: var(--space-md); color: var(--color-ink); font-family: var(--font-display); font-size: clamp(1.0625rem, 2vw, 1.25rem); font-weight: 700; line-height: 1.6; }
+  .faq-list__question::-webkit-details-marker { display: none; }
+  .faq-list__question:active { color: var(--color-brand-dark); }
+  .faq-list__mark { display: grid; width: 44px; height: 44px; place-items: center; color: var(--color-brand); font-family: var(--font-body); font-size: var(--text-lg); font-weight: 400; transition: transform var(--dur-short) var(--ease-in-out); }
+  details[open] .faq-list__mark { transform: rotate(45deg); }
+  .faq-list__answer { max-width: 70ch; padding-block: 0 var(--space-lg); padding-inline-end: var(--space-2xl); color: var(--color-ink-2); line-height: 1.9; }
+  .faq-list__answer p { margin: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-list__mark { transition: none; }
+    details[open] .faq-list__mark { transform: none; }
+  }
+</style>

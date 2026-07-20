@@ -1,0 +1,9 @@
+{
+  "scanned_at": "2026-07-20",
+  "framework": "Astro 4 with Tailwind 3",
+  "font_stack": "Noto Serif JP display and Noto Sans JP body",
+  "palette": "forest, ivory, brass token palette",
+  "spacing": "4-point compatible named scale",
+  "motion": "motion-cut; no motion library",
+  "preserve": ["routes", "forms", "SEO controls", "content data", "licensed images"]
+}

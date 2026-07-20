@@ -31,29 +31,34 @@ const jsonLd = {
   description="ピアノ・ギター・バイオリン・声楽を、一人ひとりの目標に合わせて学ぶ個人音楽レッスン。体験レッスン受付中。"
   jsonLd={jsonLd}
 >
-  <section class="border-b border-line bg-canvas">
-    <div class="site-container-wide grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-16 lg:py-20">
-      <div class="lg:col-span-7">
-        <p class="section-label">子どもから大人まで、一対一で学ぶ音楽教室</p>
-        <h1 class="display-title mb-6 text-ink">弾きたい気持ちから、<br class="hidden sm:block" />あなたの音を育てる。</h1>
-        <p class="lead mb-8 text-ink-secondary">
+  <section class="home-marquee">
+    <div class="site-container-wide home-marquee__inner">
+      <h1>弾きたい気持ちから、<br />あなたの音を育てる。</h1>
+    </div>
+  </section>
+
+  <section class="home-intro">
+    <div class="site-container-wide home-intro__inner">
+      <div class="home-intro__copy">
+        <p class="home-intro__lede">子どもから大人まで、一対一で学ぶ音楽教室です。</p>
+        <p class="lead text-ink-secondary">
           ピアノ・ギター・バイオリン・声楽。初めての一音も、もう一度始める時間も、一人ひとりの目標とペースに合わせます。
         </p>
-        <div class="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <ActionLink href="/trial" size="lg" testId="hero-trial-btn">体験レッスンを申し込む</ActionLink>
-          <ActionLink href="/lessons" variant="secondary" size="lg" testId="hero-lessons-btn">4つのレッスンを見る</ActionLink>
+        <div class="home-intro__actions">
+          <ActionLink href="/trial" size="lg" testId="hero-trial-btn">体験を申し込む</ActionLink>
+          <ActionLink href="/lessons" variant="secondary" size="lg" testId="hero-lessons-btn">レッスンを見る</ActionLink>
         </div>
-        <dl class="grid gap-3 border-t border-line pt-5 text-sm text-ink-secondary sm:grid-cols-3">
-          <div><dt class="font-bold text-ink">体験時間</dt><dd>{siteContent.trialDuration}</dd></div>
-          <div><dt class="font-bold text-ink">体験料金</dt><dd>税込 {taxIncluded(siteContent.trialPriceExTax)}円</dd></div>
-          <div><dt class="font-bold text-ink">楽器</dt><dd>{siteContent.courses.map((course) => course.name).join('・')}</dd></div>
+        <dl class="home-intro__facts">
+          <div><dt>体験時間</dt><dd>{siteContent.trialDuration}</dd></div>
+          <div><dt>体験料金</dt><dd>税込 {taxIncluded(siteContent.trialPriceExTax)}円</dd></div>
+          <div><dt>楽器</dt><dd>{siteContent.courses.map((course) => course.name).join('・')}</dd></div>
         </dl>
       </div>
-      <div class="lg:col-span-5">
+      <div class="home-intro__image">
         <EditorialImage
           image={siteImages.homeHero}
           aspect="4 / 5"
-          sizes="(min-width: 1280px) 480px, (min-width: 1024px) 38vw, 100vw"
+          sizes="(min-width: 1280px) 520px, (min-width: 960px) 42vw, 100vw"
           loading="eager"
           fetchpriority="high"
         />
@@ -64,9 +69,9 @@ const jsonLd = {
   <section class="site-section site-section--subtle">
     <div class="site-container">
       <SectionHeading title="始める理由に合う、確かめ方があります" description="体験レッスンでは、演奏の上手さだけでなく、通い方や目標まで含めてご相談いただけます。" />
-      <div class="grid border-y border-line md:grid-cols-3 md:divide-x md:divide-line">
-        {audienceGuides.map((guide) => (
-          <article class="py-7 md:px-8">
+      <div class="audience-ledger">
+        {audienceGuides.map((guide, index) => (
+          <article class={`audience-ledger__item audience-ledger__item--${index + 1}`}>
             <h3 class="mb-3 font-serif text-xl font-bold leading-8 text-ink">{guide.title}</h3>
             <p class="mb-0 text-base leading-8 text-ink-secondary">{guide.body}</p>
           </article>
@@ -76,11 +81,11 @@ const jsonLd = {
   </section>
 
   <section class="site-section">
-    <div class="site-container grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-5">
+    <div class="site-container home-guidance">
+      <div class="home-guidance__image">
         <EditorialImage image={siteImages.homeGuidance} aspect="3 / 2" sizes="(min-width: 1024px) 40vw, 100vw" />
       </div>
-      <div class="lg:col-span-6 lg:col-start-7">
+      <div class="home-guidance__copy">
         <SectionHeading eyebrow="レッスンで大切にすること" title="話を聞き、手元を見て、次の一歩を一緒に決める" spacing="compact" />
         <div class="measure space-y-5 text-base leading-8 text-ink-secondary">
           <p>弾きたい曲、音楽経験、練習できる時間を伺ってから、その日に取り組むことを整理します。</p>
@@ -94,14 +99,14 @@ const jsonLd = {
   <section class="site-section border-y border-line bg-canvas">
     <div class="site-container">
       <SectionHeading title="4つの個人レッスン" description="興味のある楽器から、対象の目安とレッスン内容をご確認ください。" />
-      <div class="grid border-t border-line md:grid-cols-2">
+      <div class="course-catalogue">
         {siteContent.courses.map((course) => (
-          <article class="grid gap-4 border-b border-line py-7 md:grid-cols-[1fr_auto] md:items-end md:px-7">
-            <div>
-              <p class="mb-2 text-sm font-bold text-accent-strong">{course.ages}</p>
-              <h3 class="mb-2 font-serif text-2xl font-bold text-ink">{course.name}</h3>
-              <p class="mb-0 max-w-md text-sm leading-7 text-ink-secondary">{course.summary}</p>
+          <article class="course-catalogue__row">
+            <div class="course-catalogue__name">
+              <h3>{course.name}</h3>
+              <p>{course.ages}</p>
             </div>
+            <p class="course-catalogue__summary">{course.summary}</p>
             <ActionLink href={`/lessons#${course.id}`} variant="tertiary" size="sm">内容を見る</ActionLink>
           </article>
         ))}
@@ -156,4 +161,48 @@ const jsonLd = {
     secondaryLabel="質問してから検討する"
     primaryTestId="cta-trial-btn"
   />
+
+  <style>
+    .home-marquee { border-bottom: var(--rule-fine) solid var(--color-ink); background: var(--color-paper); }
+    .home-marquee__inner { display: grid; min-height: clamp(21rem, 48svh, 28rem); align-content: end; padding-block: var(--space-md) var(--space-lg); }
+    .home-marquee h1 { max-width: 11.5ch; margin: 0; color: var(--color-ink); font-family: var(--font-display); font-size: var(--text-display); font-weight: 700; letter-spacing: -.045em; line-height: 1.13; }
+    .home-intro { border-bottom: var(--rule-hair) solid var(--color-rule); background: var(--color-paper); }
+    .home-intro__inner { display: grid; gap: var(--space-xl); padding-block: var(--space-xl) var(--space-2xl); }
+    .home-intro__copy { align-self: center; }
+    .home-intro__lede { margin-block-end: var(--space-sm); color: var(--color-brand); font-weight: 700; }
+    .home-intro .lead { margin-block-end: var(--space-lg); }
+    .home-intro__actions { display: flex; flex-direction: column; gap: var(--space-xs); }
+    .home-intro__facts { display: grid; gap: var(--space-sm); margin: var(--space-xl) 0 0; padding-block-start: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink-2); font-size: var(--text-sm); }
+    .home-intro__facts dt { color: var(--color-ink); font-weight: 700; }
+    .home-intro__facts dd { margin: 0; }
+    .home-intro__image { min-width: 0; }
+    .audience-ledger { display: grid; border-block: var(--rule-hair) solid var(--color-rule-2); }
+    .audience-ledger__item { padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
+    .audience-ledger__item:last-child { border-bottom: 0; }
+    .home-guidance { display: grid; gap: var(--space-xl); align-items: center; }
+    .home-guidance__image, .home-guidance__copy { min-width: 0; }
+    .course-catalogue { border-top: var(--rule-fine) solid var(--color-ink); }
+    .course-catalogue__row { display: grid; gap: var(--space-md); padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+    .course-catalogue__name h3 { margin-block-end: var(--space-2xs); font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.3; }
+    .course-catalogue__name p, .course-catalogue__summary { margin: 0; color: var(--color-ink-2); font-size: var(--text-sm); line-height: 1.8; }
+    @media (min-width: 40rem) {
+      .home-intro__actions { flex-direction: row; }
+      .home-intro__facts { grid-template-columns: 1fr 1fr 1.6fr; }
+    }
+    @media (min-width: 60rem) {
+      .home-marquee__inner { min-height: clamp(16rem, 33svh, 22rem); padding-block: var(--space-md) var(--space-lg); }
+      .home-marquee h1 { max-width: 13em; }
+      .home-intro__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-3xl); padding-block: var(--space-sm) var(--space-3xl); }
+      .home-intro .lead { margin-block-end: var(--space-md); }
+      .audience-ledger { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+      .audience-ledger__item { border-bottom: 0; border-inline-end: var(--rule-hair) solid var(--color-rule); }
+      .audience-ledger__item:last-child { border-inline-end: 0; }
+      .audience-ledger__item--1 { grid-column: span 5; padding-inline-end: var(--space-xl); }
+      .audience-ledger__item--2 { grid-column: span 4; padding-inline: var(--space-xl); }
+      .audience-ledger__item--3 { grid-column: span 3; padding-inline-start: var(--space-xl); }
+      .home-guidance { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-3xl); }
+      .home-guidance__image { margin-inline-start: calc((100vw - min(100vw - 4rem, var(--content-width))) / -2); }
+      .course-catalogue__row { grid-template-columns: minmax(12rem, 3fr) minmax(0, 6fr) auto; align-items: center; gap: var(--space-xl); }
+    }
+  </style>
 </BaseLayout>

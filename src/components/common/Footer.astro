@@ -1,47 +1,65 @@
 ---
-import ActionLink from '../ui/ActionLink.astro';
 import { isDemo, siteContent } from '../../data/site';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-brand-hover bg-[#112418] text-canvas">
-  <div class="site-container-wide py-14 lg:py-16">
-    <div class={`grid gap-12 border-b border-canvas/20 pb-12 ${siteContent.contact ? 'lg:grid-cols-[1.2fr_1fr_1fr]' : 'lg:grid-cols-[1.25fr_1fr]'}`}>
-      <div>
-        <p class="mb-3 font-serif text-2xl font-bold">{siteContent.name}</p>
-        <p class="mb-6 max-w-sm text-sm leading-7 text-canvas/75">
-          ピアノ・ギター・バイオリン・声楽を、一人ひとりの目標に合わせて学ぶ個人音楽レッスン。
-        </p>
-        <ActionLink href="/trial" size="sm" theme="dark">体験レッスン</ActionLink>
-      </div>
-
-      <nav aria-label="フッターナビゲーション">
-        <p class="mb-4 text-sm font-bold text-accent">ご案内</p>
-        <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-canvas/75">
-          <li><a href="/lessons" class="hover:text-accent">レッスン</a></li>
-          <li><a href="/pricing" class="hover:text-accent">料金</a></li>
-          <li><a href="/about" class="hover:text-accent">教室紹介</a></li>
-          <li><a href="/access" class="hover:text-accent">アクセス</a></li>
-          <li><a href="/faq" class="hover:text-accent">FAQ</a></li>
-          <li><a href="/blog" class="hover:text-accent">ブログ</a></li>
-          <li><a href="/contact" class="hover:text-accent">お問い合わせ</a></li>
-          <li><a href="/privacy" class="hover:text-accent">プライバシー</a></li>
-        </ul>
-      </nav>
-
-      {siteContent.contact && <div>
-        <p class="mb-4 text-sm font-bold text-accent">教室情報</p>
-        <address class="not-italic text-sm leading-7 text-canvas/75">
-          〒{siteContent.contact.postalCode}<br />{siteContent.contact.address}<br />
-          <a href={`tel:${siteContent.contact.phone}`} class="hover:text-accent">{siteContent.contact.phone}</a><br />
-          <a href={`mailto:${siteContent.contact.email}`} class="hover:text-accent">{siteContent.contact.email}</a>
-        </address>
-      </div>}
+<footer class="site-colophon">
+  <div class="site-container-wide site-colophon__inner">
+    <div class="site-colophon__lead">
+      <p class="site-colophon__name">{siteContent.name}</p>
+      <p class="site-colophon__statement">一人ひとりの音を聴き、続け方まで一緒に考える個人音楽レッスン。</p>
+      <a href="/trial" class="site-colophon__trial">体験レッスンを申し込む <span aria-hidden="true">→</span></a>
     </div>
 
-    <div class="flex flex-col gap-3 pt-7 text-xs text-canvas/55 sm:flex-row sm:items-center sm:justify-between">
-      <p class="mb-0">&copy; {year} {siteContent.name}. All rights reserved.</p>
-      {isDemo && <p class="mb-0 max-w-xl sm:text-right">デモサイトです。掲載写真・料金・文章は構成確認用で、実在の教室情報ではありません。検索エンジンには公開されません。</p>}
+    <nav aria-label="フッターナビゲーション">
+      <ul class="site-colophon__links">
+        <li><a href="/lessons">レッスン</a></li>
+        <li><a href="/pricing">料金</a></li>
+        <li><a href="/about">教室紹介</a></li>
+        <li><a href="/access">アクセス</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/blog">ブログ</a></li>
+        <li><a href="/contact">お問い合わせ</a></li>
+        <li><a href="/privacy">プライバシー</a></li>
+      </ul>
+    </nav>
+
+    {siteContent.contact && (
+      <address class="site-colophon__address">
+        〒{siteContent.contact.postalCode} {siteContent.contact.address} ·
+        <a href={`tel:${siteContent.contact.phone}`}>{siteContent.contact.phone}</a> ·
+        <a href={`mailto:${siteContent.contact.email}`}>{siteContent.contact.email}</a>
+      </address>
+    )}
+
+    <div class="site-colophon__meta">
+      <p>&copy; {year} {siteContent.name}. All rights reserved.</p>
+      {isDemo && <p>デモサイトです。掲載写真・料金・文章は構成確認用で、実在の教室情報ではありません。検索エンジンには公開されません。</p>}
     </div>
   </div>
 </footer>
+
+<style>
+  .site-colophon { border-top: var(--rule-fine) solid var(--color-ink); color: var(--color-ink); background: var(--color-paper); }
+  .site-colophon__inner { padding-block: var(--space-2xl) var(--space-lg); }
+  .site-colophon__lead { display: grid; gap: var(--space-sm); padding-block-end: var(--space-xl); }
+  .site-colophon__name { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  .site-colophon__statement { max-width: 32em; margin: 0; color: var(--color-ink-2); line-height: 1.8; }
+  .site-colophon__trial { display: inline-flex; width: fit-content; min-height: 44px; align-items: center; color: var(--color-brand); font-weight: 700; white-space: nowrap; text-decoration-line: underline; text-decoration-color: var(--color-accent); text-underline-offset: .35em; }
+  .site-colophon__links { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); margin: 0; padding: var(--space-lg) 0; border-block: var(--rule-hair) solid var(--color-rule-2); list-style: none; }
+  .site-colophon__links a { display: inline-flex; min-height: 44px; align-items: center; color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 700; white-space: nowrap; text-decoration: none; }
+  .site-colophon__address { margin-block-start: var(--space-lg); color: var(--color-ink-2); font-size: var(--text-sm); font-style: normal; line-height: 1.8; }
+  .site-colophon__meta { display: grid; gap: var(--space-xs); padding-block-start: var(--space-lg); color: var(--color-muted); font-size: var(--text-xs); line-height: 1.7; }
+  .site-colophon__meta p { margin: 0; }
+  .site-colophon a:active { color: var(--color-brand-dark); }
+  @media (min-width: 60rem) {
+    .site-colophon__lead { grid-template-columns: minmax(0, 1.4fr) minmax(18rem, .8fr); align-items: end; }
+    .site-colophon__statement { grid-column: 1; }
+    .site-colophon__trial { grid-column: 2; grid-row: 1 / span 2; align-self: end; justify-self: end; }
+    .site-colophon__meta { grid-template-columns: .7fr 1.3fr; }
+    .site-colophon__meta p:last-child { text-align: right; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .site-colophon a:hover { color: var(--color-brand); }
+  }
+</style>

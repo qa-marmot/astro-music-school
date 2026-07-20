@@ -163,6 +163,22 @@ test.describe('Mobile (390px)', () => {
 // ─── Hero & CTA buttons ───────────────────────────────────────────────────
 
 test.describe('トップページ — 主要ボタン', () => {
+  test('1280×800でヒーローの主要情報と写真の焦点がファーストビューに収まる', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+    await waitForPageReady(page);
+
+    for (const selector of ['.home-marquee h1', '.home-intro__lede', '[data-testid="hero-trial-btn"]']) {
+      const box = await page.locator(selector).boundingBox();
+      expect(box, `${selector} が表示されていません`).not.toBeNull();
+      expect((box?.y ?? 0) + (box?.height ?? 0), `${selector} がファーストビューからはみ出しています`).toBeLessThanOrEqual(800);
+    }
+
+    const imageBox = await page.locator('.home-intro__image img').boundingBox();
+    expect(imageBox).not.toBeNull();
+    expect((imageBox?.y ?? 0) + (imageBox?.height ?? 0) * 0.58, 'ヒーロー写真の焦点がファーストビューからはみ出しています').toBeLessThanOrEqual(800);
+  });
+
   test('ヒーローの体験レッスンボタンが表示される', async ({ page }) => {
     await page.goto('/');
     await waitForPageReady(page);
@@ -187,6 +203,19 @@ test.describe('トップページ — 主要ボタン', () => {
 
     const btn = page.locator('[data-testid="cta-trial-btn"]');
     await expect(btn).toBeVisible();
+  });
+});
+
+test.describe('Hallmark必須幅のレイアウト安全性', () => {
+  test('320・375・414・768pxで主要ページに横スクロールがない', async ({ page }) => {
+    for (const width of [320, 375, 414, 768]) {
+      await page.setViewportSize({ width, height: width < 768 ? 844 : 1024 });
+      for (const pg of PAGES) {
+        await page.goto(pg.path);
+        await waitForPageReady(page);
+        await checkNoHorizontalScroll(page, { name: `Hallmark-${width}`, width, height: width < 768 ? 844 : 1024 });
+      }
+    }
   });
 });
 

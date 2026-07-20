@@ -1,0 +1,118 @@
+/* Hallmark · design-system: Quiet Atelier · genre: editorial
+ * theme: custom · vibe: "quiet, local, attentive, enduring"
+ * axes: light / roman-serif / chromatic-green · v1.1.0
+ */
+
+:root {
+  /* Canonical palette */
+  --color-paper: oklch(97.98% 0.0086 84.6);
+  --color-paper-2: oklch(94.8% 0.0148 80.7);
+  --color-paper-3: oklch(92.4% 0.018 80.7);
+  --color-surface: oklch(99.53% 0.0025 48.7);
+  --color-ink: oklch(25.3% 0.0063 78.2);
+  --color-ink-2: oklch(42.18% 0.0125 81.8);
+  --color-muted: oklch(54.35% 0.015 82.4);
+  --color-neutral: oklch(45.94% 0.0512 52.6);
+  --color-rule: oklch(86.1% 0.0215 79.1);
+  --color-rule-2: oklch(69.5% 0.026 78);
+  --color-brand: oklch(37.62% 0.0589 161);
+  --color-brand-dark: oklch(31.74% 0.0493 163.3);
+  --color-accent: oklch(66.21% 0.1168 80.1);
+  --color-accent-dark: oklch(51% 0.1 80.1);
+  --color-accent-ink: oklch(25.3% 0.0063 78.2);
+  --color-focus: oklch(47% 0.0927 167.3);
+  --color-success-token: oklch(43.5% 0.09 151);
+  --color-warning-token: oklch(49% 0.105 76);
+  --color-error-token: oklch(50% 0.17 30);
+  --color-disabled-paper: oklch(91.9% 0.012 80);
+  --color-disabled-ink: oklch(52% 0.01 80);
+  --color-on-dark-rule: color-mix(in oklch, var(--color-paper) 70%, transparent);
+
+  /* Channel aliases used by Tailwind v3 alpha utilities. */
+  --color-brand-primary: 37.62% 0.0589 161;
+  --color-brand-primary-hover: 31.74% 0.0493 163.3;
+  --color-brand-secondary: 45.94% 0.0512 52.6;
+  --color-accent-channel: 66.21% 0.1168 80.1;
+  --color-accent-strong: 51% 0.1 80.1;
+  --color-bg-canvas: 97.98% 0.0086 84.6;
+  --color-bg-subtle: 94.8% 0.0148 80.7;
+  --color-bg-surface: 99.53% 0.0025 48.7;
+  --color-bg-elevated: 99.53% 0.0025 48.7;
+  --color-text-primary: 25.3% 0.0063 78.2;
+  --color-text-secondary: 42.18% 0.0125 81.8;
+  --color-text-muted: 54.35% 0.015 82.4;
+  --color-border-default: 86.1% 0.0215 79.1;
+  --color-border-strong: 69.5% 0.026 78;
+  --color-link: 37.62% 0.0589 161;
+  --color-focus-ring: 47% 0.0927 167.3;
+  --color-success: 43.5% 0.09 151;
+  --color-warning: 49% 0.105 76;
+  --color-error: 50% 0.17 30;
+  --color-disabled-bg: 91.9% 0.012 80;
+  --color-disabled-text: 52% 0.01 80;
+
+  --font-display: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", ui-serif, serif;
+  --font-body: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Noto Sans JP", "Yu Gothic", ui-sans-serif, system-ui, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-4xl: 3.8147rem;
+  --text-display-s: clamp(2.5rem, 6vw, 4.5rem);
+  --text-display: clamp(3rem, 8vw, 5.25rem);
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+  --space-5xl: 12rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --rule-hair: 1px;
+  --rule-fine: 2px;
+  --radius-card: 0;
+  --radius-pill: 0;
+  --radius-input: 2px;
+  --shadow-card: 0 1px 2px oklch(25.3% 0.0063 78.2 / 0.06);
+  --shadow-sm: 0 1px 2px oklch(25.3% 0.0063 78.2 / 0.06);
+  --shadow-md: 0 8px 24px oklch(25.3% 0.0063 78.2 / 0.1);
+  --shadow-overlay: 0 16px 48px oklch(25.3% 0.0063 78.2 / 0.16);
+
+  --space-section: clamp(4rem, 7vw, 6rem);
+  --content-width: 72rem;
+  --content-width-wide: 80rem;
+  --content-width-narrow: 44rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --motion-fast: var(--dur-micro);
+  --motion-base: var(--dur-short);
+  --motion-slow: var(--dur-long);
+  --motion-ease: var(--ease-out);
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}

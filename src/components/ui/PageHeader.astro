@@ -6,13 +6,30 @@ interface Props {
   variant?: 'standard' | 'compact' | 'editorial';
 }
 const { title, description, eyebrow, variant = 'standard' } = Astro.props;
-const padding = variant === 'compact' ? 'py-10 sm:py-12' : variant === 'editorial' ? 'py-14 sm:py-20 lg:py-24' : 'py-12 sm:py-16 lg:py-20';
 ---
 
-<header class={`border-b border-line ${variant === 'editorial' ? 'bg-canvas' : 'bg-subtle'}`}>
-  <div class={`site-container ${padding}`}>
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1 class="page-title mb-4 text-ink">{title}</h1>
-    {description && <p class="lead mb-0 text-ink-secondary">{description}</p>}
+<header class={`page-intro page-intro--${variant}`}>
+  <div class="site-container page-intro__inner">
+    <div class="page-intro__heading">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1 class="page-title">{title}</h1>
+    </div>
+    {description && <p class="page-intro__description">{description}</p>}
   </div>
 </header>
+
+<style>
+  .page-intro { border-bottom: var(--rule-hair) solid var(--color-rule); background: var(--color-paper); }
+  .page-intro__inner { display: grid; gap: var(--space-lg); padding-block: var(--space-2xl); }
+  .page-intro__heading, .page-intro__description { min-width: 0; }
+  .page-intro h1 { margin: 0; }
+  .page-intro__description { max-width: 64ch; margin: 0; color: var(--color-ink-2); font-size: clamp(1rem, 2vw, 1.1875rem); line-height: 1.9; }
+  .page-intro--compact .page-intro__inner { padding-block: var(--space-xl); }
+  .page-intro--compact h1 { font-size: clamp(2rem, 4vw, 3.25rem); }
+  .page-intro--editorial .page-intro__inner { padding-block: var(--space-2xl) var(--space-3xl); }
+  .page-intro--editorial h1 { font-size: var(--text-display-s); }
+  @media (min-width: 60rem) {
+    .page-intro:not(.page-intro--compact) .page-intro__inner { grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); align-items: end; }
+    .page-intro:not(.page-intro--compact) .page-intro__description { justify-self: end; }
+  }
+</style>

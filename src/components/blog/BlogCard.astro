@@ -20,19 +20,19 @@ const compact = variant === 'compact';
 ---
 
 <article class={`blog-card blog-card--${variant}`} data-testid="blog-card">
-  <a href={`/blog/${post.id}`} class={`group no-underline ${featured ? 'md:grid md:grid-cols-12 md:items-stretch' : ''}`}>
+  <a href={`/blog/${post.id}`} class={`blog-card__link group ${featured ? 'md:grid md:grid-cols-12 md:items-stretch' : ''}`}>
     {!compact && (
       <div class={`${featured ? 'md:col-span-5' : ''} min-h-36 bg-subtle`}>
         {post.eyecatch ? (
           <EditorialImage image={post.eyecatch} aspect={featured ? '4 / 3' : '16 / 9'} sizes={featured ? '(min-width: 768px) 40vw, 100vw' : '(min-width: 1024px) 32vw, 100vw'} showCaption={false} />
         ) : (
-          <div class={`flex h-full min-h-36 items-end border border-line p-5 ${featured ? 'md:min-h-64' : ''}`} aria-hidden="true">
+          <div class={`flex h-full min-h-36 items-end border-y border-line py-5 ${featured ? 'md:min-h-64' : ''}`} aria-hidden="true">
             <span class="border-l-2 border-accent pl-3 font-serif text-sm font-bold text-brand">Harmony Journal</span>
           </div>
         )}
       </div>
     )}
-    <div class={`${featured ? 'border border-line border-t-0 p-6 md:col-span-7 md:border-l-0 md:border-t md:p-9' : compact ? 'grid gap-3 border-b border-line py-6 sm:grid-cols-[1fr_auto] sm:items-end' : 'border border-line border-t-0 p-5'}`}>
+    <div class={`${featured ? 'border-y border-line p-6 md:col-span-7 md:p-9' : compact ? 'grid gap-3 border-b border-line py-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end' : 'border-b border-line py-5'}`}>
       <div>
         <div class="mb-3 flex flex-wrap items-center gap-3 text-xs text-ink-muted">
           <span class="font-bold text-brand">{post.category.name}</span>
@@ -45,3 +45,14 @@ const compact = variant === 'compact';
     </div>
   </a>
 </article>
+
+<style>
+  .blog-card__link { display: block; color: inherit; text-decoration: none; }
+  .blog-card h2 { transition: color var(--dur-short) var(--ease-out); }
+  .blog-card--featured { border-top: var(--rule-fine) solid var(--color-ink); }
+  .blog-card--compact .blog-card__link > div { min-width: 0; }
+  .blog-card--compact h2 { overflow-wrap: anywhere; }
+  .blog-card--compact span { white-space: nowrap; }
+  .blog-card__link:active h2 { color: var(--color-brand-dark); }
+  @media (hover: hover) and (pointer: fine) { .blog-card__link:hover h2 { color: var(--color-brand); } }
+</style>

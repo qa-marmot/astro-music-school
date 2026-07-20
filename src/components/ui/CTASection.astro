@@ -28,12 +28,14 @@ const {
 const strong = tone === 'strong';
 ---
 
-<section class={`site-section ${strong ? 'site-section--dark' : 'quiet-rule bg-canvas'}`}>
-  <div class={`${align === 'center' ? 'site-container-narrow text-center' : 'site-container'}`}>
-    {eyebrow && <p class={`eyebrow ${strong ? '!text-accent' : ''}`}>{eyebrow}</p>}
-    <h2 class={`section-title mb-4 ${strong ? 'text-canvas' : 'text-ink'}`}>{title}</h2>
-    <p class={`${align === 'center' ? 'mx-auto' : ''} mb-8 max-w-xl text-base leading-8 ${strong ? 'text-canvas/80' : 'text-ink-secondary'}`}>{description}</p>
-    <div class={`flex flex-col items-stretch gap-3 sm:flex-row sm:items-center ${align === 'center' ? 'justify-center' : ''}`}>
+<section class={`cta-section cta-section--${tone} site-section ${strong ? 'site-section--dark' : 'quiet-rule bg-canvas'}`}>
+  <div class={`site-container cta-section__inner cta-section__inner--${align}`}>
+    <div class="cta-section__copy">
+      {eyebrow && <p class={`eyebrow ${strong ? '!text-accent' : ''}`}>{eyebrow}</p>}
+      <h2 class={`section-title ${strong ? 'text-canvas' : 'text-ink'}`}>{title}</h2>
+      <p class={`cta-section__description ${strong ? 'text-canvas/80' : 'text-ink-secondary'}`}>{description}</p>
+    </div>
+    <div class="cta-section__actions">
       <ActionLink href={primaryHref} size="lg" theme={strong ? 'dark' : 'light'} testId={primaryTestId}>{primaryLabel}</ActionLink>
       {secondaryHref && secondaryLabel && (
         <ActionLink href={secondaryHref} variant="secondary" size="lg" theme={strong ? 'dark' : 'light'}>{secondaryLabel}</ActionLink>
@@ -41,3 +43,17 @@ const strong = tone === 'strong';
     </div>
   </div>
 </section>
+
+<style>
+  .cta-section__inner { display: grid; gap: var(--space-md); }
+  .cta-section__copy { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+  .cta-section h2, .cta-section__description { margin: 0; }
+  .cta-section__description { max-width: 64ch; line-height: 1.9; }
+  .cta-section__actions { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-xs); padding-block-start: var(--space-xs); }
+  @media (min-width: 40rem) { .cta-section__actions { flex-direction: row; align-items: center; } }
+  @media (min-width: 60rem) {
+    .cta-section__inner { grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); align-items: end; }
+    .cta-section__actions { grid-column: 2; grid-row: 1; justify-self: end; }
+    .cta-section__inner--center { text-align: left; }
+  }
+</style>
