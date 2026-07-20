@@ -12,6 +12,7 @@ interface Props {
   loading?: 'eager' | 'lazy';
   fetchpriority?: 'high' | 'low' | 'auto';
   showCaption?: boolean;
+  treatment?: 'plain' | 'bleed' | 'bounded';
 }
 
 const {
@@ -24,12 +25,13 @@ const {
   loading = 'lazy',
   fetchpriority = 'auto',
   showCaption = true,
+  treatment = 'plain',
 } = Astro.props;
 
 const style = `--editorial-position-desktop:${image.focalPoint?.desktop ?? '50% 50%'};--editorial-position-mobile:${image.focalPoint?.mobile ?? '50% 50%'};--editorial-aspect-desktop:${aspect};--editorial-aspect-mobile:${mobileAspect}`;
 ---
 
-<figure class={`editorial-image ${className}`} style={style}>
+<figure class={`editorial-image editorial-image--${treatment} ${className}`} style={style}>
   <div class="editorial-image__frame">
     <Picture
       src={image.src}

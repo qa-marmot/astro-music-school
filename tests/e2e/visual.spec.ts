@@ -49,3 +49,21 @@ test.describe('主要ページのvisual regression', () => {
     }
   }
 });
+
+test.describe('トップページの小画面構成', () => {
+  test.skip(({ isMobile }) => isMobile, 'Desktop Chromium projectで基準画像を管理します');
+
+  for (const width of [320, 375, 414]) {
+    test(`home-critical-${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.goto('/');
+      await page.evaluate(async () => { await document.fonts?.ready; });
+      await page.locator('.home-hero img').evaluate((image: HTMLImageElement) => image.decode().catch(() => {}));
+      await expect(page.locator('.home-hero')).toHaveScreenshot(`home-critical-${width}.png`, {
+        animations: 'disabled',
+        maxDiffPixelRatio: 0.01,
+      });
+    });
+  }
+});

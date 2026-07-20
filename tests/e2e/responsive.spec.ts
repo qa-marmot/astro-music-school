@@ -26,9 +26,9 @@ const VIEWPORTS = [
 async function waitForPageReady(page: Page) {
   await page.waitForLoadState('domcontentloaded');
   // Wait for fonts to load if possible
-  await page.evaluate(() =>
-    document.fonts?.ready ?? Promise.resolve()
-  ).catch(() => {});
+  await page.evaluate(async () => {
+    await document.fonts?.ready;
+  }).catch(() => {});
 }
 
 async function checkNoHorizontalScroll(page: Page, viewport: typeof VIEWPORTS[0]) {
@@ -55,19 +55,6 @@ async function checkMainContentVisible(page: Page, viewport: typeof VIEWPORTS[0]
   await expect(main, `${viewport.name}: メインコンテンツが表示されていません`).toBeVisible();
 }
 
-async function checkNoOverlappingElements(page: Page) {
-  // Verify the main content is not hidden behind the fixed header
-  const headerHeight = await page.locator('header').first().evaluate(
-    el => el.getBoundingClientRect().height
-  ).catch(() => 0);
-  const mainTop = await page.locator('main').first().evaluate(
-    el => el.getBoundingClientRect().top + window.scrollY
-  ).catch(() => 0);
-  // main should start at or after the header
-  expect(mainTop).toBeGreaterThanOrEqual(0);
-  void headerHeight; // used implicitly
-}
-
 // ─── Desktop tests ────────────────────────────────────────────────────────
 
 test.describe('Desktop (1280px)', () => {
@@ -84,12 +71,12 @@ test.describe('Desktop (1280px)', () => {
       await checkNoHorizontalScroll(page, VIEWPORTS[0]);
 
       // Desktop nav should be visible
-      const desktopNav = page.locator('nav[aria-label="メインナビゲーション"]');
+      const desktopNav = page.locator('nav[aria-label="主要ナビゲーション"]');
       await expect(desktopNav).toBeVisible();
 
-      // Mobile hamburger should be hidden
+      // N9-derived menu trigger remains available on desktop
       const mobileBtn = page.locator('#mobile-menu-btn');
-      await expect(mobileBtn).toBeHidden();
+      await expect(mobileBtn).toBeVisible();
     });
   }
 });
@@ -132,7 +119,7 @@ test.describe('Mobile (390px)', () => {
       await expect(mobileBtn).toBeVisible();
 
       // Desktop nav should be hidden on mobile
-      const desktopNav = page.locator('nav[aria-label="メインナビゲーション"]');
+      const desktopNav = page.locator('nav[aria-label="主要ナビゲーション"]');
       await expect(desktopNav).toBeHidden();
     });
   }

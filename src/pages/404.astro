@@ -5,11 +5,11 @@ import ActionLink from '../components/ui/ActionLink.astro';
 
 <BaseLayout title="ページが見つかりません" description="お探しのページは見つかりませんでした。" noindex>
   <section class="site-section min-h-[55vh]">
-    <div class="site-container-narrow text-center">
-      <p class="section-label">404 ERROR</p>
+    <div class="site-container-narrow">
+      <p class="section-label">404</p>
       <h1 class="page-title mb-5">ページが見つかりません</h1>
-      <p class="mx-auto mb-9 max-w-xl text-base leading-8 text-ink-secondary">URLが変更されたか、ページが削除された可能性があります。目的に近いページからもう一度お探しください。</p>
-      <div class="flex flex-col justify-center gap-3 sm:flex-row">
+      <p class="mb-9 max-w-xl text-base leading-8 text-ink-secondary">URLが変更されたか、ページが削除された可能性があります。目的に近いページからもう一度お探しください。</p>
+      <div class="flex flex-col gap-3 sm:flex-row">
         <ActionLink href="/">トップへ戻る</ActionLink>
         <ActionLink href="/lessons" variant="secondary">レッスンを見る</ActionLink>
         <ActionLink href="/trial" variant="tertiary">体験を申し込む</ActionLink>

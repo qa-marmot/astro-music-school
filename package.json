@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "typecheck": "astro check",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
@@ -22,7 +23,9 @@
     "astro": "^4.5.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@axe-core/playwright": "^4.12.1",
+    "@fontsource-variable/newsreader": "^5.3.0",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.42.1",
     "@types/node": "^20.11.25",

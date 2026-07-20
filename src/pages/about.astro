@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/ui/PageHeader.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import CTASection from '../components/ui/CTASection.astro';
 import EditorialImage from '../components/media/EditorialImage.astro';
@@ -24,24 +23,19 @@ const principles = [
 ---
 
 <BaseLayout title="教室紹介" description="Harmony Music Schoolが個人レッスンで大切にしていることをご紹介します。">
-  <PageHeader
-    variant="compact"
-    title="教室紹介"
-    eyebrow="音を聴く距離を大切に"
-    description="できたことを一緒に見つけ、次の一歩を急がない。音楽を長く楽しむための個人レッスンを大切にしています。"
-  />
-
-  <section class="site-section">
-    <div class="site-container grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-6">
+  <section class="about-intro">
+    <div class="site-container-wide about-intro__inner">
+      <div class="about-intro__copy">
+        <h1 class="page-title">教室紹介</h1>
+        <p class="lead text-ink-secondary">できたことを一緒に見つけ、次の一歩を急がない。音楽を長く楽しむための個人レッスンを大切にしています。</p>
         <SectionHeading title="一人ひとりの音が育つ、静かな時間" spacing="compact" />
         <div class="measure space-y-5 text-base leading-8 text-ink-secondary">
           <p>同じ楽器、同じ曲でも、目標や心地よい進み方は人によって違います。まずは話を聞き、その日の状態を確かめながら、無理のない課題を一緒に決めます。</p>
           <p>弾けるようになることだけを急がず、音を聴くこと、試すこと、変化に気づくことを大切にします。初めての方にも、もう一度音楽を始めたい方にも開かれた教室を目指しています。</p>
         </div>
       </div>
-      <div class="lg:col-span-5 lg:col-start-8">
-        <EditorialImage image={siteImages.aboutGuidance} aspect="4 / 5" sizes="(min-width: 1024px) 38vw, 100vw" />
+      <div class="about-intro__image">
+        <EditorialImage image={siteImages.aboutGuidance} aspect="4 / 5" mobileAspect="5 / 4" sizes="(min-width: 1024px) 42vw, 100vw" treatment="plain" />
       </div>
     </div>
   </section>
@@ -52,7 +46,7 @@ const principles = [
       <div class="border-t border-line">
         {principles.map((principle) => (
           <article class="grid gap-3 border-b border-line py-7 md:grid-cols-12 md:gap-8">
-            <h3 class="font-serif text-xl font-bold leading-8 text-ink md:col-span-4">{principle.title}</h3>
+            <h3 class="text-xl font-bold leading-8 text-ink md:col-span-4">{principle.title}</h3>
             <p class="mb-0 text-base leading-8 text-ink-secondary md:col-span-7 md:col-start-6">{principle.body}</p>
           </article>
         ))}
@@ -63,7 +57,7 @@ const principles = [
   <section class="site-section">
     <div class="site-container grid gap-10 lg:grid-cols-12">
       <div class="lg:col-span-5">
-        <SectionHeading eyebrow="一対一の指導" title="その場で音を聴き、言葉を交わす" spacing="compact" />
+        <SectionHeading title="その場で音を聴き、言葉を交わす" spacing="compact" />
       </div>
       <div class="space-y-5 text-base leading-8 text-ink-secondary lg:col-span-6 lg:col-start-7">
         <p>レッスンは、演奏を聴いて気づいたことを短く伝え、もう一度試す流れを大切にします。分からないまま進めず、質問しやすい間をつくります。</p>
@@ -98,4 +92,17 @@ const principles = [
     secondaryHref="/contact"
     secondaryLabel="一般的な質問をする"
   />
+
+  <style>
+    .about-intro { border-bottom: var(--rule-hair) solid var(--color-rule); }
+    .about-intro__inner { display: grid; gap: var(--space-xl); padding-block: var(--space-xl) var(--space-section); }
+    .about-intro__copy { align-self: center; }
+    .about-intro__copy > .lead { margin-block: var(--space-md) var(--space-2xl); }
+    .about-intro__image { min-width: 0; }
+    @media (min-width: 60rem) {
+      .about-intro__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; }
+      .about-intro__copy { grid-column: 1 / span 6; }
+      .about-intro__image { grid-column: 8 / -1; }
+    }
+  </style>
 </BaseLayout>

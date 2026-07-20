@@ -2,7 +2,7 @@
  * Playwright E2E: リンク切れチェック
  * 全ページの内部リンク・ナビゲーションリンクを検証
  */
-import { test, expect, type Page, type Response } from '@playwright/test';
+import { test, expect, type APIResponse, type Page } from '@playwright/test';
 
 const BASE_PAGES = [
   '/',
@@ -47,7 +47,7 @@ async function getInternalLinks(page: Page, baseURL: string): Promise<string[]> 
 
 /** Check that a URL returns a non-error HTTP status */
 async function checkLink(page: Page, href: string): Promise<{ href: string; ok: boolean; status: number }> {
-  let response: Response | null = null;
+  let response: APIResponse | null = null;
   try {
     response = await page.request.get(href, { timeout: 10_000 });
     return { href, ok: response.ok(), status: response.status() };
@@ -178,7 +178,7 @@ test.describe('重要なリンクの個別確認', () => {
     await page.goto('/trial');
     await page.waitForLoadState('domcontentloaded');
 
-    const privacyLink = page.locator('a[href="/privacy"]').first();
+    const privacyLink = page.locator('#trial-form a[href="/privacy"]');
     await expect(privacyLink).toBeVisible();
 
     const response = await page.request.get('/privacy');

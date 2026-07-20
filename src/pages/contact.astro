@@ -10,7 +10,7 @@ import { siteContent } from '../data/site';
 ---
 
 <BaseLayout title="お問い合わせ" description="レッスン、料金、通い方に関する一般的なお問い合わせはこちらから。">
-  <PageHeader variant="compact" title="お問い合わせ" eyebrow="一般的なご相談" description="レッスン内容、料金、通い方についてのご質問を受け付けています。" />
+  <PageHeader variant="compact" title="お問い合わせ" description="レッスン内容、料金、通い方についてのご質問を受け付けています。" />
 
   <section class="site-section">
     <div class="site-container grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -29,7 +29,7 @@ import { siteContent } from '../data/site';
       </aside>
 
       <div class="lg:col-span-8">
-        <div class="border border-line bg-surface p-5 sm:p-8">
+        <div class="form-shell border border-line bg-surface p-5 sm:p-8">
           <h2 class="mb-2 text-2xl font-bold">一般お問い合わせフォーム</h2>
           <p class="mb-7 text-sm leading-7 text-ink-secondary"><span class="text-error">*</span> は必須項目です。</p>
 
@@ -64,6 +64,7 @@ import { siteContent } from '../data/site';
       </div>
     </div>
   </section>
+  <style>@media (max-width: 39.99rem) { .form-shell { border: 0; background: transparent; } }</style>
 </BaseLayout>
 
 <script>

@@ -10,16 +10,15 @@ import { siteImages } from '../data/images';
 ---
 
 <BaseLayout title="アクセス" description="教室の住所、最寄り駅、営業時間をご案内します。">
-  <PageHeader variant="compact" title="アクセス" eyebrow="教室への通い方" description="所在地が確定している場合だけ、住所、最寄り駅、地図、入口までの道順をご案内します。" />
+  <PageHeader variant="compact" title="アクセス" description="所在地が確定している場合だけ、住所、最寄り駅、地図、入口までの道順をご案内します。" />
 
-  <section class="site-section">
-    <div class="site-container grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-6">
-        <EditorialImage image={siteImages.accessRoom} aspect="3 / 2" sizes="(min-width: 1024px) 48vw, 100vw" />
-      </div>
-      <div class="lg:col-span-5 lg:col-start-8">
-        {siteContent.contact ? (
-          <>
+  {siteContent.contact ? (
+    <section class="site-section">
+      <div class="site-container grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-6">
+          <EditorialImage image={siteImages.accessRoom} aspect="3 / 2" sizes="(min-width: 1024px) 48vw, 100vw" treatment="plain" />
+        </div>
+        <div class="lg:col-span-5 lg:col-start-8">
             <SectionHeading title="教室情報" spacing="compact" />
             <dl class="divide-y divide-line border-y border-line">
               <div class="grid gap-2 py-4 sm:grid-cols-[7rem_1fr]"><dt class="font-bold">住所</dt><dd class="text-ink-secondary">〒{siteContent.contact.postalCode}<br />{siteContent.contact.address}</dd></div>
@@ -29,18 +28,18 @@ import { siteImages } from '../data/images';
               <div class="grid gap-2 py-4 sm:grid-cols-[7rem_1fr]"><dt class="font-bold">連絡先</dt><dd class="break-words text-ink-secondary"><a href={`tel:${siteContent.contact.phone}`}>{siteContent.contact.phone}</a><br /><a href={`mailto:${siteContent.contact.email}`}>{siteContent.contact.email}</a></dd></div>
             </dl>
             {siteContent.contact.mapUrl && <div class="mt-6"><ActionLink href={siteContent.contact.mapUrl} variant="secondary">地図アプリで開く</ActionLink></div>}
-          </>
-        ) : (
-          <div class="border-y border-line py-7">
-            <p class="section-label">デモ表示</p>
-            <h2 class="mb-4 font-serif text-2xl font-bold leading-9">所在地は公開データに設定されていません</h2>
-            <p class="mb-6 text-base leading-8 text-ink-secondary">未確認の住所、最寄り駅、道順、地図は表示していません。実際の教室情報を設定すると、この場所に通い方をまとめて表示します。</p>
-            <ActionLink href="/contact" variant="secondary">一般のお問い合わせ</ActionLink>
-          </div>
-        )}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ) : (
+    <section class="site-section--compact">
+      <div class="site-container-narrow border-y border-line py-7">
+        <h2 class="mb-3 text-xl font-bold leading-8">所在地は公開データに設定されていません</h2>
+        <p class="mb-5 text-base leading-8 text-ink-secondary">未確認の住所、最寄り駅、道順、地図は表示していません。所在地についてはお問い合わせください。</p>
+        <ActionLink href="/contact" variant="secondary">所在地を問い合わせる</ActionLink>
+      </div>
+    </section>
+  )}
 
   {siteContent.contact?.mapEmbedUrl && (
     <section class="site-section site-section--subtle">

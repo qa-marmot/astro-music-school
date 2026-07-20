@@ -28,28 +28,32 @@ const {
 const strong = tone === 'strong';
 ---
 
-<section class={`cta-section cta-section--${tone} site-section ${strong ? 'cta-section--warm' : 'quiet-rule bg-canvas'}`}>
+<section class={`cta-section cta-section--${tone} ${strong ? 'site-section--feature' : 'site-section--compact quiet-rule'}`}>
   <div class={`site-container cta-section__inner cta-section__inner--${align}`}>
     <div class="cta-section__copy">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-      <h2 class="section-title text-brand">{title}</h2>
-      <p class="cta-section__description text-ink-secondary">{description}</p>
+      <h2 class="section-title">{title}</h2>
+      <p class="cta-section__description">{description}</p>
     </div>
     <div class="cta-section__actions">
-      <ActionLink href={primaryHref} size="lg" theme="light" testId={primaryTestId}>{primaryLabel}</ActionLink>
+      <ActionLink href={primaryHref} size="lg" theme={strong ? 'dark' : 'light'} testId={primaryTestId}>{primaryLabel}</ActionLink>
       {secondaryHref && secondaryLabel && (
-        <ActionLink href={secondaryHref} variant="secondary" size="lg" theme="light">{secondaryLabel}</ActionLink>
+        <ActionLink href={secondaryHref} variant="secondary" size="lg" theme={strong ? 'dark' : 'light'}>{secondaryLabel}</ActionLink>
       )}
     </div>
   </div>
 </section>
 
 <style>
-  .cta-section--warm { border-block: var(--rule-hair) solid var(--color-rule); color: var(--color-ink); background: var(--color-paper-3); }
+  .cta-section { padding-block: var(--space-section-compact); }
+  .cta-section--strong { padding-block: var(--space-section-feature); color: var(--color-paper); background: var(--color-brand); }
+  .cta-section--strong .section-title { color: var(--color-paper); }
+  .cta-section--quiet { color: var(--color-ink); background: var(--color-paper); }
   .cta-section__inner { display: grid; gap: var(--space-md); }
   .cta-section__copy { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
   .cta-section h2, .cta-section__description { margin: 0; }
-  .cta-section__description { max-width: 64ch; line-height: 1.9; }
+  .cta-section__description { max-width: 42em; color: var(--color-ink-2); line-height: 1.8; }
+  .cta-section--strong .cta-section__description { color: var(--color-on-dark-rule); }
   .cta-section__actions { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-xs); padding-block-start: var(--space-xs); }
   @media (min-width: 40rem) { .cta-section__actions { flex-direction: row; align-items: center; } }
   @media (min-width: 60rem) {

@@ -1,100 +1,96 @@
 # Design — Harmony Music School
 
-A locked Hallmark design system for this multi-page site. Every page shares one
-visual language; page structure changes only when the page's job changes.
+Hallmarkで固定した、Harmony Music School全体のEditorial design systemです。
+色、書体、CTA、写真処理は全ページで共有し、ページ構造だけを目的に応じて変えます。
 
-## Genre
+## Genre and theme
 
-Editorial — warm, local, attentive, and enduring. The site should feel like a
-quiet neighbourhood music atelier with the care of a typeset lesson programme,
-not an austere journal or a SaaS landing-page template.
+- Genre: **Editorial**
+- Theme route: **custom**
+- Vibe: **quiet, precise, musical, contemporary**
+- Axes: **light / roman-serif / warm**
+- Accent footprint: 3%以下。銅色を全面背景には使わない。
+- Gradient、glass、装飾的な影、スクロール演出は使わない。
 
 ## Macrostructure family
 
-- Home: **Marquee Hero** with a warm image-led split; the lesson photograph and
-  primary decision are visible in the same first composition.
-- Lessons: **Catalogue** with four instrument rows rather than equal cards.
-- Trial: **Narrative Workflow** using the verified application sequence.
-- FAQ: **Conversational FAQ** using native details/summary.
-- Blog index and category: **Ecosystem Index** with featured, latest, and category surfaces.
-- About, pricing, access, contact, privacy, 404, and blog articles: **Long Document**, with tabular or form modules only where the content requires them.
+- Home: **Photographic**。右7列の大型写真に左コピーを1列だけ重ねる。
+- Lessons: **Split Studio**。写真5列＋本文6列を交互配置する。
+- Trial: **Narrative Workflow**。申込から体験までを事実順に並べる。
+- FAQ: **Conversational FAQ**。カテゴリ案内とnative detailsを分離する。
+- Blog index/category: **Ecosystem Index**。featured 1件＋記事リスト。
+- About、Pricing、Access、Contact、Privacy、404、記事: **Long Document**。
 
-## Theme
+## Colour
 
-- `--color-paper`: `oklch(97.4% 0.014 80)`
-- `--color-paper-2`: `oklch(94.2% 0.024 76)`
-- `--color-paper-3`: `oklch(91.5% 0.032 73)`
-- `--color-ink`: `oklch(27% 0.025 57)`
-- `--color-ink-2`: `oklch(42% 0.03 58)`
-- `--color-rule`: `oklch(84% 0.03 70)`
-- `--color-accent`: `oklch(67% 0.115 78)`
-- `--color-focus`: `oklch(45% 0.1 165)`
-- Brand forest: `oklch(38.8% 0.065 158)`
+- Canvas `oklch(98.2% 0.007 85)`
+- Subtle `oklch(95.8% 0.011 80)`
+- Surface `oklch(99.2% 0.004 85)`
+- Ink `oklch(23% 0.018 255)`
+- Ink secondary `oklch(38% 0.020 255)`
+- Muted `oklch(45% 0.015 255)`
+- Rule `oklch(84% 0.012 255)`
+- Brand navy `oklch(31% 0.055 255)`
+- Brand dark `oklch(25% 0.045 255)`
+- Copper `oklch(62% 0.105 52)`
+- Copper strong `oklch(43% 0.090 52)`
+- Focus `oklch(48% 0.130 250)`
 
-The brass accent is a signal, not a surface: active navigation, one primary CTA,
-focus support, and small typographic marks only.
+銅色は現在地、短い罫線、補助的な強調だけに使います。Primary CTAは深紺です。
 
 ## Typography
 
-- Display: Noto Serif JP, weight 700, normal style.
-- Body: Noto Sans JP, weight 400.
-- Outlier: Noto Sans JP, weight 700, used only for masthead metadata and compact labels.
-- Display tracking: `-0.03em`.
-- Type scale anchor: `--text-display: clamp(2.5rem, 5vw, 3.75rem)`.
-- Body measure: 60–70ch for marketing copy and articles.
-- Headings are never italic. Section eyebrows are off unless the content is genuinely sequential.
+- Display: **Newsreader Variable**（ローカル配信）、日本語はOS明朝へフォールバック。
+- Body/UI: **Hiragino Sans / Yu Gothic UI / Yu Gothic**。
+- 明朝体はトップH1、短いキーフレーズ、英字ワードマークだけに限定。
+- H1 `clamp(2.5rem, 5vw, 4.75rem)`、line-height 1.05。
+- H2 `clamp(1.75rem, 3vw, 2.5rem)`、Sans 700。
+- 本文16px、line-height 1.75、通常42em、記事65ch。
+- 価格、日付、ステップ番号はtabular nums。
+- 見出しはroman。装飾目的のeyebrowは使わない。
 
-## Spacing
+## Layout and space
 
-The 4-point named scale lives in `tokens.css`. Pages use named tokens and
-deliberately vary section depth rather than repeating equal padding.
+- 4px基準のnamed spacingを使う。
+- Section depthは `compact / default / feature` の3段階。
+- Containerはwide 88rem、standard 74rem、prose 46rem。
+- 12列グリッドを基礎に、7:5、5:7など内容に合わせた非対称構成を使う。
+- モバイルの情報順はページごとに定義し、CTAラベルは320px以上で折り返さない。
 
-## Motion
+## Photography and surfaces
 
-- Easings: `--ease-out`, `--ease-in`, and `--ease-in-out` from `tokens.css`.
-- Reveal pattern: none. Content is present on load.
-- Menu, FAQ, and button press feedback only; transform and opacity only.
-- Reduced-motion fallback: state changes are immediate; transforms are removed.
+- 既存8点のライセンス済み写真を使い、captionで「イメージ」と明示する。
+- 写真は既定で枠なし、影なし、角丸0〜2px。captionは画像外。
+- Heroのみeager/high。下層写真はlazy/async。
+- 外枠はフォームなど意味のある面に限定し、カードの入れ子を作らない。
 
-## Microinteractions stance
+## Motion and states
 
-- Silent success where the resulting state is visible.
-- Focus rings appear instantly.
-- Hover is always paired with focus and active states.
-- All touch targets are at least 44px.
-- Existing form validation, error focus, sending, timeout, and duplicate-submit behaviour remain unchanged.
+- Menu、FAQ、button pressだけを120〜220msで動かす。
+- `transition-all`、bounce、scroll revealは使わない。
+- Focus ringは即時表示。Hoverはfocusとactiveを必ず併設。
+- Touch targetは44px以上。`prefers-reduced-motion`ではtransformを停止する。
+- 既存フォームのfield、payload、validation、error focus、timeout、二重送信制御は変更しない。
 
 ## CTA voice
 
-- Primary: compact brass button with a restrained 6px corner, dark warm ink, and a short verb-led label.
-- Secondary: forest hairline outline or typographic link.
-- Strong CTA sections use a warm oatmeal surface with forest type; dark full-bleed bands are avoided.
-- Clickable labels stay on one line from 320px upward.
+- Primary: 深紺面＋アイボリー文字。
+- Secondary: 深紺の1px outline。
+- Tertiary: 文字＋矢印。
+- 最終CTAだけ深紺の全面背景。Primaryは体験、Secondaryは一般質問。
 
 ## Navigation and footer
 
-- Navigation: **N6 Masthead**, softened for a neighbourhood atelier. A modest centred wordmark, warm context strip, navigation rail, and single light rule.
-- Footer: **Ft4 Dense Colophon** on a warm paper surface. One typographic closing block with essential links, verified contact data when present, and the single demo disclosure.
+- Navigation: **N9-derived edge alignment**。左ワードマーク、主要2リンク、メニュー、体験CTA。
+- Menu panel: 罫線主体、外側クリック／Escape／focus復帰を維持。
+- Footer: **Ft1 Mast-headed**を3層へ圧縮。ブランド文、必要リンク、確認済み連絡先、著作権、デモ注記。
 
-## Per-page allowances
+## Non-negotiable product contracts
 
-- Home and lesson pages may use the existing licensed editorial photography.
-- Photo-free pages use type, spacing, and rules for rhythm; no decorative image is added.
-- Forms retain their existing fields, IDs, payload, and scripts.
-- Blog content retains sanitisation and structured-data control.
-
-## What pages MUST share
-
-- Wordmark and masthead structure.
-- Palette, display/body fonts, focus treatment, and CTA voice.
-- Warm hairline dividers and a restrained 4–8px corner treatment for images, forms, and bounded panels.
-- Footer colophon and demo disclosure placement.
-
-## What pages MAY differ on
-
-- Macrostructure according to the family above.
-- Hero density and image presence.
-- Section heading spacing and supporting table/list treatment.
+- Astro route、CourseId、PricingPlan、SiteContent、microCMS、form JSONは変更しない。
+- SEO、canonical、noindex、robots、JSON-LD、本番validationを維持する。
+- `EditorialImage`の最適化、focal point、caption、license metadataを維持する。
+- ファイル削除は行わない。
 
 ## Exports
 
@@ -106,20 +102,21 @@ deliberately vary section depth rather than repeating equal padding.
 
 ```css
 @theme {
-  --color-paper: oklch(97.4% 0.014 80);
-  --color-paper-2: oklch(94.2% 0.024 76);
-  --color-paper-3: oklch(91.5% 0.032 73);
-  --color-surface: oklch(99.2% 0.007 76);
-  --color-ink: oklch(27% 0.025 57);
-  --color-ink-2: oklch(42% 0.03 58);
-  --color-muted: oklch(50.5% 0.025 62);
-  --color-rule: oklch(84% 0.03 70);
-  --color-rule-2: oklch(70% 0.04 65);
-  --color-brand: oklch(38.8% 0.065 158);
-  --color-accent: oklch(67% 0.115 78);
-  --color-focus: oklch(45% 0.1 165);
-  --font-display: "Noto Serif JP", "Yu Mincho", ui-serif, serif;
-  --font-body: "Noto Sans JP", "Yu Gothic", ui-sans-serif, system-ui, sans-serif;
+  --color-paper: oklch(98.2% 0.007 85);
+  --color-paper-2: oklch(95.8% 0.011 80);
+  --color-paper-3: oklch(93.5% 0.014 80);
+  --color-surface: oklch(99.2% 0.004 85);
+  --color-ink: oklch(23% 0.018 255);
+  --color-ink-2: oklch(38% 0.020 255);
+  --color-muted: oklch(45% 0.015 255);
+  --color-rule: oklch(84% 0.012 255);
+  --color-rule-2: oklch(72% 0.016 255);
+  --color-brand: oklch(31% 0.055 255);
+  --color-accent: oklch(62% 0.105 52);
+  --color-accent-ink: oklch(23% 0.018 255);
+  --color-focus: oklch(48% 0.130 250);
+  --font-display: "Newsreader Variable", "Yu Mincho", ui-serif, serif;
+  --font-body: "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", ui-sans-serif, system-ui, sans-serif;
   --spacing-xs: 0.75rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
@@ -139,22 +136,23 @@ deliberately vary section depth rather than repeating equal padding.
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "color": {
-    "paper": { "$value": "oklch(97.4% 0.014 80)", "$type": "color" },
-    "paper-2": { "$value": "oklch(94.2% 0.024 76)", "$type": "color" },
-    "paper-3": { "$value": "oklch(91.5% 0.032 73)", "$type": "color" },
-    "surface": { "$value": "oklch(99.2% 0.007 76)", "$type": "color" },
-    "ink": { "$value": "oklch(27% 0.025 57)", "$type": "color" },
-    "ink-2": { "$value": "oklch(42% 0.03 58)", "$type": "color" },
-    "muted": { "$value": "oklch(50.5% 0.025 62)", "$type": "color" },
-    "rule": { "$value": "oklch(84% 0.03 70)", "$type": "color" },
-    "rule-2": { "$value": "oklch(70% 0.04 65)", "$type": "color" },
-    "brand": { "$value": "oklch(38.8% 0.065 158)", "$type": "color" },
-    "accent": { "$value": "oklch(67% 0.115 78)", "$type": "color" },
-    "focus": { "$value": "oklch(45% 0.1 165)", "$type": "color" }
+    "paper": { "$value": "oklch(98.2% 0.007 85)", "$type": "color" },
+    "paper-2": { "$value": "oklch(95.8% 0.011 80)", "$type": "color" },
+    "paper-3": { "$value": "oklch(93.5% 0.014 80)", "$type": "color" },
+    "surface": { "$value": "oklch(99.2% 0.004 85)", "$type": "color" },
+    "ink": { "$value": "oklch(23% 0.018 255)", "$type": "color" },
+    "ink-2": { "$value": "oklch(38% 0.020 255)", "$type": "color" },
+    "muted": { "$value": "oklch(45% 0.015 255)", "$type": "color" },
+    "rule": { "$value": "oklch(84% 0.012 255)", "$type": "color" },
+    "rule-2": { "$value": "oklch(72% 0.016 255)", "$type": "color" },
+    "brand": { "$value": "oklch(31% 0.055 255)", "$type": "color" },
+    "accent": { "$value": "oklch(62% 0.105 52)", "$type": "color" },
+    "accent-ink": { "$value": "oklch(23% 0.018 255)", "$type": "color" },
+    "focus": { "$value": "oklch(48% 0.130 250)", "$type": "color" }
   },
   "font": {
-    "display": { "$value": "Noto Serif JP, Yu Mincho, ui-serif, serif", "$type": "fontFamily" },
-    "body": { "$value": "Noto Sans JP, Yu Gothic, ui-sans-serif, system-ui, sans-serif", "$type": "fontFamily" }
+    "display": { "$value": "Newsreader Variable, Yu Mincho, ui-serif, serif", "$type": "fontFamily" },
+    "body": { "$value": "Hiragino Sans, Yu Gothic UI, Yu Gothic, ui-sans-serif, system-ui, sans-serif", "$type": "fontFamily" }
   },
   "space": {
     "xs": { "$value": "0.75rem", "$type": "dimension" },
@@ -172,19 +170,21 @@ deliberately vary section depth rather than repeating equal padding.
 
 ```css
 :root {
-  --background: 97.4% 0.014 80;
-  --foreground: 27% 0.025 57;
-  --card: 94.2% 0.024 76;
-  --card-foreground: 27% 0.025 57;
-  --primary: 67% 0.115 78;
-  --primary-foreground: 27% 0.025 57;
-  --secondary: 91.5% 0.032 73;
-  --secondary-foreground: 42% 0.03 58;
-  --muted: 84% 0.03 70;
-  --muted-foreground: 50.5% 0.025 62;
-  --border: 84% 0.03 70;
-  --input: 70% 0.04 65;
-  --ring: 45% 0.1 165;
-  --radius: 8px;
+  --background: 98.2% 0.007 85;
+  --foreground: 23% 0.018 255;
+  --card: 99.2% 0.004 85;
+  --card-foreground: 23% 0.018 255;
+  --primary: 31% 0.055 255;
+  --primary-foreground: 98.2% 0.007 85;
+  --secondary: 95.8% 0.011 80;
+  --secondary-foreground: 38% 0.020 255;
+  --muted: 93.5% 0.014 80;
+  --muted-foreground: 45% 0.015 255;
+  --accent: 62% 0.105 52;
+  --accent-foreground: 23% 0.018 255;
+  --border: 84% 0.012 255;
+  --input: 72% 0.016 255;
+  --ring: 48% 0.130 250;
+  --radius: 4px;
 }
 ```

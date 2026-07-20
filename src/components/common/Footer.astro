@@ -5,32 +5,36 @@ const year = new Date().getFullYear();
 
 <footer class="site-colophon">
   <div class="site-container-wide site-colophon__inner">
-    <div class="site-colophon__lead">
-      <p class="site-colophon__name">{siteContent.name}</p>
+    <div class="site-colophon__mast">
+      <div>
+        <p class="site-colophon__name brand-wordmark">Harmony</p>
+        <p class="site-colophon__school">Music School</p>
+      </div>
       <p class="site-colophon__statement">一人ひとりの音を聴き、続け方まで一緒に考える個人音楽レッスン。</p>
-      <a href="/trial" class="site-colophon__trial">体験レッスンを申し込む <span aria-hidden="true">→</span></a>
     </div>
 
-    <nav aria-label="フッターナビゲーション">
-      <ul class="site-colophon__links">
-        <li><a href="/lessons">レッスン</a></li>
-        <li><a href="/pricing">料金</a></li>
-        <li><a href="/about">教室紹介</a></li>
-        <li><a href="/access">アクセス</a></li>
-        <li><a href="/faq">FAQ</a></li>
-        <li><a href="/blog">ブログ</a></li>
-        <li><a href="/contact">お問い合わせ</a></li>
-        <li><a href="/privacy">プライバシー</a></li>
-      </ul>
-    </nav>
+    <div class="site-colophon__body">
+      <nav aria-label="フッターナビゲーション">
+        <ul class="site-colophon__links">
+          <li><a href="/lessons">レッスン</a></li>
+          <li><a href="/pricing">料金</a></li>
+          <li><a href="/about">教室紹介</a></li>
+          <li><a href="/access">アクセス</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/blog">ブログ</a></li>
+          <li><a href="/contact">お問い合わせ</a></li>
+          <li><a href="/privacy">プライバシー</a></li>
+        </ul>
+      </nav>
 
-    {siteContent.contact && (
-      <address class="site-colophon__address">
-        〒{siteContent.contact.postalCode} {siteContent.contact.address} ·
-        <a href={`tel:${siteContent.contact.phone}`}>{siteContent.contact.phone}</a> ·
-        <a href={`mailto:${siteContent.contact.email}`}>{siteContent.contact.email}</a>
-      </address>
-    )}
+      {siteContent.contact && (
+        <address class="site-colophon__address">
+          <span>〒{siteContent.contact.postalCode} {siteContent.contact.address}</span>
+          <a href={`tel:${siteContent.contact.phone}`}>{siteContent.contact.phone}</a>
+          <a href={`mailto:${siteContent.contact.email}`}>{siteContent.contact.email}</a>
+        </address>
+      )}
+    </div>
 
     <div class="site-colophon__meta">
       <p>&copy; {year} {siteContent.name}. All rights reserved.</p>
@@ -40,22 +44,23 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .site-colophon { border-top: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); background: var(--color-paper-2); }
-  .site-colophon__inner { padding-block: var(--space-2xl) var(--space-lg); }
-  .site-colophon__lead { display: grid; gap: var(--space-sm); padding-block-end: var(--space-xl); }
-  .site-colophon__name { margin: 0; color: var(--color-brand); font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.05; }
+  .site-colophon { border-top: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); background: var(--color-paper); }
+  .site-colophon__inner { padding-block: var(--space-xl) var(--space-lg); }
+  .site-colophon__mast { display: grid; gap: var(--space-md); padding-block-end: var(--space-lg); }
+  .site-colophon__name { margin: 0; color: var(--color-brand); font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 500; letter-spacing: -.04em; line-height: 1; }
+  .site-colophon__school { margin: var(--space-2xs) 0 0; color: var(--color-muted); font-size: var(--text-xs); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
   .site-colophon__statement { max-width: 32em; margin: 0; color: var(--color-ink-2); line-height: 1.8; }
-  .site-colophon__trial { display: inline-flex; width: fit-content; min-height: 44px; align-items: center; color: var(--color-brand); font-weight: 700; white-space: nowrap; text-decoration-line: underline; text-decoration-color: var(--color-accent); text-underline-offset: .35em; }
-  .site-colophon__links { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); margin: 0; padding: var(--space-lg) 0; border-block: var(--rule-hair) solid var(--color-rule-2); list-style: none; }
+  .site-colophon__body { display: grid; gap: var(--space-lg); padding-block: var(--space-lg); border-block: var(--rule-hair) solid var(--color-rule); }
+  .site-colophon__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-lg); margin: 0; padding: 0; list-style: none; }
   .site-colophon__links a { display: inline-flex; min-height: 44px; align-items: center; color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 700; white-space: nowrap; text-decoration: none; }
-  .site-colophon__address { margin-block-start: var(--space-lg); color: var(--color-ink-2); font-size: var(--text-sm); font-style: normal; line-height: 1.8; }
+  .site-colophon__address { display: grid; align-content: start; gap: var(--space-2xs); margin: 0; color: var(--color-ink-2); font-size: var(--text-sm); font-style: normal; line-height: 1.8; }
   .site-colophon__meta { display: grid; gap: var(--space-xs); padding-block-start: var(--space-lg); color: var(--color-muted); font-size: var(--text-xs); line-height: 1.7; }
   .site-colophon__meta p { margin: 0; }
   .site-colophon a:active { color: var(--color-brand-dark); }
   @media (min-width: 60rem) {
-    .site-colophon__lead { grid-template-columns: minmax(0, 1.4fr) minmax(18rem, .8fr); align-items: end; }
-    .site-colophon__statement { grid-column: 1; }
-    .site-colophon__trial { grid-column: 2; grid-row: 1 / span 2; align-self: end; justify-self: end; }
+    .site-colophon__mast { grid-template-columns: minmax(0, 1fr) minmax(22rem, .7fr); align-items: end; }
+    .site-colophon__body { grid-template-columns: minmax(0, 1.5fr) minmax(18rem, .5fr); }
+    .site-colophon__links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .site-colophon__meta { grid-template-columns: .7fr 1.3fr; }
     .site-colophon__meta p:last-child { text-align: right; }
   }

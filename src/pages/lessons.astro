@@ -16,9 +16,9 @@ const trialChecks: Record<string, string> = {
 ---
 
 <BaseLayout title="レッスン内容" description="ピアノ、ギター、バイオリン、声楽の個人レッスンをご案内します。">
-  <PageHeader variant="editorial" title="レッスン内容" eyebrow="一対一で学ぶ4つの楽器" description="初めての一音から、表現を深めたい方まで。いまの経験と生活のペースに合う進め方を一緒に考えます。" />
+  <PageHeader variant="editorial" title="レッスン内容" description="初めての一音から、表現を深めたい方まで。いまの経験と生活のペースに合う進め方を一緒に考えます。" />
 
-  <nav class="sticky top-16 z-40 border-y border-line bg-canvas/95 lg:top-[72px]" aria-label="コース内ナビゲーション">
+  <nav class="course-nav" aria-label="コース内ナビゲーション">
     <div class="site-container flex gap-2 overflow-x-auto py-3">
       {siteContent.courses.map((course) => <a href={`#${course.id}`} class="action action--tertiary action--sm whitespace-nowrap">{course.name}</a>)}
     </div>
@@ -30,7 +30,7 @@ const trialChecks: Record<string, string> = {
       <div class="grid border-t border-line md:grid-cols-2 lg:grid-cols-4">
         {siteContent.courses.map((course) => (
           <a href={`#${course.id}`} class="group border-b border-line py-6 no-underline md:px-6 lg:border-r">
-            <span class="mb-2 block font-serif text-xl font-bold text-ink group-hover:text-brand">{course.name}</span>
+            <span class="mb-2 block text-xl font-bold text-ink group-hover:text-brand">{course.name}</span>
             <span class="block text-sm text-ink-secondary">{course.ages}</span>
           </a>
         ))}
@@ -40,10 +40,10 @@ const trialChecks: Record<string, string> = {
 
   <div>
     {siteContent.courses.map((course, index) => (
-      <section id={course.id} class={`site-section scroll-mt-32 border-b border-line ${index % 2 === 1 ? 'bg-subtle' : 'bg-canvas'}`}>
+      <section id={course.id} class="site-section scroll-mt-32 border-b border-line">
         <div class="site-container grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
           <div class={`lg:col-span-5 ${index % 2 === 1 ? 'lg:order-2 lg:col-start-8' : ''}`}>
-            <EditorialImage image={course.photo} aspect="4 / 3" sizes="(min-width: 1024px) 40vw, 100vw" />
+            <EditorialImage image={course.photo} aspect="4 / 3" sizes="(min-width: 1024px) 40vw, 100vw" treatment="plain" />
           </div>
           <div class={`lg:col-span-6 ${index % 2 === 1 ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-7'}`}>
             <p class="mb-2 text-sm font-bold text-accent-strong">対象の目安：{course.ages}</p>
@@ -83,4 +83,8 @@ const trialChecks: Record<string, string> = {
     secondaryHref="/pricing"
     secondaryLabel="料金を見る"
   />
+
+  <style>
+    .course-nav { position: sticky; z-index: var(--z-sticky); top: var(--header-height); border-block: var(--rule-hair) solid var(--color-rule); background: var(--color-paper); }
+  </style>
 </BaseLayout>

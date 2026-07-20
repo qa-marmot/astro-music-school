@@ -10,19 +10,16 @@ import { siteContent } from '../data/site';
 ---
 
 <BaseLayout title="体験レッスン" description="45〜60分、3,000円（税別）の個人音楽レッスンを体験できます。">
-  <PageHeader variant="compact" title="体験レッスン" eyebrow="初めての方へ" description="経験や目標を伺い、実際に音を出しながら、ご自分に合うレッスンか確かめていただけます。" />
-
-  <section class="border-b border-line bg-canvas">
-    <div class="site-container grid gap-px bg-line sm:grid-cols-3">
-      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">料金</p><p class="mb-0 text-lg font-bold text-brand">税込 {Math.floor(siteContent.trialPriceExTax * 1.1).toLocaleString('ja-JP')}円</p><p class="mb-0 text-xs text-ink-muted">税別 {siteContent.trialPriceExTax.toLocaleString('ja-JP')}円</p></div>
-      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">所要時間</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.trialDuration}</p></div>
-      <div class="bg-canvas py-6 sm:px-6"><p class="mb-1 text-xs font-bold text-ink-muted">ご連絡の目安</p><p class="mb-0 text-lg font-bold text-brand">{siteContent.responseTime}</p></div>
-    </div>
-  </section>
+  <PageHeader variant="compact" title="体験レッスン" description="経験や目標を伺い、実際に音を出しながら、ご自分に合うレッスンか確かめていただけます。" />
 
   <section class="site-section">
     <div class="site-container grid gap-12 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-4">
+        <dl class="trial-summary">
+          <div><dt>料金</dt><dd>税込 {Math.floor(siteContent.trialPriceExTax * 1.1).toLocaleString('ja-JP')}円<small>税別 {siteContent.trialPriceExTax.toLocaleString('ja-JP')}円</small></dd></div>
+          <div><dt>所要時間</dt><dd>{siteContent.trialDuration}</dd></div>
+          <div><dt>ご連絡の目安</dt><dd>{siteContent.responseTime}</dd></div>
+        </dl>
         <SectionHeading title="体験までの流れ" description="フォーム送信後、日程を確認してから予約が確定します。" spacing="compact" />
         <TrialSteps density="detailed" />
         <div class="mt-8 border-t border-line pt-6 text-sm leading-7 text-ink-secondary">
@@ -32,7 +29,7 @@ import { siteContent } from '../data/site';
       </div>
 
       <div class="lg:col-span-8">
-        <div class="border border-line bg-surface p-5 sm:p-8">
+        <div class="form-shell border border-line bg-surface p-5 sm:p-8">
           <h2 class="mb-2 text-2xl font-bold">体験レッスン申込フォーム</h2>
           <p class="mb-7 text-sm leading-7 text-ink-secondary"><span class="text-error">*</span> は必須項目です。フリガナと電話番号は任意です。</p>
 
@@ -80,6 +77,15 @@ import { siteContent } from '../data/site';
       </div>
     </div>
   </section>
+
+  <style>
+    .trial-summary { display: grid; margin: 0 0 var(--space-xl); border-top: var(--rule-hair) solid var(--color-rule-2); }
+    .trial-summary > div { display: grid; grid-template-columns: minmax(7rem, .8fr) minmax(0, 1.2fr); gap: var(--space-sm); padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); }
+    .trial-summary dt { color: var(--color-muted); font-size: var(--text-sm); font-weight: 700; }
+    .trial-summary dd { margin: 0; color: var(--color-brand); font-variant-numeric: tabular-nums; font-weight: 700; }
+    .trial-summary small { display: block; margin-block-start: var(--space-3xs); color: var(--color-muted); font-weight: 400; }
+    @media (max-width: 39.99rem) { .form-shell { border: 0; background: transparent; } }
+  </style>
 </BaseLayout>
 
 <script>

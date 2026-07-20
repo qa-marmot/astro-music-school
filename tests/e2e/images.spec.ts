@@ -16,8 +16,8 @@ test('ヒーロー画像はresponsive形式とLCP属性を持つ', async ({ page
 test('ヒーロー以外の編集画像は遅延読み込みされる', async ({ page }) => {
   await page.goto('/');
   const images = page.locator('main picture img');
-  await expect(images).toHaveCount(2);
-  await expect(images.nth(1)).toHaveAttribute('loading', 'lazy');
+  await expect(images).toHaveCount(6);
+  await expect(page.locator('main picture img[loading="lazy"]')).toHaveCount(5);
 });
 
 test('表示画像はすべてalt属性を持ち、外部画像URLを使わない', async ({ page }) => {

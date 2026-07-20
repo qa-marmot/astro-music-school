@@ -4,6 +4,7 @@ import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
 import { safeJsonLd } from '../lib/sanitize';
 import { assertProductionContent, isDemo } from '../data/site';
+import '@fontsource-variable/newsreader/wght.css';
 import '../styles/global.css';
 
 interface Props {
@@ -24,7 +25,7 @@ const { jsonLd, ...seoProps } = Astro.props;
 <html lang="ja">
   <head>
     <SEOHead {...seoProps} />
-    {jsonLd && !isDemo && <script type="application/ld+json" set:html={safeJsonLd(jsonLd)} />}
+    {jsonLd && !isDemo && <script is:inline type="application/ld+json" set:html={safeJsonLd(jsonLd)} />}
   </head>
   <body>
     <a href="#main-content" class="skip-link">本文へ移動</a>

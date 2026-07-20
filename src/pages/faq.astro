@@ -37,10 +37,16 @@ const faqJsonLd = !isDemo ? { '@context': 'https://schema.org', '@type': 'FAQPag
 <BaseLayout title="よくあるご質問" description="レッスン、料金、体験申込についてのよくある質問をご案内します。" jsonLd={faqJsonLd}>
   <PageHeader variant="compact" title="よくあるご質問" description="初めて音楽を学ぶ方、保護者の方、大人になって再開する方から寄せられやすい質問をまとめました。" />
   <section class="site-section">
-    <div class="site-container-narrow">
-      <div class="space-y-14">
-        {categories.map((category) => (
-          <section>
+    <div class="site-container faq-layout">
+      <nav class="faq-layout__nav" aria-label="質問カテゴリ">
+        <p>質問カテゴリ</p>
+        <ul>
+          {categories.map((category, index) => <li><a href={`#faq-category-${index + 1}`}>{category.title}</a></li>)}
+        </ul>
+      </nav>
+      <div class="faq-layout__answers">
+        {categories.map((category, index) => (
+          <section id={`faq-category-${index + 1}`}>
             <SectionHeading title={category.title} spacing="compact" />
             <FaqList items={category.items} />
           </section>
@@ -56,4 +62,15 @@ const faqJsonLd = !isDemo ? { '@context': 'https://schema.org', '@type': 'FAQPag
     secondaryHref="/contact"
     secondaryLabel="一般的な質問をする"
   />
+
+  <style>
+    .faq-layout { display: grid; gap: var(--space-2xl); }
+    .faq-layout__nav { align-self: start; border-top: var(--rule-hair) solid var(--color-rule-2); }
+    .faq-layout__nav > p { margin: 0; padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); color: var(--color-muted); font-size: var(--text-sm); font-weight: 700; }
+    .faq-layout__nav ul { margin: 0; padding: 0; list-style: none; }
+    .faq-layout__nav a { display: flex; min-height: 52px; align-items: center; border-bottom: var(--rule-hair) solid var(--color-rule); color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 700; text-decoration: none; }
+    .faq-layout__answers { display: grid; gap: var(--space-3xl); min-width: 0; }
+    .faq-layout__answers section { scroll-margin-top: calc(var(--header-height) + var(--space-lg)); }
+    @media (min-width: 60rem) { .faq-layout { grid-template-columns: minmax(12rem, 3fr) minmax(0, 9fr); } .faq-layout__nav { position: sticky; top: calc(var(--header-height) + var(--space-lg)); } }
+  </style>
 </BaseLayout>

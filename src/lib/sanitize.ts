@@ -105,7 +105,7 @@ export function sanitizeHtml(html: string): string {
   }
 
   // 2. 残ったタグを許可リストで処理
-  output = output.replace(/<(\/?)([\w\-]+)([^>]*)>/g, (full, slash, tagRaw, attrs) => {
+  output = output.replace(/<(\/?)([\w\-]+)([^>]*)>/g, (full, slash, tagRaw) => {
     const tag = tagRaw.toLowerCase();
 
     // 閉じタグ

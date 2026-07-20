@@ -37,7 +37,7 @@ const jsonLd = !isDemo ? {
       </header>
 
       {post.eyecatch && (
-        <EditorialImage image={post.eyecatch} aspect="16 / 9" sizes="(min-width: 768px) 44rem, 100vw" loading="eager" fetchpriority="high" class="mb-12" />
+        <EditorialImage image={post.eyecatch} aspect="16 / 9" sizes="(min-width: 768px) 44rem, 100vw" loading="eager" fetchpriority="high" class="mb-12" treatment="plain" />
       )}
       <div class="prose-content" set:html={sanitizeHtml(post.content)} />
       <footer class="mt-14 border-t border-line pt-8"><ActionLink href="/blog" variant="tertiary">ブログ一覧へ戻る</ActionLink></footer>
