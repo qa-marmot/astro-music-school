@@ -53,7 +53,7 @@ test.describe('ヘッダーナビゲーション', () => {
 
   test('ロゴクリックでトップページに戻る', async ({ page }) => {
     await page.goto('/about');
-    await page.getByRole('link', { name: 'トップページへ' }).click();
+    await page.locator('header').getByRole('link', { name: 'トップページへ' }).click();
     await expect(page).toHaveURL('/');
   });
 });

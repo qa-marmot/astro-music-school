@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:ci": "playwright test tests/e2e/accessibility.spec.ts tests/e2e/broken-links.spec.ts tests/e2e/content-mode.spec.ts tests/e2e/form-states.spec.ts tests/e2e/navigation.test.ts --project=chromium",
     "test:a11y": "playwright test tests/e2e/accessibility.spec.ts --project=chromium",
     "test:visual": "playwright test tests/e2e/visual.spec.ts --project=chromium",
     "test:visual:update": "playwright test tests/e2e/visual.spec.ts --project=chromium --update-snapshots",

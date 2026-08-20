@@ -25,13 +25,11 @@ export default defineConfig({
     },
   ],
 
-  // ローカルではdev serverを起動して使う
-  webServer: process.env.CI
-    ? undefined
-    : {
-        command: 'npm run dev',
-        url: 'http://localhost:4321',
-        reuseExistingServer: !process.env.CI,
-        timeout: 60000,
-      },
+  // CIでも同じローカルサーバーを起動し、外部環境に依存しないE2Eを実行する。
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:4321',
+    reuseExistingServer: !process.env.CI,
+    timeout: 60000,
+  },
 });
