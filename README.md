@@ -1,8 +1,30 @@
 # Harmony Music School
 
+> A production-minded Astro reference implementation for a small service business — designed to make demo content, forms, and release quality explicit.
+
 音楽教室向けのAstroサイトです。ピアノ、ギター、バイオリン、声楽の個人レッスンと、有料体験レッスンの申込導線を扱います。
 
 Astro 4 / Tailwind CSS / Vitest / Playwrightで構成し、Cloudflare Pagesへの静的デプロイを想定しています。
+
+## Why this project matters
+
+Web制作のデモを実在の事業情報のように見せず、公開時に壊れやすい箇所をあらかじめ検証できるように設計しています。
+
+- **Demo safety:** 架空の講師・住所・実績を表示せず、デモモードでは`noindex,nofollow`とフォーム送信の明示を徹底します。
+- **Release readiness:** 本番モードでは公開URL、連絡先、講師情報、フォーム送信先などが不足するとビルドを停止します。
+- **Verification:** Vitest、Playwright E2E / accessibility / link / responsive / visual checks、Lighthouse CIを用途ごとに分けています。Pull Requestと`main`へのpushでは、typecheck・unit test・build・主要導線・a11y・リンク整合性のbrowser checksをGitHub Actionsで検証します。
+
+## Architecture
+
+```mermaid
+flowchart LR
+  Visitor[Visitor] --> Astro[Astro static site]
+  Astro --> Mode{PUBLIC_CONTENT_MODE}
+  Mode -->|demo| Demo[Bundled demo content<br/>noindex and no external form post]
+  Mode -->|production| Checks[Validate required site configuration]
+  Checks --> CMS[Optional microCMS content]
+  Checks --> Form[Configured form endpoint]
+```
 
 ## セットアップ
 
